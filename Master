@@ -1,0 +1,5 @@
+from test import webdriver as wd
+
+driver = wd.firefox (executable_path='/home/hathout/Documents/geckodriver/geckodriver.')
+
+driver.get('https://www.youtube.com')
