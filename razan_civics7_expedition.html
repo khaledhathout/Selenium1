@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Monsoon Expedition</title>
+<style>
+/* ===================================================================
+   MONSOON EXPEDITION — Civics 7 · Physical Geography of Southeast Asia
+   English is primary. Arabic is a small support gloss.
+   =================================================================== */
+
+:root{
+  /* --- light palette (sea-mist paper, deep sea ink) --- */
+  --bg:#eaf1f0;
+  --bg-2:#dee9e8;
+  --surface:#fbfdfc;
+  --surface-2:#f1f7f6;
+  --ink:#0a2027;
+  --ink-soft:#2c4a52;
+  --muted:#5b7780;
+  --line:#cfe0dd;
+  --line-soft:#e2edeb;
+
+  --deep:#073640;          /* header / map sea */
+  --deep-2:#04252c;
+  --on-deep:#e7f4f1;
+  --on-deep-soft:#9ec4c2;
+
+  --lagoon:#0f867f;        /* interactive */
+  --lagoon-ink:#0b6560;
+  --lagoon-wash:#dcf0ee;
+  --ember:#c8501f;         /* accent: ring of fire */
+  --ember-wash:#fbe6dc;
+
+  --good:#177f5e;
+  --good-wash:#daf0e7;
+  --bad:#b3392f;
+  --bad-wash:#fae0dd;
+  --flag:#a97613;
+  --flag-wash:#fbeed5;
+
+  --shadow:0 1px 2px rgba(7,54,64,.06), 0 8px 24px rgba(7,54,64,.08);
+  --shadow-lift:0 2px 6px rgba(7,54,64,.10), 0 16px 40px rgba(7,54,64,.16);
+  --r:14px;
+  --r-sm:10px;
+
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --arabic:"SF Arabic","Geeza Pro","Segoe UI",Tahoma,"Noto Naskh Arabic",sans-serif;
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#061a20;
+    --bg-2:#04141a;
+    --surface:#0d2a31;
+    --surface-2:#123339;
+    --ink:#e3f0ee;
+    --ink-soft:#c2dbd8;
+    --muted:#8fb0b0;
+    --line:#1e454d;
+    --line-soft:#173840;
+
+    --deep:#04161b;
+    --deep-2:#020e12;
+    --on-deep:#e3f0ee;
+    --on-deep-soft:#8fb0b0;
+
+    --lagoon:#3fd0c4;
+    --lagoon-ink:#7fe6dc;
+    --lagoon-wash:#0d3c3c;
+    --ember:#ff8a52;
+    --ember-wash:#3d1f13;
+
+    --good:#4cc79a;
+    --good-wash:#0e352b;
+    --bad:#ff7b6d;
+    --bad-wash:#3b1a18;
+    --flag:#e8bc63;
+    --flag-wash:#382a10;
+
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.45), 0 16px 40px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#061a20;
+  --bg-2:#04141a;
+  --surface:#0d2a31;
+  --surface-2:#123339;
+  --ink:#e3f0ee;
+  --ink-soft:#c2dbd8;
+  --muted:#8fb0b0;
+  --line:#1e454d;
+  --line-soft:#173840;
+
+  --deep:#04161b;
+  --deep-2:#020e12;
+  --on-deep:#e3f0ee;
+  --on-deep-soft:#8fb0b0;
+
+  --lagoon:#3fd0c4;
+  --lagoon-ink:#7fe6dc;
+  --lagoon-wash:#0d3c3c;
+  --ember:#ff8a52;
+  --ember-wash:#3d1f13;
+
+  --good:#4cc79a;
+  --good-wash:#0e352b;
+  --bad:#ff7b6d;
+  --bad-wash:#3b1a18;
+  --flag:#e8bc63;
+  --flag-wash:#382a10;
+
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --shadow-lift:0 2px 6px rgba(0,0,0,.45), 0 16px 40px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{font-size:16px;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:1rem;
+  line-height:1.6;
+  min-height:100vh;
+  padding-bottom:4.5rem;
+}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0;}
+button{font:inherit;color:inherit;cursor:pointer;}
+:focus-visible{outline:2.5px solid var(--lagoon);outline-offset:2px;border-radius:4px;}
+
+/* Arabic support gloss — deliberately small, never the lead voice */
+.ar{
+  direction:rtl;text-align:right;
+  font-family:var(--arabic);
+  font-size:.72rem;line-height:1.75;
+  color:var(--muted);
+  margin-top:.15rem;
+}
+.ar.c{text-align:center;}
+.ar.on-deep{color:var(--on-deep-soft);}
+.ar.nowrap{white-space:nowrap;}
+
+/* ============================ MISSION BAR ============================ */
+.chrome{
+  background:linear-gradient(155deg,var(--deep) 0%,var(--deep-2) 100%);
+  color:var(--on-deep);
+  padding:.85rem 1rem .7rem;
+  box-shadow:0 6px 20px rgba(4,21,27,.28);
+}
+.chrome-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;max-width:820px;margin:0 auto;}
+.wordmark{display:flex;align-items:center;gap:.6rem;min-width:0;}
+.compass{
+  width:2.1rem;height:2.1rem;flex:none;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.28);
+  display:grid;place-items:center;font-size:1.05rem;
+  background:rgba(255,255,255,.06);
+}
+.chrome h1{font-size:1.22rem;letter-spacing:.01em;line-height:1.2;}
+.chrome .sub{font-size:.74rem;color:var(--on-deep-soft);letter-spacing:.06em;text-transform:uppercase;margin-top:.15rem;}
+.chrome-tools{display:flex;align-items:center;gap:.4rem;flex:none;}
+.chip{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:.78rem;font-weight:600;letter-spacing:.02em;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);
+  color:var(--on-deep);padding:.35rem .6rem;border-radius:999px;white-space:nowrap;
+  transition:transform .22s ease, background .22s ease;
+}
+.chip.pop{transform:scale(1.14);background:rgba(255,255,255,.2);}
+.icon-btn{
+  width:2.1rem;height:2.1rem;flex:none;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  color:var(--on-deep);display:grid;place-items:center;font-size:.95rem;
+}
+.icon-btn:hover{background:rgba(255,255,255,.18);}
+.xp-track{max-width:820px;margin:.6rem auto 0;height:3px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden;}
+.xp-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--lagoon),#7fe6dc);transition:width .5s cubic-bezier(.2,.7,.3,1);}
+
+/* ============================== TAB RAIL ============================== */
+.rail{
+  position:sticky;top:0;z-index:30;
+  display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;
+  background:var(--bg-2);border-bottom:1px solid var(--line);
+  padding:.4rem .5rem;
+  box-shadow:0 6px 16px -12px rgba(4,21,27,.9);
+}
+.rail::-webkit-scrollbar{display:none;}
+.rail-btn{
+  flex:1 0 auto;min-width:5.2rem;border:none;background:transparent;
+  padding:.45rem .5rem .4rem;border-radius:var(--r-sm);
+  display:flex;flex-direction:column;align-items:center;gap:.1rem;
+  color:var(--muted);font-size:.72rem;font-weight:600;letter-spacing:.02em;
+  transition:background .18s ease,color .18s ease;
+}
+.rail-btn .glyph{font-size:1.05rem;line-height:1.3;}
+.rail-btn .ar{font-size:.6rem;margin:0;color:inherit;opacity:.8;}
+.rail-btn:hover{color:var(--ink-soft);background:var(--surface-2);}
+.rail-btn.on{background:var(--surface);color:var(--lagoon-ink);box-shadow:var(--shadow);}
+
+/* ================================ MAIN ================================ */
+main{max-width:780px;margin:0 auto;padding:1rem .85rem 2rem;}
+.fold,.qstage,.sheet,.spoken,.card{scroll-margin-top:6rem;}
+.panel{display:none;}
+.panel.on{display:block;animation:rise .32s ease both;}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--r);padding:1.1rem 1.05rem;margin-bottom:.85rem;
+  box-shadow:var(--shadow);
+}
+.card > h2{font-size:1.12rem;margin-bottom:.15rem;}
+.card p{margin:.5rem 0;font-size:.94rem;line-height:1.7;color:var(--ink-soft);}
+.lede{color:var(--muted);font-size:.86rem;}
+.eyebrow{
+  font-family:var(--mono);font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--lagoon-ink);font-weight:600;
+}
+
+/* guide — the expedition voice */
+.guide{
+  display:flex;gap:.7rem;align-items:flex-start;
+  background:linear-gradient(150deg,var(--lagoon-wash),var(--surface-2));
+  border:1px solid var(--line);border-radius:var(--r);
+  padding:.8rem .9rem;margin-bottom:.85rem;
+}
+.guide .face{
+  width:2.4rem;height:2.4rem;flex:none;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line);
+  display:grid;place-items:center;font-size:1.15rem;box-shadow:var(--shadow);
+}
+.guide .said{font-size:.88rem;line-height:1.6;color:var(--ink-soft);}
+
+/* =========================== READ-ALOUD KIT =========================== */
+.listen{
+  display:inline-flex;align-items:center;gap:.35rem;
+  border:1px solid var(--lagoon);background:transparent;color:var(--lagoon-ink);
+  border-radius:999px;padding:.28rem .7rem;
+  font-size:.76rem;font-weight:600;letter-spacing:.02em;
+  transition:background .18s ease,color .18s ease,transform .12s ease;
+}
+.listen:hover{background:var(--lagoon-wash);}
+.listen:active{transform:scale(.96);}
+.listen.playing{background:var(--lagoon);color:#fff;border-color:var(--lagoon);}
+.listen.mini{padding:.2rem .5rem;font-size:.7rem;}
+.listen .wave{display:inline-flex;gap:1.5px;align-items:flex-end;height:.62rem;}
+.listen .wave i{width:2px;height:35%;background:currentColor;border-radius:1px;}
+.listen.playing .wave i{animation:bob .7s ease-in-out infinite;}
+.listen.playing .wave i:nth-child(2){animation-delay:.14s;}
+.listen.playing .wave i:nth-child(3){animation-delay:.28s;}
+@keyframes bob{0%,100%{height:32%}50%{height:100%}}
+
+.spoken{background:var(--flag-wash);box-shadow:0 0 0 2px var(--flag-wash);border-radius:3px;}
+
+.voicebar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;
+  padding-top:.7rem;margin-top:.7rem;border-top:1px dashed var(--line);
+}
+.voicebar .label{font-family:var(--mono);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface-2);}
+.seg button{
+  border:none;background:transparent;padding:.26rem .58rem;
+  font-family:var(--mono);font-size:.72rem;color:var(--muted);
+}
+.seg button.on{background:var(--lagoon);color:#fff;}
+
+/* ============================== THE MAP ============================== */
+.map-bar{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.6rem;}
+.found{
+  font-family:var(--mono);font-size:.74rem;font-variant-numeric:tabular-nums;
+  background:var(--ember-wash);color:var(--ember);border:1px solid var(--ember);
+  padding:.24rem .55rem;border-radius:999px;font-weight:600;
+}
+.zoomer{display:flex;gap:.25rem;}
+.zoomer button{
+  width:2rem;height:2rem;border-radius:var(--r-sm);
+  border:1px solid var(--line);background:var(--surface-2);color:var(--ink-soft);
+  display:grid;place-items:center;font-size:.95rem;
+}
+.zoomer button:hover{background:var(--lagoon-wash);border-color:var(--lagoon);}
+.stage-wrap{
+  position:relative;overflow:hidden;border-radius:var(--r-sm);
+  border:1px solid var(--line);background:var(--deep);
+  touch-action:none;cursor:grab;
+}
+.stage-wrap:active{cursor:grabbing;}
+.stage{position:relative;transform-origin:0 0;transition:transform .12s ease-out;}
+.stage svg{display:block;width:100%;height:auto;}
+.pin{
+  position:absolute;transform:translate(-50%,-50%);
+  width:1.55rem;height:1.55rem;border-radius:50%;
+  border:2px solid #fff;display:grid;place-items:center;
+  font-size:.72rem;padding:0;
+  box-shadow:0 2px 7px rgba(0,0,0,.4);
+  transition:transform .18s cubic-bezier(.3,1.6,.5,1);
+}
+.pin:hover{transform:translate(-50%,-50%) scale(1.25);}
+.pin.seen{border-color:#fff;opacity:.75;}
+.pin.seen::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid #fff;opacity:.5;}
+.pin.country{background:#b3392f;}
+.pin.river{background:#1668a8;}
+.pin.strait{background:#0f867f;}
+.pin.volcano{background:#c8501f;}
+.pin.tsunami{background:#4c4a9c;}
+.pin .ping{
+  position:absolute;inset:-3px;border-radius:50%;
+  border:2px solid currentColor;color:inherit;
+  animation:sonar 3.4s ease-out infinite;pointer-events:none;opacity:.55;
+}
+.pin.volcano .ping,.pin.tsunami .ping{border-color:#fff;}
+.pin.country .ping,.pin.river .ping,.pin.strait .ping{border-color:#fff;}
+.pin.seen .ping{display:none;}
+@keyframes sonar{0%{transform:scale(.85);opacity:.85}70%{transform:scale(2.2);opacity:0}100%{opacity:0}}
+.ring-of-fire{transform-origin:560px 330px;animation:drift 90s linear infinite;}
+@keyframes drift{to{transform:rotate(360deg)}}
+
+.legend{display:flex;flex-wrap:wrap;gap:.5rem .9rem;margin-top:.7rem;font-size:.74rem;color:var(--muted);}
+.legend span{display:inline-flex;align-items:center;gap:.32rem;}
+.legend i{width:.6rem;height:.6rem;border-radius:50%;display:inline-block;}
+
+.sheet{
+  margin-top:.7rem;border-radius:var(--r-sm);
+  border:1px solid var(--line);background:var(--surface-2);
+  padding:.85rem .9rem;display:none;
+}
+.sheet.open{display:block;animation:rise .25s ease both;}
+.sheet-head{display:flex;align-items:center;gap:.5rem;}
+.sheet-head .g{font-size:1.15rem;}
+.sheet-head h3{font-size:1rem;}
+.sheet p{font-size:.9rem;margin:.5rem 0 0;color:var(--ink-soft);}
+.sheet-foot{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;}
+.btn{
+  border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  border-radius:999px;padding:.42rem .95rem;font-size:.82rem;font-weight:600;
+  transition:background .18s ease,border-color .18s ease,transform .12s ease;
+}
+.btn:hover{background:var(--surface-2);border-color:var(--lagoon);}
+.btn:active{transform:scale(.97);}
+.btn.solid{background:var(--lagoon);border-color:var(--lagoon);color:#fff;}
+.btn.solid:hover{background:var(--lagoon-ink);border-color:var(--lagoon-ink);}
+.btn.ember{background:var(--ember);border-color:var(--ember);color:#fff;}
+.btn.ember:hover{filter:brightness(1.08);}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.btn .ar{margin-top:.1rem;font-size:.62rem;color:inherit;opacity:.85;text-align:center;}
+
+/* ============================= STUDY NOTES ============================= */
+.fold{
+  background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--r);margin-bottom:.5rem;overflow:hidden;box-shadow:var(--shadow);
+}
+.fold-head{
+  width:100%;border:none;background:transparent;text-align:left;
+  display:flex;align-items:center;gap:.65rem;padding:.85rem .9rem;
+}
+.fold-num{
+  font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.04em;
+  color:var(--lagoon-ink);background:var(--lagoon-wash);
+  border-radius:6px;padding:.2rem .4rem;flex:none;min-width:2.5rem;text-align:center;
+}
+.fold-title{flex:1;font-family:var(--serif);font-size:1rem;font-weight:600;line-height:1.35;}
+.fold-title .ar{display:block;font-family:var(--arabic);font-weight:400;text-align:left;direction:rtl;margin-top:.1rem;}
+.fold-caret{color:var(--muted);transition:transform .25s ease;flex:none;}
+.fold.open .fold-caret{transform:rotate(90deg);}
+.fold-body{display:none;padding:0 .9rem 1rem;border-top:1px solid var(--line-soft);}
+.fold.open .fold-body{display:block;animation:rise .25s ease both;}
+.fold-body p{font-size:.92rem;line-height:1.75;color:var(--ink-soft);}
+.fold-body h4{font-size:.92rem;margin:.9rem 0 .2rem;color:var(--ember);}
+.fold-body ul,.fold-body ol{margin:.4rem 0;padding-left:1.15rem;font-size:.92rem;line-height:1.8;color:var(--ink-soft);}
+.fold-body .ar-block{
+  direction:rtl;text-align:right;font-family:var(--arabic);
+  font-size:.76rem;line-height:1.9;color:var(--muted);
+  background:var(--surface-2);border-right:3px solid var(--lagoon);
+  border-radius:8px;padding:.6rem .75rem;margin-top:.85rem;
+}
+.fold-body .ar-block ol{padding-right:1.1rem;padding-left:0;font-size:.76rem;color:inherit;}
+.keep{
+  background:var(--ember-wash);border-left:3px solid var(--ember);
+  border-radius:8px;padding:.55rem .75rem;margin-top:.8rem;
+  font-size:.86rem;color:var(--ink-soft);
+}
+.tbl-wrap{overflow-x:auto;margin-top:.6rem;}
+table.terms{border-collapse:collapse;width:100%;font-size:.86rem;min-width:24rem;}
+table.terms th{
+  text-align:left;background:var(--deep);color:var(--on-deep);
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.5rem .6rem;font-weight:600;
+}
+table.terms td{border-bottom:1px solid var(--line-soft);padding:.55rem .6rem;vertical-align:top;color:var(--ink-soft);}
+table.terms td:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+.fold-tools{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.85rem;}
+
+/* ============================= FLASHCARDS ============================= */
+.deck{perspective:1200px;margin-top:.8rem;}
+.deck-count{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:.5rem;letter-spacing:.06em;}
+.fcard{
+  position:relative;width:100%;min-height:12.5rem;
+  transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.9,.3,1);
+  cursor:pointer;
+}
+.fcard.flipped{transform:rotateY(180deg);}
+.face-a,.face-b{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:var(--r);padding:1.2rem 1.1rem;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  box-shadow:var(--shadow-lift);
+}
+.face-a{background:linear-gradient(155deg,var(--deep),var(--deep-2));color:var(--on-deep);border:1px solid rgba(255,255,255,.1);}
+.face-b{background:var(--surface);color:var(--ink);border:1px solid var(--line);transform:rotateY(180deg);}
+.face-a .term{font-family:var(--serif);font-size:1.5rem;line-height:1.25;}
+.face-b .def{font-size:.98rem;line-height:1.65;color:var(--ink-soft);}
+.flip-hint{
+  position:absolute;bottom:.7rem;left:0;right:0;text-align:center;
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;opacity:.6;
+}
+.deck-marks{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.8rem;}
+.mark{
+  border-radius:var(--r-sm);padding:.55rem;border:1px solid var(--line);
+  background:var(--surface);font-size:.82rem;font-weight:600;
+}
+.mark.again{color:var(--flag);border-color:var(--flag);}
+.mark.again:hover{background:var(--flag-wash);}
+.mark.got{color:var(--good);border-color:var(--good);}
+.mark.got:hover{background:var(--good-wash);}
+.deck-nav{display:flex;gap:.5rem;margin-top:.5rem;}
+.deck-nav .btn{flex:1;}
+.deck-stats{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-align:center;margin-top:.7rem;font-variant-numeric:tabular-nums;}
+
+/* ============================ COUNTRY SORT ============================ */
+.sorter{display:flex;flex-direction:column;gap:.5rem;margin-top:.8rem;}
+.row{
+  border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2);
+  padding:.6rem .7rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+  transition:background .25s ease,border-color .25s ease;
+}
+.row .who{flex:1 1 7rem;min-width:6.5rem;}
+.row .who b{font-size:.95rem;}
+.row .picks{display:flex;gap:.3rem;flex-wrap:wrap;}
+.pick{
+  border:1px solid var(--line);background:var(--surface);color:var(--muted);
+  border-radius:999px;padding:.3rem .68rem;font-size:.78rem;font-weight:600;
+  transition:all .18s ease;
+}
+.pick:hover:not(:disabled){border-color:var(--lagoon);color:var(--lagoon-ink);}
+.pick:disabled{cursor:default;}
+.pick.right{background:var(--good);border-color:var(--good);color:#fff;}
+.pick.wrong{background:var(--bad);border-color:var(--bad);color:#fff;}
+.row.done{background:var(--good-wash);border-color:var(--good);}
+.row.miss{background:var(--bad-wash);border-color:var(--bad);}
+
+/* =============================== EXAM =============================== */
+.sealed{
+  display:flex;gap:.6rem;align-items:flex-start;
+  background:var(--ember-wash);border:1px solid var(--ember);
+  border-radius:var(--r);padding:.8rem .9rem;margin-bottom:.85rem;
+}
+.sealed .g{font-size:1.15rem;line-height:1.3;}
+.sealed strong{color:var(--ember);}
+.sealed p{margin:0;font-size:.86rem;line-height:1.6;color:var(--ink-soft);}
+
+.exam-meta{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;}
+.meter{height:6px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line-soft);overflow:hidden;margin:.6rem 0 .35rem;}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--lagoon),var(--ember));transition:width .35s ease;}
+.counts{font-family:var(--mono);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;}
+
+.qstage{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:1.1rem 1rem;margin-bottom:.85rem;
+}
+.qtop{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.qnum{
+  font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.08em;
+  color:var(--on-deep);background:var(--deep);padding:.22rem .5rem;border-radius:6px;
+}
+.qtop .spacer{flex:1;}
+.flagbtn{
+  border:1px solid var(--line);background:var(--surface-2);color:var(--muted);
+  border-radius:999px;padding:.24rem .6rem;font-size:.74rem;font-weight:600;
+}
+.flagbtn.on{background:var(--flag-wash);border-color:var(--flag);color:var(--flag);}
+.qtext{font-family:var(--serif);font-size:1.12rem;line-height:1.45;}
+.qtext .ar{font-family:var(--arabic);}
+.opts{display:flex;flex-direction:column;gap:.45rem;margin-top:.9rem;}
+.opt{
+  display:flex;align-items:center;gap:.6rem;text-align:left;
+  border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink-soft);
+  border-radius:var(--r-sm);padding:.65rem .75rem;font-size:.92rem;
+  transition:border-color .16s ease,background .16s ease,transform .1s ease;
+}
+.opt:hover{border-color:var(--lagoon);}
+.opt:active{transform:scale(.995);}
+.opt .key{
+  font-family:var(--mono);font-size:.75rem;font-weight:600;flex:none;
+  width:1.5rem;height:1.5rem;border-radius:50%;display:grid;place-items:center;
+  border:1.5px solid var(--line);color:var(--muted);background:var(--surface);
+}
+.opt.chosen{border-color:var(--lagoon);background:var(--lagoon-wash);color:var(--ink);}
+.opt.chosen .key{background:var(--lagoon);border-color:var(--lagoon);color:#fff;}
+.qnav{display:flex;gap:.5rem;margin-top:1rem;}
+.qnav .btn{flex:1;}
+
+.navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.3rem,1fr));gap:.35rem;margin-top:.7rem;}
+.navcell{
+  aspect-ratio:1;border-radius:8px;border:1.5px solid var(--line);
+  background:var(--surface-2);color:var(--muted);
+  font-family:var(--mono);font-size:.78rem;font-weight:600;
+  display:grid;place-items:center;position:relative;
+}
+.navcell.filled{background:var(--lagoon-wash);border-color:var(--lagoon);color:var(--lagoon-ink);}
+.navcell.here{outline:2.5px solid var(--ember);outline-offset:1px;}
+.navcell.flagged::after{
+  content:"";position:absolute;top:-3px;right:-3px;width:.5rem;height:.5rem;
+  border-radius:50%;background:var(--flag);border:1.5px solid var(--surface);
+}
+.navcell.hit{background:var(--good-wash);border-color:var(--good);color:var(--good);}
+.navcell.miss{background:var(--bad-wash);border-color:var(--bad);color:var(--bad);}
+.navkey{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.6rem;font-size:.7rem;color:var(--muted);font-family:var(--mono);}
+.navkey span{display:inline-flex;align-items:center;gap:.3rem;}
+.navkey i{width:.65rem;height:.65rem;border-radius:3px;border:1.5px solid var(--line);display:inline-block;}
+
+/* results */
+.results{display:none;}
+.results.on{display:block;animation:rise .35s ease both;}
+.scorecard{
+  background:linear-gradient(155deg,var(--deep),var(--deep-2));color:var(--on-deep);
+  border-radius:var(--r);padding:1.4rem 1.1rem;text-align:center;box-shadow:var(--shadow-lift);
+}
+.dial{position:relative;width:8.5rem;height:8.5rem;margin:.4rem auto .8rem;}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg);}
+.dial .track{fill:none;stroke:rgba(255,255,255,.14);stroke-width:9;}
+.dial .val{fill:none;stroke:var(--lagoon);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(.2,.7,.3,1);}
+.dial .mid{position:absolute;inset:0;display:grid;place-content:center;gap:.1rem;}
+.dial .pct{font-family:var(--mono);font-size:1.9rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1;}
+.dial .grade{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-deep-soft);}
+.scorecard h2{font-size:1.25rem;}
+.scorecard .note{font-size:.88rem;color:var(--on-deep-soft);margin-top:.3rem;}
+.tally{display:flex;justify-content:center;gap:1.4rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.14);}
+.tally div{text-align:center;}
+.tally b{display:block;font-family:var(--mono);font-size:1.15rem;font-variant-numeric:tabular-nums;}
+.tally span{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-deep-soft);}
+
+.review-item{
+  background:var(--surface);border:1px solid var(--line-soft);border-left:3px solid var(--good);
+  border-radius:var(--r-sm);padding:.85rem .9rem;margin-bottom:.5rem;box-shadow:var(--shadow);
+}
+.review-item.wrong{border-left-color:var(--bad);}
+.review-item .rq{font-family:var(--serif);font-size:.98rem;line-height:1.45;margin-bottom:.5rem;}
+.answer-line{display:flex;gap:.5rem;align-items:baseline;font-size:.86rem;margin-top:.28rem;}
+.answer-line .tag{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.14rem .38rem;border-radius:5px;flex:none;
+}
+.tag.yours{background:var(--bad-wash);color:var(--bad);}
+.tag.yours.ok{background:var(--good-wash);color:var(--good);}
+.tag.key{background:var(--good-wash);color:var(--good);}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;margin:.85rem 0;}
+.actions .btn{flex:1 1 9rem;}
+
+/* modal */
+.veil{
+  position:fixed;inset:0;z-index:60;background:rgba(4,21,27,.6);
+  display:none;place-items:center;padding:1rem;backdrop-filter:blur(2px);
+}
+.veil.on{display:grid;}
+.modal{
+  background:var(--surface);border-radius:var(--r);padding:1.2rem 1.1rem;
+  max-width:24rem;width:100%;box-shadow:var(--shadow-lift);border:1px solid var(--line);
+}
+.modal h3{font-size:1.1rem;}
+.modal p{font-size:.9rem;color:var(--ink-soft);margin:.5rem 0;}
+.modal .actions{margin-bottom:0;}
+
+/* toast + confetti + text size */
+.toast{
+  position:fixed;left:50%;bottom:5.5rem;transform:translateX(-50%) translateY(1rem);
+  background:var(--deep);color:var(--on-deep);padding:.6rem 1rem;border-radius:999px;
+  font-size:.84rem;box-shadow:var(--shadow-lift);opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;z-index:70;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:65;overflow:hidden;}
+.bit{position:absolute;top:-2rem;animation:fall linear forwards;}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.15}}
+
+.chrome-tools{flex-direction:column;align-items:flex-end;gap:.35rem;}
+.tool-row{display:flex;gap:.3rem;}
+#textDown,#textUp{font-family:var(--mono);font-size:.72rem;width:1.9rem;height:1.9rem;}
+
+@media (max-width:480px){
+  .pin{width:1.32rem;height:1.32rem;font-size:.62rem;}
+  .chrome h1{font-size:1.02rem;}
+  .chrome .sub{font-size:.66rem;}
+  .rail-btn{min-width:4.6rem;font-size:.66rem;}
+  .card{padding:.95rem .85rem;}
+  .icon-btn{width:1.85rem;height:1.85rem;font-size:.8rem;}
+  .chip{font-size:.72rem;padding:.3rem .5rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<header class="chrome">
+  <div class="chrome-top">
+    <div class="wordmark">
+      <div class="compass" aria-hidden="true">🧭</div>
+      <div>
+        <h1>Monsoon Expedition</h1>
+        <div class="sub">Civics 7 · Southeast Asia</div>
+        <div class="ar on-deep nowrap">جغرافيا جنوب شرق آسيا · لرزان</div>
+      </div>
+    </div>
+    <div class="chrome-tools">
+      <div class="chip" id="xpChip">0 / 53 XP</div>
+      <div class="tool-row">
+        <button class="icon-btn" id="textDown" title="Smaller text" aria-label="Smaller text">A−</button>
+        <button class="icon-btn" id="textUp" title="Larger text" aria-label="Larger text">A+</button>
+        <button class="icon-btn" id="themeBtn" title="Light or dark" aria-label="Switch light or dark theme">◐</button>
+      </div>
+    </div>
+  </div>
+  <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+</header>
+
+<nav class="rail" id="rail" aria-label="Sections">
+  <button class="rail-btn on" data-go="map"><span class="glyph">🗺️</span><span>Explore</span><span class="ar c">استكشاف</span></button>
+  <button class="rail-btn" data-go="notes"><span class="glyph">📖</span><span>Read</span><span class="ar c">قراءة</span></button>
+  <button class="rail-btn" data-go="deck"><span class="glyph">🗂️</span><span>Cards</span><span class="ar c">بطاقات</span></button>
+  <button class="rail-btn" data-go="sort"><span class="glyph">🌏</span><span>Sort</span><span class="ar c">تصنيف</span></button>
+  <button class="rail-btn" data-go="exam"><span class="glyph">📝</span><span>Exam</span><span class="ar c">امتحان</span></button>
+</nav>
+
+<main>
+
+  <!-- ========================= EXPLORE ========================= -->
+  <section class="panel on" id="map">
+    <div class="guide">
+      <div class="face" aria-hidden="true">🧭</div>
+      <div>
+        <div class="said">Welcome aboard, Explorer. Southeast Asia is waiting below. Tap every pin to log a discovery — countries, rivers, straits, volcanoes. Drag the chart to move, pinch or use + and − to zoom.</div>
+        <div class="ar">أهلاً يا مستكشفة. اضغطي على كل علامة لتسجيل اكتشاف — دول وأنهار ومضايق وبراكين. اسحبي الخريطة للتحريك، واستخدمي + و − للتكبير.</div>
+        <div class="fold-tools"><button class="listen mini" data-say="Welcome aboard, Explorer. Southeast Asia is waiting below. Tap every pin to log a discovery: countries, rivers, straits, and volcanoes. Drag the chart to move, pinch or use plus and minus to zoom."><span class="wave"><i></i><i></i><i></i></span> Listen</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="map-bar">
+        <div class="found" id="foundChip">0 / 22 discovered</div>
+        <div class="zoomer">
+          <button id="zOut" aria-label="Zoom out">−</button>
+          <button id="zReset" aria-label="Reset the map view">⟳</button>
+          <button id="zIn" aria-label="Zoom in">+</button>
+        </div>
+      </div>
+
+      <div class="stage-wrap" id="stageWrap">
+        <div class="stage" id="stage">
+          <svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Simplified chart of Southeast Asia">
+            <defs>
+              <radialGradient id="land" cx="38%" cy="28%" r="82%">
+                <stop offset="0%" stop-color="#6ea87c"/><stop offset="100%" stop-color="#3f7a55"/>
+              </radialGradient>
+              <radialGradient id="isle" cx="38%" cy="28%" r="82%">
+                <stop offset="0%" stop-color="#b9a06a"/><stop offset="100%" stop-color="#8d7443"/>
+              </radialGradient>
+              <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0d4f5e"/><stop offset="100%" stop-color="#05262f"/>
+              </linearGradient>
+            </defs>
+
+            <rect x="0" y="0" width="800" height="600" fill="url(#sea)"/>
+            <g opacity=".18" stroke="#7fd6cf" stroke-width="1">
+              <path d="M0,120 H800 M0,240 H800 M0,360 H800 M0,480 H800"/>
+              <path d="M160,0 V600 M320,0 V600 M480,0 V600 M640,0 V600"/>
+            </g>
+
+            <g class="ring-of-fire">
+              <ellipse cx="560" cy="330" rx="232" ry="220" fill="none" stroke="#e2622a" stroke-width="2.5" stroke-dasharray="12 10" opacity=".7"/>
+            </g>
+            <text x="560" y="98" text-anchor="middle" fill="#f0a37c" font-size="12.5" font-weight="700" letter-spacing="2">PACIFIC RING OF FIRE</text>
+
+            <path d="M120,60 C60,120 70,220 110,270 C90,330 130,390 190,410 C170,460 210,500 260,480 C300,510 350,480 340,430 C400,440 420,380 380,340 C420,300 400,230 350,210 C360,150 300,90 230,100 C210,60 150,40 120,60 Z" fill="url(#land)" stroke="#8fd3a4" stroke-width="2"/>
+            <text x="245" y="545" text-anchor="middle" fill="#a9dcb9" font-size="13" font-weight="700" letter-spacing="1.5">MAINLAND SE ASIA</text>
+
+            <path d="M420,300 C450,280 500,290 510,320 C540,310 570,330 560,360 C590,370 590,410 560,420 C570,450 540,470 510,450 C500,480 460,480 450,455 Z" fill="url(#isle)" stroke="#e3c98d" stroke-width="1.8"/>
+            <ellipse cx="620" cy="260" rx="70" ry="45" fill="url(#isle)" stroke="#e3c98d" stroke-width="1.8"/>
+            <ellipse cx="700" cy="330" rx="55" ry="80" fill="url(#isle)" stroke="#e3c98d" stroke-width="1.8"/>
+            <ellipse cx="600" cy="440" rx="90" ry="40" fill="url(#isle)" stroke="#e3c98d" stroke-width="1.8"/>
+            <ellipse cx="500" cy="500" rx="60" ry="30" fill="url(#isle)" stroke="#e3c98d" stroke-width="1.8"/>
+            <text x="645" y="575" text-anchor="middle" fill="#e5cf9b" font-size="13" font-weight="700" letter-spacing="1.5">INSULAR SE ASIA</text>
+
+            <path d="M160,90 Q180,180 150,260 Q170,330 200,400" fill="none" stroke="#5cc0f0" stroke-width="3.5" opacity=".85"/>
+            <path d="M230,110 Q220,200 250,290" fill="none" stroke="#5cc0f0" stroke-width="2.5" opacity=".75"/>
+
+            <text x="762" y="300" text-anchor="middle" fill="#8fd8ea" font-size="13" font-weight="600" letter-spacing="2" transform="rotate(90 762,300)">PACIFIC OCEAN</text>
+            <text x="72" y="565" text-anchor="middle" fill="#8fd8ea" font-size="13" font-weight="600" letter-spacing="1">INDIAN OCEAN</text>
+
+            <g transform="translate(66,58)" opacity=".9">
+              <circle cx="0" cy="0" r="21" fill="#04252c" stroke="#8fd8ea" stroke-width="1.5"/>
+              <path d="M0,-15 L4.5,0 L0,15 L-4.5,0 Z" fill="#e2622a"/>
+              <text x="0" y="-27" text-anchor="middle" font-size="10" font-weight="700" fill="#8fd8ea">N</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="legend">
+        <span><i style="background:#b3392f"></i>Country · دولة</span>
+        <span><i style="background:#1668a8"></i>River · نهر</span>
+        <span><i style="background:#0f867f"></i>Strait · مضيق</span>
+        <span><i style="background:#c8501f"></i>Volcano · بركان</span>
+        <span><i style="background:#4c4a9c"></i>Tsunami · تسونامي</span>
+      </div>
+
+      <div class="sheet" id="sheet" aria-live="polite">
+        <div class="sheet-head"><span class="g" id="sheetGlyph">📍</span><h3 id="sheetTitle"></h3></div>
+        <p id="sheetBody"></p>
+        <div class="ar" id="sheetAr"></div>
+        <div class="sheet-foot">
+          <button class="listen" id="sheetSay"><span class="wave"><i></i><i></i><i></i></span> Listen</button>
+          <button class="btn" id="sheetClose">Got it ✓</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= NOTES ========================= -->
+  <section class="panel" id="notes">
+    <div class="guide">
+      <div class="face" aria-hidden="true">📖</div>
+      <div>
+        <div class="said">These are your field notes — the whole lesson in fourteen parts. Open a part, press <b>Listen</b>, and follow the highlighted sentence with your eyes while it is read aloud in English.</div>
+        <div class="ar">دي ملاحظات الرحلة — الدرس كامل في أربعة عشر جزءاً. افتحي أي جزء، اضغطي «Listen»، وتابعي بعينيك الجملة المظللة وهي تُقرأ بالإنجليزية.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">Reading voice</div>
+      <h2>Listen while you read</h2>
+      <p class="lede">Every note, card, and exam question has a Listen button. Choose the reading speed here — slower is better the first time through.</p>
+      <div class="ar">كل ملاحظة وبطاقة وسؤال فيها زر استماع. اختاري سرعة القراءة من هنا — البطيئة أفضل في المرة الأولى.</div>
+      <div class="voicebar">
+        <span class="label">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button>
+          <button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button>
+          <button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">■ Stop reading</button>
+      </div>
+      <div class="ar" id="voiceNote"></div>
+    </div>
+
+    <div id="folds"></div>
+  </section>
+
+  <!-- ========================= FLASHCARDS ========================= -->
+  <section class="panel" id="deck">
+    <div class="guide">
+      <div class="face" aria-hidden="true">🗂️</div>
+      <div>
+        <div class="said">Fifteen key terms. Say the meaning out loud before you flip the card — that is what makes it stick.</div>
+        <div class="ar">خمسة عشر مصطلحاً أساسياً. قولي المعنى بصوت عالٍ قبل ما تقلبي البطاقة — كده هيثبت في ذاكرتك.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Term deck</div>
+      <h2>Important Terms</h2>
+      <p class="lede">Tap the card to flip. Mark each one, then shuffle and go again.</p>
+      <div class="ar">اضغطي على البطاقة لقلبها، وحددي حالتك مع كل مصطلح، ثم اخلطي البطاقات وأعيدي.</div>
+
+      <div class="deck">
+        <div class="deck-count" id="deckCount">Card 1 of 15</div>
+        <div class="fcard" id="fcard" role="button" tabindex="0" aria-label="Flashcard, tap to flip">
+          <div class="face-a">
+            <div class="term" id="fcTerm"></div>
+            <div class="ar c on-deep" id="fcTermAr" style="font-size:.85rem"></div>
+            <div class="flip-hint">Tap to flip · اضغطي للقلب</div>
+          </div>
+          <div class="face-b">
+            <div class="def" id="fcDef"></div>
+            <div class="ar c" id="fcDefAr"></div>
+            <div class="flip-hint">Tap to flip back</div>
+          </div>
+        </div>
+        <div class="fold-tools" style="justify-content:center">
+          <button class="listen" id="fcSay"><span class="wave"><i></i><i></i><i></i></span> Listen to this term</button>
+        </div>
+        <div class="deck-marks">
+          <button class="mark again" id="fcAgain">↻ Still learning</button>
+          <button class="mark got" id="fcGot">✓ I know this</button>
+        </div>
+        <div class="deck-nav">
+          <button class="btn" id="fcPrev">◀ Prev</button>
+          <button class="btn" id="fcShuffle">🔀 Shuffle</button>
+          <button class="btn" id="fcNext">Next ▶</button>
+        </div>
+        <div class="deck-stats" id="deckStats"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= COUNTRY SORT ========================= -->
+  <section class="panel" id="sort">
+    <div class="guide">
+      <div class="face" aria-hidden="true">🌏</div>
+      <div>
+        <div class="said">Mainland is joined to the Asian continent. Insular is mostly islands. One country is both — find it.</div>
+        <div class="ar">القاري متصل بقارة آسيا، والجزري في الغالب جزر. وفيه دولة واحدة هي الاتنين معاً — دوّري عليها.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Practice · answers show instantly</div>
+      <h2>Mainland, Insular, or Both?</h2>
+      <p class="lede">This is practice, so it tells you straight away. The exam does not.</p>
+      <div class="ar">دي تدريب، فبتوريكي الإجابة فوراً. أما الامتحان فلا.</div>
+      <div class="sorter" id="sorter"></div>
+      <div class="deck-stats" id="sortStats">0 of 11 sorted</div>
+    </div>
+  </section>
+
+  <!-- ========================= EXAM ========================= -->
+  <section class="panel" id="exam">
+    <div id="examLive">
+      <div class="sealed">
+        <div class="g" aria-hidden="true">🔒</div>
+        <div>
+          <p><strong>Sealed exam.</strong> No answer is revealed while you work — not even a hint. Answer all 20 questions, then press <b>Submit exam</b> to unseal your score and every correct answer.</p>
+          <div class="ar">امتحان مغلق: لن تظهر أي إجابة أثناء الحل — ولا حتى تلميح. جاوبي على الـ20 سؤال كلها، ثم اضغطي «Submit exam» لتظهر لك درجتك وكل الإجابات الصحيحة.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="exam-meta">
+          <div>
+            <div class="eyebrow">Final assessment</div>
+            <h2>20 Questions</h2>
+          </div>
+          <div class="chip" id="clock" style="background:var(--surface-2);border-color:var(--line);color:var(--muted)">00:00</div>
+        </div>
+        <div class="meter"><i id="examMeter"></i></div>
+        <div class="counts"><span id="answeredCount">0 answered</span><span id="leftCount">20 left</span></div>
+      </div>
+
+      <div class="qstage" id="qstage">
+        <div class="qtop">
+          <span class="qnum" id="qNum">Q1</span>
+          <span class="spacer"></span>
+          <button class="listen mini" id="qSay"><span class="wave"><i></i><i></i><i></i></span> Listen</button>
+          <button class="flagbtn" id="qFlag">⚑ Flag</button>
+        </div>
+        <div class="qtext" id="qText"></div>
+        <div class="ar" id="qAr"></div>
+        <div class="opts" id="qOpts"></div>
+        <div class="qnav">
+          <button class="btn" id="qPrev">◀ Previous</button>
+          <button class="btn solid" id="qNext">Next ▶</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">Question map</div>
+        <div class="navgrid" id="navGrid"></div>
+        <div class="navkey">
+          <span><i style="background:var(--lagoon-wash);border-color:var(--lagoon)"></i>answered</span>
+          <span><i style="background:var(--surface-2)"></i>blank</span>
+          <span><i style="background:var(--flag);border-color:var(--flag)"></i>flagged</span>
+        </div>
+        <div class="actions" style="margin-bottom:0">
+          <button class="btn ember" id="submitBtn">🔓 Submit exam<div class="ar">سلّمي الامتحان</div></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results" id="results">
+      <div class="scorecard">
+        <div class="dial">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="track" cx="60" cy="60" r="52"></circle>
+            <circle class="val" id="dialVal" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="mid">
+            <div class="pct" id="pct">0%</div>
+            <div class="grade" id="grade"></div>
+          </div>
+        </div>
+        <h2 id="verdict"></h2>
+        <div class="note" id="verdictNote"></div>
+        <div class="ar c on-deep" id="verdictAr"></div>
+        <div class="tally">
+          <div><b id="tRight">0</b><span>Correct</span></div>
+          <div><b id="tWrong">0</b><span>Missed</span></div>
+          <div><b id="tTime">0:00</b><span>Time</span></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn solid" id="againBtn">🔄 Retake all<div class="ar">أعيدي الامتحان</div></button>
+        <button class="btn" id="missedBtn">🎯 Retake missed<div class="ar">أعيدي الأسئلة الخطأ</div></button>
+        <button class="btn" id="toNotes">📖 Back to notes<div class="ar">راجعي الملاحظات</div></button>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">Unsealed</div>
+        <h2>Every question, every answer</h2>
+        <p class="lede">Your answer and the correct one, side by side. Press Listen on any question you want read aloud.</p>
+        <div class="ar">إجابتك والإجابة الصحيحة جنب بعض. اضغطي «Listen» على أي سؤال عايزة تسمعيه.</div>
+      </div>
+      <div id="reviewList"></div>
+    </div>
+  </section>
+
+</main>
+
+<div class="veil" id="veil">
+  <div class="modal">
+    <h3 id="modalTitle">Some questions are still blank</h3>
+    <p id="modalBody"></p>
+    <div class="ar" id="modalAr"></div>
+    <div class="actions">
+      <button class="btn" id="modalBack">Go back</button>
+      <button class="btn ember" id="modalGo">Submit anyway</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="fx" aria-hidden="true"></div>
+<script>
+/* ==================================================================
+   0 · TINY HELPERS
+   ================================================================== */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('on'), 2200);
+}
+function confetti(n=36){
+  const layer = $('#fx'), bits = ['🎉','⭐','✨','🏅','🌴'];
+  for(let i=0;i<n;i++){
+    const b = document.createElement('div');
+    b.className = 'bit';
+    b.textContent = bits[Math.floor(Math.random()*bits.length)];
+    b.style.left = Math.random()*100 + 'vw';
+    b.style.fontSize = (13 + Math.random()*13) + 'px';
+    b.style.animationDuration = (2.2 + Math.random()*1.6) + 's';
+    layer.appendChild(b);
+    setTimeout(()=>b.remove(), 4200);
+  }
+}
+
+/* ==================================================================
+   1 · THEME + TEXT SIZE
+   ================================================================== */
+$('#themeBtn').addEventListener('click', ()=>{
+  const root = document.documentElement;
+  const dark = root.getAttribute('data-theme') === 'dark'
+    || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  toast(dark ? 'Light chart' : 'Night chart');
+});
+
+const SIZES = [14, 15, 16, 17.5, 19, 21];
+let sizeIdx = 2;
+function applySize(){ document.documentElement.style.fontSize = SIZES[sizeIdx] + 'px'; }
+$('#textUp').addEventListener('click', ()=>{ sizeIdx = Math.min(SIZES.length-1, sizeIdx+1); applySize(); });
+$('#textDown').addEventListener('click', ()=>{ sizeIdx = Math.max(0, sizeIdx-1); applySize(); });
+
+/* ==================================================================
+   2 · EXPEDITION XP
+   ================================================================== */
+const XP_MAX = 53;              /* 22 discoveries + 11 sorts + 20 exam marks */
+let xp = 0;
+function addXp(n){
+  if(n <= 0) return;
+  xp = Math.min(XP_MAX, xp + n);
+  $('#xpChip').textContent = `${xp} / ${XP_MAX} XP`;
+  $('#xpFill').style.width = (xp / XP_MAX * 100) + '%';
+  const chip = $('#xpChip');
+  chip.classList.add('pop');
+  setTimeout(()=>chip.classList.remove('pop'), 240);
+}
+addXp(0);
+$('#xpChip').textContent = `0 / ${XP_MAX} XP`;
+
+/* ==================================================================
+   3 · READING VOICE  (English read-aloud)
+   ================================================================== */
+const Voice = (function(){
+  const synth = window.speechSynthesis;
+  const ok = !!synth && typeof SpeechSynthesisUtterance === 'function';
+  let rate = 0.85, voice = null, chain = [], step = 0, btn = null, mark = null, alive = null, spoke = false;
+
+  function chooseVoice(){
+    if(!ok) return;
+    const all = synth.getVoices().filter(v => /^en(-|_|$)/i.test(v.lang));
+    if(!all.length) return;
+    const liked = ['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Karen','Moira','Daniel'];
+    voice = all.find(v => liked.some(n => v.name.includes(n)))
+         || all.find(v => /en[-_]US/i.test(v.lang))
+         || all[0];
+  }
+  if(ok){ chooseVoice(); synth.addEventListener('voiceschanged', chooseVoice); }
+
+  function dress(b, playing){
+    if(!b) return;
+    b.classList.toggle('playing', playing);
+    const lbl = b.querySelector('.lbl');
+    if(lbl) lbl.textContent = playing ? 'Stop' : (b.dataset.label || 'Listen');
+  }
+  function clear(){
+    if(mark){ mark.classList.remove('spoken'); mark = null; }
+    dress(btn, false); btn = null;
+    chain = []; step = 0;
+    if(alive){ clearInterval(alive); alive = null; }
+  }
+  function stop(){ if(ok){ try{ synth.cancel(); }catch(e){} } clear(); }
+
+  function run(){
+    if(step >= chain.length){
+      /* every utterance failed and nothing was ever heard: say so instead of failing silently */
+      if(!spoke) toast('No English voice is installed on this device. Try Chrome, Edge, or Safari.');
+      clear();
+      return;
+    }
+    const piece = chain[step];
+    const u = new SpeechSynthesisUtterance(piece.text);
+    u.lang = (voice && voice.lang) || 'en-US';
+    if(voice) u.voice = voice;
+    u.rate = rate; u.pitch = 1;
+    u.onstart = ()=>{
+      spoke = true;
+      if(mark) mark.classList.remove('spoken');
+      mark = piece.el || null;
+      if(mark){
+        mark.classList.add('spoken');
+        const box = mark.getBoundingClientRect();
+        if(box.top < 70 || box.bottom > innerHeight - 40) mark.scrollIntoView({block:'center', behavior:'smooth'});
+      }
+    };
+    u.onend = ()=>{ step++; run(); };
+    u.onerror = ()=>{ step++; run(); };
+    synth.speak(u);
+  }
+
+  /* pieces: [{text, el}] — el is highlighted while its text is read */
+  function play(pieces, trigger){
+    if(!ok){ toast('This browser cannot read aloud. Try Chrome, Edge, or Safari.'); return; }
+    const same = (trigger && trigger === btn);
+    stop();
+    if(same) return;                     /* second press on the same button = stop */
+    chain = pieces.filter(p => p.text && p.text.trim().length > 1);
+    if(!chain.length) return;
+    step = 0; spoke = false; btn = trigger || null; dress(btn, true);
+    alive = setInterval(()=>{ if(synth.speaking && !synth.paused){ synth.pause(); synth.resume(); } }, 9000);
+    run();
+  }
+
+  /* read one plain string */
+  function say(text, trigger){ play([{text, el:null}], trigger); }
+
+  /* read an element block by block, skipping the Arabic gloss */
+  function read(root, trigger){
+    const blocks = $$('p, li, h4, h3, td, .keep, .term, .def, .qtext, .said', root)
+      .filter(el => !el.closest('.ar, .ar-block'))
+      .filter(el => !el.querySelector('p, li, td'));
+    const pieces = blocks.map(el => ({ text: el.textContent.replace(/\s+/g,' ').trim(), el }));
+    play(pieces, trigger);
+  }
+
+  return {
+    ok, play, say, read, stop,
+    setRate(r){ rate = r; stop(); },
+    get busy(){ return ok && synth.speaking; }
+  };
+})();
+
+/* normalise every Listen button so its label can flip to "Stop" */
+function dressListenButtons(root=document){
+  $$('.listen', root).forEach(b=>{
+    if(b.querySelector('.lbl')) return;
+    const label = b.textContent.replace(/\s+/g,' ').trim() || 'Listen';
+    b.dataset.label = label;
+    b.innerHTML = `<span class="wave"><i></i><i></i><i></i></span><span class="lbl">${label}</span>`;
+  });
+}
+function listenHTML(label='Listen', extra=''){
+  return `<button class="listen ${extra}" data-label="${label}"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">${label}</span></button>`;
+}
+dressListenButtons();
+
+document.addEventListener('click', e=>{
+  const b = e.target.closest('.listen[data-say]');
+  if(b) Voice.say(b.dataset.say, b);
+});
+
+$$('#rateSeg button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    $$('#rateSeg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    Voice.setRate(parseFloat(b.dataset.rate));
+    toast('Reading speed ' + b.textContent);
+  });
+});
+$('#stopAll').addEventListener('click', ()=>Voice.stop());
+$('#voiceNote').textContent = Voice.ok
+  ? 'القراءة الصوتية تعمل في هذا المتصفح. اضغطي «Stop» لإيقاف القراءة في أي وقت.'
+  : 'هذا المتصفح لا يدعم القراءة الصوتية — جرّبي كروم أو إيدج أو سفاري.';
+
+/* ==================================================================
+   4 · TABS
+   ================================================================== */
+$$('.rail-btn').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    Voice.stop();
+    $$('.rail-btn').forEach(x=>x.classList.remove('on'));
+    $$('.panel').forEach(p=>p.classList.remove('on'));
+    b.classList.add('on');
+    $('#' + b.dataset.go).classList.add('on');
+    scrollTo({top:0, behavior:'smooth'});
+    if(b.dataset.go === 'exam') Exam.enter();
+  });
+});
+function goTab(id){ $$('.rail-btn').find(b=>b.dataset.go===id).click(); }
+
+/* ==================================================================
+   5 · THE CHART  (explore map)
+   ================================================================== */
+const pins = [
+  {cat:'country', g:'📍', x:150, y:130, t:'Myanmar', b:'Myanmar is a Mainland Southeast Asian country. It shares a mountain range border with India that acts as a natural boundary.', a:'ميانمار دولة قارية، وتشترك في سلسلة جبلية مع الهند تعمل كحدود طبيعية.'},
+  {cat:'country', g:'📍', x:250, y:175, t:'Laos', b:'Laos is a landlocked Mainland Southeast Asian country, bordered by mountain ranges shared with China.', a:'لاوس دولة قارية بلا سواحل، وتحدها سلاسل جبلية مشتركة مع الصين.'},
+  {cat:'country', g:'📍', x:190, y:315, t:'Thailand', b:'Thailand is a Mainland Southeast Asian country crossed by the Chao Phraya River, which supports agriculture.', a:'تايلاند دولة قارية يمر بها نهر تشاو فرايا الذي يدعم الزراعة.'},
+  {cat:'country', g:'📍', x:335, y:255, t:'Vietnam', b:'Vietnam is a Mainland Southeast Asian country along the South China Sea, an important trade route.', a:'فيتنام دولة قارية تطل على بحر الصين الجنوبي، طريق تجاري مهم.'},
+  {cat:'country', g:'📍', x:285, y:410, t:'Cambodia', b:'Cambodia is a Mainland Southeast Asian country that shares mountain ranges with China and Laos.', a:'كمبوديا دولة قارية تشترك في سلاسل جبلية مع الصين ولاوس.'},
+  {cat:'country', g:'📍', x:598, y:272, t:'Philippines', b:'The Philippines is an Insular Southeast Asian country made up of many islands, including Luzon and Mindanao.', a:'الفلبين دولة جزرية تتكون من جزر كثيرة منها لوزون ومينداناو.'},
+  {cat:'country', g:'📍', x:615, y:440, t:'Indonesia', b:'Indonesia is the largest Insular country, home to islands like Sumatra, Java, Borneo, and Sulawesi, plus the volcano Krakatoa.', a:'إندونيسيا أكبر دولة جزرية، وتضم سومطرة وجاوة وبورنيو وسولاويزي، وبها بركان كراكاتوا.'},
+  {cat:'country', g:'📍', x:500, y:350, t:'Malaysia', b:'Malaysia is special: it has both Mainland features, the Malay Peninsula, and Insular features, Borneo.', a:'ماليزيا مميزة: لديها ملامح قارية (شبه جزيرة الملايو) وجزرية (بورنيو) معاً.'},
+  {cat:'country', g:'📍', x:455, y:430, t:'Singapore', b:'Singapore is a small Insular Southeast Asian country near the Straits of Malacca, a major trade route.', a:'سنغافورة دولة جزرية صغيرة قرب مضيق ملقا، طريق تجاري مهم.'},
+  {cat:'country', g:'📍', x:475, y:300, t:'Brunei', b:'Brunei is an Insular Southeast Asian country located on the island of Borneo.', a:'بروناي دولة جزرية تقع في جزيرة بورنيو.'},
+  {cat:'country', g:'📍', x:470, y:515, t:'Timor-Leste', b:'Timor-Leste is an Insular Southeast Asian country located on the island of Timor.', a:'تيمور الشرقية دولة جزرية تقع في جزيرة تيمور.'},
+  {cat:'river', g:'💧', x:120, y:80, t:'Irrawaddy River', b:'The Irrawaddy River flows through Myanmar, providing water and supporting agriculture and livelihoods.', a:'نهر إيراوادي يمر بميانمار، ويوفر الماء ويدعم الزراعة وسبل العيش.'},
+  {cat:'river', g:'💧', x:152, y:258, t:'Salween River', b:'The Salween River is one of the major rivers of Mainland Southeast Asia.', a:'نهر سالوين من أهم أنهار جنوب شرق آسيا القاري.'},
+  {cat:'river', g:'💧', x:240, y:110, t:'Red River', b:'The Red River supports farming communities in Mainland Southeast Asia.', a:'النهر الأحمر يدعم المجتمعات الزراعية في جنوب شرق آسيا القاري.'},
+  {cat:'river', g:'💧', x:255, y:345, t:'Mekong River', b:'The Mekong River is one of the most important rivers, providing water, transportation, and food for millions.', a:'نهر ميكونغ من أهم الأنهار، يوفر الماء والنقل والغذاء لملايين الناس.'},
+  {cat:'river', g:'💧', x:196, y:400, t:'Chao Phraya River', b:'The Chao Phraya River flows through Thailand, supporting agriculture and transportation.', a:'نهر تشاو فرايا يمر بتايلاند، ويدعم الزراعة والنقل.'},
+  {cat:'strait', g:'⛵', x:415, y:355, t:'Straits of Malacca', b:'The Straits of Malacca is a narrow water passage, an important sea route for transportation and trade.', a:'مضيق ملقا ممر مائي ضيق — طريق بحري مهم للنقل والتجارة.'},
+  {cat:'strait', g:'⛵', x:540, y:525, t:'Straits of Sunda', b:'The Straits of Sunda connects two larger bodies of water and has long been an important trade route.', a:'مضيق سوندا يربط بين مسطحين مائيين، وهو طريق تجاري مهم منذ القدم.'},
+  {cat:'strait', g:'⛵', x:668, y:370, t:'Straits of Makassar', b:'The Straits of Makassar is another important strait supporting sea trade in Insular Southeast Asia.', a:'مضيق ماكاسار من المضايق المهمة التي تدعم التجارة البحرية في جنوب شرق آسيا الجزري.'},
+  {cat:'volcano', g:'🌋', x:555, y:470, t:'Krakatoa', b:'Krakatoa, located in Indonesia, had a historic eruption in 1883. It sits within the Pacific Ring of Fire.', a:'كراكاتوا، في إندونيسيا، شهد ثوراناً تاريخياً عام 1883، ويقع ضمن حزام النار الهادئ.'},
+  {cat:'volcano', g:'🌋', x:668, y:232, t:'Mount Pinatubo', b:'Mount Pinatubo, located in the Philippines, had a major eruption in 1991.', a:'جبل بيناتوبو، في الفلبين، شهد ثوراناً كبيراً عام 1991.'},
+  {cat:'tsunami', g:'🌊', x:420, y:255, t:'2004 Indian Ocean Tsunami', b:'In 2004, a powerful tsunami affected areas near Sumatra, Indonesia, causing enormous damage. Always be prepared and listen to warnings.', a:'في 2004، أثر تسونامي قوي على مناطق قرب سومطرة بإندونيسيا وتسبب في أضرار جسيمة. كوني دائماً مستعدة واستمعي للتحذيرات!'},
+];
+
+const stage = $('#stage'), stageWrap = $('#stageWrap');
+let found = 0, current = null;
+$('#foundChip').textContent = `0 / ${pins.length} discovered`;
+
+pins.forEach((p, i)=>{
+  const el = document.createElement('button');
+  el.className = 'pin ' + p.cat;
+  el.style.left = (p.x / 800 * 100) + '%';
+  el.style.top  = (p.y / 600 * 100) + '%';
+  el.innerHTML = `<span class="ping" style="animation-delay:${(i % 7) * 0.42}s"></span>${p.g}`;
+  el.setAttribute('aria-label', p.t);
+  el.addEventListener('click', ev=>{
+    ev.stopPropagation();
+    openPin(i, el);
+  });
+  stage.appendChild(el);
+});
+
+function openPin(i, el){
+  const p = pins[i];
+  current = p;
+  $('#sheetGlyph').textContent = p.g;
+  $('#sheetTitle').textContent = p.t;
+  $('#sheetBody').textContent = p.b;
+  $('#sheetAr').textContent = p.a;
+  $('#sheet').classList.add('open');
+  if(!el.classList.contains('seen')){
+    el.classList.add('seen');
+    found++;
+    $('#foundChip').textContent = `${found} / ${pins.length} discovered`;
+    addXp(1);
+    if(found === pins.length){ confetti(60); toast('Every landmark logged. Chart complete!'); }
+  }
+  $('#sheet').scrollIntoView({block:'nearest', behavior:'smooth'});
+}
+$('#sheetClose').addEventListener('click', ()=>{ Voice.stop(); $('#sheet').classList.remove('open'); });
+$('#sheetSay').addEventListener('click', e=>{
+  if(current) Voice.say(`${current.t}. ${current.b}`, e.currentTarget);
+});
+
+/* pan + zoom */
+(function(){
+  let k = 1, tx = 0, ty = 0;
+  const KMIN = 1, KMAX = 3.2;
+  const draw = ()=>{ stage.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`; };
+  function clamp(){
+    const r = stageWrap.getBoundingClientRect();
+    tx = Math.min(0, Math.max(-r.width  * (k-1), tx));
+    ty = Math.min(0, Math.max(-r.height * (k-1), ty));
+  }
+  $('#zIn').addEventListener('click', ()=>{ k = Math.min(KMAX, k+0.45); clamp(); draw(); });
+  $('#zOut').addEventListener('click', ()=>{ k = Math.max(KMIN, k-0.45); if(k===KMIN){tx=ty=0;} clamp(); draw(); });
+  $('#zReset').addEventListener('click', ()=>{ k=1; tx=ty=0; draw(); });
+
+  const pts = new Map();
+  let drag = null, pinch = null;
+  stageWrap.addEventListener('pointerdown', e=>{
+    if(e.target.closest('.pin')) return;
+    stageWrap.setPointerCapture(e.pointerId);
+    pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    if(pts.size === 1) drag = {x:e.clientX, y:e.clientY, tx, ty};
+    else if(pts.size === 2){
+      const [a,b] = Array.from(pts.values());
+      pinch = {d: Math.hypot(a.x-b.x, a.y-b.y) || 1, k};
+      drag = null;
+    }
+  });
+  stageWrap.addEventListener('pointermove', e=>{
+    if(!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+    if(pts.size === 1 && drag){
+      tx = drag.tx + (e.clientX - drag.x);
+      ty = drag.ty + (e.clientY - drag.y);
+      clamp(); draw();
+    } else if(pts.size === 2 && pinch){
+      const [a,b] = Array.from(pts.values());
+      const d = Math.hypot(a.x-b.x, a.y-b.y) || 1;
+      k = Math.min(KMAX, Math.max(KMIN, pinch.k * (d / pinch.d)));
+      clamp(); draw();
+    }
+  });
+  const lift = e=>{ pts.delete(e.pointerId); if(pts.size<2) pinch=null; if(!pts.size) drag=null; };
+  stageWrap.addEventListener('pointerup', lift);
+  stageWrap.addEventListener('pointercancel', lift);
+})();
+
+/* ==================================================================
+   6 · FIELD NOTES
+   ================================================================== */
+const notes = [
+  {id:'I', title:'Southeast Asia', titleAr:'جنوب شرق آسيا',
+   html:`<p>Southeast Asia is a region located near the equator. It covers an area of over <b>4.5 million square kilometers</b>. Its geography includes islands, mountains, rivers, seas, plains, and peninsulas.</p>`,
+   ar:`<p>جنوب شرق آسيا منطقة تقع بالقرب من خط الاستواء. تغطي مساحة تزيد عن <b>4.5 مليون كيلومتر مربع</b>. تضم جغرافيتها جزراً وجبالاً وأنهاراً وبحاراً وسهولاً وأشباه جزر.</p>`},
+
+  {id:'II', title:'Important Terms', titleAr:'المصطلحات المهمة',
+   html:`<p>These fifteen terms are the foundation of the whole lesson. Study them here, then drill them in the Cards tab.</p>
+   <div class="tbl-wrap"><table class="terms"><tr><th>Term</th><th>Meaning</th></tr>
+   <tr><td>Archipelago</td><td>A group or cluster of large and small islands surrounded by water.<div class="ar">مجموعة أو تجمع من الجزر الكبيرة والصغيرة المحاطة بالمياه.</div></td></tr>
+   <tr><td>Mainland SE Asia</td><td>The part of Southeast Asia connected to the Asian continent.<div class="ar">الجزء من جنوب شرق آسيا المتصل بالقارة الآسيوية.</div></td></tr>
+   <tr><td>Insular SE Asia</td><td>The island part of Southeast Asia, consisting mainly of islands and archipelagos.<div class="ar">الجزء الجزري من جنوب شرق آسيا، يتكون أساساً من الجزر والأرخبيلات.</div></td></tr>
+   <tr><td>Tropical Region</td><td>A region generally characterized by warm or hot temperatures and significant rainfall.<div class="ar">منطقة تتميز بدرجات حرارة دافئة أو حارة وهطول أمطار غزيرة.</div></td></tr>
+   <tr><td>Monsoon</td><td>A seasonal wind that brings changes in weather, especially rainfall.<div class="ar">ريح موسمية تجلب تغيرات في الطقس، خصوصاً هطول الأمطار.</div></td></tr>
+   <tr><td>Natural Boundary</td><td>A natural feature, such as a mountain range, that separates areas or countries.<div class="ar">معلم طبيعي، مثل سلسلة جبال، يفصل بين المناطق أو الدول.</div></td></tr>
+   <tr><td>River Basin</td><td>An area of land drained by a river and its tributaries.<div class="ar">منطقة أرض يصرّفها نهر وروافده.</div></td></tr>
+   <tr><td>Strait</td><td>A narrow water passage that connects two larger bodies of water.<div class="ar">ممر مائي ضيق يربط بين مسطحين مائيين أكبر.</div></td></tr>
+   <tr><td>Natural Harbor</td><td>A sheltered coastal area where ships can safely anchor.<div class="ar">منطقة ساحلية محمية يمكن للسفن أن ترسو فيها بأمان.</div></td></tr>
+   <tr><td>Tectonic Plates</td><td>Large sections of Earth's crust that move and interact with one another.<div class="ar">أجزاء كبيرة من قشرة الأرض تتحرك وتتفاعل مع بعضها.</div></td></tr>
+   <tr><td>Volcanic Activity</td><td>The movement and eruption of magma through volcanoes.<div class="ar">حركة وثوران الصهارة عبر البراكين.</div></td></tr>
+   <tr><td>Pacific Ring of Fire</td><td>A tectonic belt around the Pacific Ocean known for many volcanoes and earthquakes.<div class="ar">حزام تكتوني حول المحيط الهادئ معروف بكثرة البراكين والزلازل.</div></td></tr>
+   <tr><td>Tsunami</td><td>A series of powerful ocean waves usually caused by an underwater earthquake or other major disturbance.<div class="ar">سلسلة أمواج محيطية قوية تحدث عادة بسبب زلزال تحت الماء.</div></td></tr>
+   <tr><td>Marine Resources</td><td>Natural resources obtained from the sea, such as fish and other seafood.<div class="ar">موارد طبيعية يتم الحصول عليها من البحر، مثل الأسماك.</div></td></tr>
+   <tr><td>Coastline</td><td>The boundary where land meets the sea.<div class="ar">الحد الفاصل بين اليابسة والبحر.</div></td></tr>
+   </table></div>`,
+   ar:`<p>هذه المصطلحات الخمسة عشر هي أساس الدرس كله. ذاكريها هنا، ثم تدربي عليها في قسم البطاقات.</p>`},
+
+  {id:'III', title:'Two Main Geographic Divisions', titleAr:'القسمان الجغرافيان الرئيسيان',
+   html:`<h4>1 · Mainland Southeast Asia</h4>
+   <p>This is the portion connected to the Asian continent.</p>
+   <ul><li>Myanmar</li><li>Thailand</li><li>Laos</li><li>Cambodia</li><li>Vietnam</li></ul>
+   <h4>2 · Insular Southeast Asia</h4>
+   <p>This consists mainly of islands and archipelagos.</p>
+   <ul><li>Philippines</li><li>Indonesia</li><li>Malaysia</li><li>Singapore</li><li>Brunei</li><li>Timor-Leste</li></ul>
+   <div class="keep"><b>Important:</b> Malaysia has both mainland and insular features. Western Malaysia is on the Malay Peninsula, while Eastern Malaysia is located on Borneo.</div>`,
+   ar:`<p><b>١. جنوب شرق آسيا القاري</b> — الجزء المتصل بالقارة الآسيوية: ميانمار، تايلاند، لاوس، كمبوديا، فيتنام.</p>
+   <p><b>٢. جنوب شرق آسيا الجزري</b> — يتكون أساساً من الجزر والأرخبيلات: الفلبين، إندونيسيا، ماليزيا، سنغافورة، بروناي، تيمور الشرقية.</p>
+   <p><b>مهم:</b> ماليزيا لديها ملامح قارية وجزرية معاً. ماليزيا الغربية على شبه جزيرة الملايو، وماليزيا الشرقية في جزيرة بورنيو.</p>`},
+
+  {id:'IV', title:'Location and Boundaries', titleAr:'الموقع والحدود',
+   html:`<p>Southeast Asia is surrounded by important bodies of water.</p>
+   <ul><li><b>East</b> — Pacific Ocean</li><li><b>South and West</b> — Indian Ocean</li><li><b>North and West</b> — China and India</li></ul>
+   <div class="keep"><b>Remember:</b> Pacific Ocean = East. Indian Ocean = South and West.</div>`,
+   ar:`<p>جنوب شرق آسيا محاطة بمسطحات مائية مهمة: <b>الشرق</b> — المحيط الهادئ، <b>الجنوب والغرب</b> — المحيط الهندي، <b>الشمال والغرب</b> — الصين والهند.</p>
+   <p><b>تذكري:</b> المحيط الهادئ = الشرق | المحيط الهندي = الجنوب والغرب</p>`},
+
+  {id:'V', title:'Climate of Southeast Asia', titleAr:'مناخ جنوب شرق آسيا',
+   html:`<p>Southeast Asia is located in a tropical region. Because of its location, many countries experience wet seasons, dry seasons, warm or hot weather, and significant rainfall.</p>
+   <h4>Monsoons in the Philippines</h4>
+   <p><b>Habagat</b> is the southwest monsoon. It is associated with changes in weather and rainfall.</p>
+   <p><b>Amihan</b> is the northeast monsoon, a seasonal wind affecting the Philippines.</p>
+   <div class="keep"><b>Easy way to remember:</b> Habagat = southwest. Amihan = northeast.</div>`,
+   ar:`<p>تقع جنوب شرق آسيا في منطقة استوائية، لذلك تشهد كثير من الدول: مواسم ممطرة، ومواسم جافة، وطقساً دافئاً أو حاراً، وأمطاراً غزيرة.</p>
+   <p><b>هاباجات</b> — رياح موسمية جنوبية غربية. <b>أميهان</b> — رياح موسمية شمالية شرقية تؤثر على الفلبين.</p>
+   <p><b>تذكري:</b> هاباجات = جنوب غربي | أميهان = شمال شرقي</p>`},
+
+  {id:'VI', title:'Physical Features of the Mainland', titleAr:'ملامح جنوب شرق آسيا القاري',
+   html:`<h4>Mountains</h4>
+   <p>Mainland Southeast Asia has high mountain ranges. They can serve as <b>natural boundaries</b> between countries because they separate different areas.</p>
+   <p>The lesson mentions mountain ranges between Myanmar and India, and between China and Laos.</p>
+   <h4>Plains</h4>
+   <p>The mainland also has large plains. Many plains are watered by major rivers, which makes them important for agriculture.</p>`,
+   ar:`<p><b>الجبال</b> — يوجد في جنوب شرق آسيا القاري سلاسل جبلية عالية تعمل كحدود طبيعية بين الدول. من الأمثلة: بين ميانمار والهند، وبين الصين ولاوس.</p>
+   <p><b>السهول</b> — توجد سهول واسعة تُروى بأنهار رئيسية، ما يجعلها مهمة للزراعة.</p>`},
+
+  {id:'VII', title:'Important Rivers', titleAr:'الأنهار المهمة',
+   html:`<p>Remember these five major rivers.</p>
+   <ul><li>Mekong River</li><li>Red River</li><li>Irrawaddy River</li><li>Salween River</li><li>Chao Phraya River</li></ul>
+   <p>Rivers provide water, agricultural support, transportation, and support for food production and livelihoods.</p>
+   <div class="keep"><b>Key idea:</b> Rivers give water, water grows agriculture, agriculture gives food and livelihood.</div>`,
+   ar:`<p>أهم الأنهار: ميكونغ، النهر الأحمر، إيراوادي، سالوين، تشاو فرايا. توفر الأنهار الماء والدعم الزراعي والنقل ودعم إنتاج الغذاء وسبل العيش.</p>
+   <p><b>فكرة أساسية:</b> الأنهار ← الماء ← الزراعة ← الغذاء وسبل العيش</p>`},
+
+  {id:'VIII', title:'Insular Southeast Asia', titleAr:'جنوب شرق آسيا الجزري',
+   html:`<p>Insular means related to islands. Insular Southeast Asia consists mainly of islands and archipelagos.</p>
+   <p>Important islands in the lesson are Borneo, Sumatra, Java, Luzon, Mindanao, Sulawesi, and Timor.</p>
+   <p>The region also has many seas, gulfs, rivers, and straits.</p>`,
+   ar:`<p>كلمة Insular تعني المتعلق بالجزر. يتكون جنوب شرق آسيا الجزري أساساً من الجزر والأرخبيلات مثل: بورنيو، سومطرة، جاوة، لوزون، مينداناو، سولاويزي، تيمور. وتضم المنطقة أيضاً بحاراً وخلجاناً وأنهاراً ومضايق كثيرة.</p>`},
+
+  {id:'IX', title:'Straits and Trade', titleAr:'المضايق والتجارة',
+   html:`<p>A strait is a narrow water passage that connects two larger bodies of water.</p>
+   <ul><li>Straits of Malacca</li><li>Straits of Sunda</li><li>Straits of Makassar</li></ul>
+   <p>These straits have been important sea routes for transportation and trade. The <b>South China Sea</b>, also called the <b>West Philippine Sea</b> in the Philippine context, has also been an important trade route.</p>
+   <div class="keep"><b>Remember:</b> Strait = narrow water passage = transportation plus trade.</div>`,
+   ar:`<p>المضيق ممر مائي ضيق يربط بين مسطحين مائيين أكبر. من المضايق المهمة: ملقا وسوندا وماكاسار — وهي طرق بحرية مهمة للنقل والتجارة. وبحر الصين الجنوبي، ويُعرف أيضاً ببحر الفلبين الغربي في السياق الفلبيني، كان أيضاً طريقاً تجارياً مهماً.</p>`},
+
+  {id:'X', title:'Natural Resources and Coasts', titleAr:'الموارد الطبيعية والسواحل',
+   html:`<p>Because Southeast Asia has many islands and long coastlines, its seas provide rich marine resources such as fish and other seafood.</p>
+   <p>The region also has rich coastlines, natural harbors, and important sea routes. The sea has played an important role in the <b>lives and economies</b> of people in Southeast Asia.</p>`,
+   ar:`<p>بسبب كثرة الجزر وطول السواحل، توفر بحار جنوب شرق آسيا موارد بحرية غنية مثل الأسماك والمأكولات البحرية. وتضم المنطقة سواحل غنية وموانئ طبيعية وطرقاً بحرية مهمة. لعب البحر دوراً مهماً في حياة واقتصاد سكان جنوب شرق آسيا.</p>`},
+
+  {id:'XI', title:'Volcanoes and Earthquakes', titleAr:'البراكين والزلازل',
+   html:`<p>Many parts of Southeast Asia experience earthquakes and volcanic activity. One major reason is the interaction and movement of several tectonic plates.</p>
+   <ul><li>Eurasian Plate</li><li>Indo-Australian Plate</li><li>Pacific Plate</li></ul>
+   <p>The movement of these plates can cause earthquakes and volcanic eruptions.</p>`,
+   ar:`<p>تشهد أجزاء كثيرة من جنوب شرق آسيا زلازل ونشاطاً بركانياً بسبب تفاعل وحركة عدة صفائح تكتونية: الصفيحة الأوراسية، وصفيحة الهند-أستراليا، وصفيحة المحيط الهادئ. وحركة هذه الصفائح تسبب الزلازل والثورات البركانية.</p>`},
+
+  {id:'XII', title:'Pacific Ring of Fire', titleAr:'حزام النار الهادئ',
+   html:`<p>The Pacific Ring of Fire is a tectonic belt around the Pacific Ocean. It is known for having many volcanoes and earthquakes. Some parts of Insular Southeast Asia are located within this area.</p>
+   <h4>Important volcanoes</h4>
+   <p><b>Krakatoa</b> is located in Indonesia and had a historic eruption in <b>1883</b>.</p>
+   <p><b>Mount Pinatubo</b> is located in the Philippines and had a major eruption in <b>1991</b>.</p>`,
+   ar:`<p>حزام النار الهادئ حزام تكتوني يحيط بالمحيط الهادئ، معروف بكثرة البراكين والزلازل. وتقع بعض أجزاء جنوب شرق آسيا الجزري ضمن هذه المنطقة.</p>
+   <p><b>كراكاتوا</b> — في إندونيسيا، ثار عام <b>1883</b>. <b>جبل بيناتوبو</b> — في الفلبين، ثار عام <b>1991</b>.</p>`},
+
+  {id:'XIII', title:'The 2004 Indian Ocean Tsunami', titleAr:'تسونامي المحيط الهندي 2004',
+   html:`<p>In 2004, a powerful tsunami affected countries around the Indian Ocean, particularly areas near Sumatra, Indonesia. The disaster caused enormous damage and loss of life.</p>
+   <p>The lesson from natural disasters is that people should be prepared, listen to warnings, and know what to do during disasters.</p>`,
+   ar:`<p>في عام 2004، أثر تسونامي قوي على دول حول المحيط الهندي، خصوصاً المناطق القريبة من سومطرة بإندونيسيا، وتسبب في أضرار جسيمة وخسائر في الأرواح.</p>
+   <p><b>الدرس المستفاد:</b> يجب أن يكون الناس مستعدين، وأن يستمعوا للتحذيرات، وأن يعرفوا ما يجب فعله أثناء الكوارث.</p>`},
+
+  {id:'XIV', title:"How Geography Shapes People's Lives", titleAr:'كيف تؤثر الجغرافيا على حياة الناس',
+   html:`<p>The physical geography of Southeast Asia affects how people live.</p>
+   <ul><li><b>Mountains</b> can serve as natural boundaries.</li>
+   <li><b>Rivers</b> provide water and support agriculture.</li>
+   <li><b>Plains</b> are important for farming.</li>
+   <li><b>Seas and straits</b> support transportation and trade.</li>
+   <li><b>Islands and coastlines</b> provide marine resources and natural harbors.</li>
+   <li><b>Volcanoes and earthquakes</b> affect where people live and require disaster preparedness.</li></ul>`,
+   ar:`<p>تؤثر الجغرافيا الطبيعية لجنوب شرق آسيا على طريقة عيش الناس: <b>الجبال</b> ← حدود طبيعية. <b>الأنهار</b> ← ماء وزراعة. <b>السهول</b> ← مهمة للزراعة. <b>البحار والمضايق</b> ← نقل وتجارة. <b>الجزر والسواحل</b> ← موارد بحرية وموانئ طبيعية. <b>البراكين والزلازل</b> ← تؤثر على أماكن السكن وتتطلب الاستعداد للكوارث.</p>`},
+
+  {id:'★', title:'Seventeen Facts to Carry With You', titleAr:'سبع عشرة حقيقة لازم تفضل معاكِ',
+   html:`<ol>
+   <li>Southeast Asia has two main geographic divisions: Mainland and Insular.</li>
+   <li>Archipelago means a group of islands surrounded by water.</li>
+   <li>Malaysia has both mainland and insular features.</li>
+   <li>The Pacific Ocean is east of Southeast Asia.</li>
+   <li>The Indian Ocean is south and west of Southeast Asia.</li>
+   <li>Southeast Asia has a tropical climate.</li>
+   <li>Habagat is the southwest monsoon.</li>
+   <li>Amihan is the northeast monsoon.</li>
+   <li>Major rivers include the Mekong, Red, and Irrawaddy Rivers.</li>
+   <li>A strait is a narrow water passage connecting two larger bodies of water.</li>
+   <li>Important straits include Malacca, Sunda, and Makassar.</li>
+   <li>Tectonic plate movement causes earthquakes and volcanic activity.</li>
+   <li>The Pacific Ring of Fire is a tectonic belt around the Pacific Ocean.</li>
+   <li>Krakatoa erupted in 1883.</li>
+   <li>Mount Pinatubo had a major eruption in 1991.</li>
+   <li>The 2004 Indian Ocean Tsunami affected areas around the Indian Ocean, particularly near Sumatra.</li>
+   <li>Geography helps us understand how mountains, rivers, islands, seas, climate, and natural disasters affect people's lives.</li>
+   </ol>`,
+   ar:`<ol>
+   <li>لجنوب شرق آسيا قسمان جغرافيان رئيسيان: القاري والجزري.</li>
+   <li>الأرخبيل = مجموعة جزر محاطة بالمياه.</li>
+   <li>ماليزيا لديها ملامح قارية وجزرية معاً.</li>
+   <li>المحيط الهادئ يقع شرق جنوب شرق آسيا.</li>
+   <li>المحيط الهندي يقع جنوب وغرب جنوب شرق آسيا.</li>
+   <li>جنوب شرق آسيا لها مناخ استوائي.</li>
+   <li>هاباجات = رياح موسمية جنوبية غربية.</li>
+   <li>أميهان = رياح موسمية شمالية شرقية.</li>
+   <li>من أهم الأنهار: ميكونغ، النهر الأحمر، وإيراوادي.</li>
+   <li>المضيق = ممر مائي ضيق يربط مسطحين مائيين أكبر.</li>
+   <li>من المضايق المهمة: ملقا وسوندا وماكاسار.</li>
+   <li>حركة الصفائح التكتونية تسبب الزلازل والنشاط البركاني.</li>
+   <li>حزام النار الهادئ = حزام تكتوني حول المحيط الهادئ.</li>
+   <li>ثار بركان كراكاتوا عام 1883.</li>
+   <li>شهد جبل بيناتوبو ثوراناً كبيراً عام 1991.</li>
+   <li>أثر تسونامي المحيط الهندي 2004 على مناطق حول المحيط الهندي، خصوصاً قرب سومطرة.</li>
+   <li>تساعدنا الجغرافيا على فهم كيف تؤثر الجبال والأنهار والجزر والبحار والمناخ والكوارث الطبيعية على حياة الناس.</li>
+   </ol>`},
+];
+
+const foldWrap = $('#folds');
+notes.forEach(n=>{
+  const box = document.createElement('section');
+  box.className = 'fold';
+  box.innerHTML = `
+    <button class="fold-head" aria-expanded="false">
+      <span class="fold-num">${n.id}</span>
+      <span class="fold-title">${n.title}<span class="ar">${n.titleAr}</span></span>
+      <span class="fold-caret">▸</span>
+    </button>
+    <div class="fold-body">
+      ${n.html}
+      <div class="ar-block">${n.ar}</div>
+      <div class="fold-tools">${listenHTML('Listen to this part')}</div>
+    </div>`;
+  foldWrap.appendChild(box);
+
+  const head = $('.fold-head', box), body = $('.fold-body', box);
+  head.addEventListener('click', ()=>{
+    const open = box.classList.toggle('open');
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(!open) Voice.stop();
+  });
+  $('.listen', box).addEventListener('click', e=>{
+    e.stopPropagation();
+    Voice.read(body, e.currentTarget);
+  });
+});
+
+/* ==================================================================
+   7 · TERM DECK
+   ================================================================== */
+let cards = [
+  {t:'Archipelago', ta:'أرخبيل', m:'A group or cluster of large and small islands surrounded by water.', ma:'مجموعة أو تجمع من الجزر الكبيرة والصغيرة المحاطة بالمياه.'},
+  {t:'Mainland Southeast Asia', ta:'جنوب شرق آسيا القاري', m:'The part of Southeast Asia connected to the Asian continent.', ma:'الجزء من جنوب شرق آسيا المتصل بالقارة الآسيوية.'},
+  {t:'Insular Southeast Asia', ta:'جنوب شرق آسيا الجزري', m:'The island part of Southeast Asia, consisting mainly of islands and archipelagos.', ma:'الجزء الجزري من جنوب شرق آسيا، يتكون أساساً من الجزر والأرخبيلات.'},
+  {t:'Tropical Region', ta:'منطقة استوائية', m:'A region generally characterized by warm or hot temperatures and significant rainfall.', ma:'منطقة تتميز بدرجات حرارة دافئة أو حارة وهطول أمطار غزيرة.'},
+  {t:'Monsoon', ta:'رياح موسمية', m:'A seasonal wind that brings changes in weather, especially rainfall.', ma:'ريح موسمية تجلب تغيرات في الطقس، خصوصاً هطول الأمطار.'},
+  {t:'Natural Boundary', ta:'حدود طبيعية', m:'A natural feature, such as a mountain range, that separates areas or countries.', ma:'معلم طبيعي، مثل سلسلة جبال، يفصل بين المناطق أو الدول.'},
+  {t:'River Basin', ta:'حوض نهري', m:'An area of land drained by a river and its tributaries.', ma:'منطقة أرض يصرّفها نهر وروافده.'},
+  {t:'Strait', ta:'مضيق', m:'A narrow water passage that connects two larger bodies of water.', ma:'ممر مائي ضيق يربط بين مسطحين مائيين أكبر.'},
+  {t:'Natural Harbor', ta:'ميناء طبيعي', m:'A sheltered coastal area where ships can safely anchor.', ma:'منطقة ساحلية محمية يمكن للسفن أن ترسو فيها بأمان.'},
+  {t:'Tectonic Plates', ta:'صفائح تكتونية', m:"Large sections of Earth's crust that move and interact with one another.", ma:'أجزاء كبيرة من قشرة الأرض تتحرك وتتفاعل مع بعضها.'},
+  {t:'Volcanic Activity', ta:'نشاط بركاني', m:'The movement and eruption of magma through volcanoes.', ma:'حركة وثوران الصهارة عبر البراكين.'},
+  {t:'Pacific Ring of Fire', ta:'حزام النار الهادئ', m:'A tectonic belt around the Pacific Ocean known for many volcanoes and earthquakes.', ma:'حزام تكتوني حول المحيط الهادئ معروف بكثرة البراكين والزلازل.'},
+  {t:'Tsunami', ta:'تسونامي', m:'A series of powerful ocean waves usually caused by an underwater earthquake or other major disturbance.', ma:'سلسلة أمواج محيطية قوية تحدث عادة بسبب زلزال تحت الماء.'},
+  {t:'Marine Resources', ta:'موارد بحرية', m:'Natural resources obtained from the sea, such as fish and other seafood.', ma:'موارد طبيعية يتم الحصول عليها من البحر، مثل الأسماك.'},
+  {t:'Coastline', ta:'خط ساحلي', m:'The boundary where land meets the sea.', ma:'الحد الفاصل بين اليابسة والبحر.'},
+];
+cards.forEach(c => c.state = null);
+let cardAt = 0;
+
+function paintCard(){
+  const c = cards[cardAt];
+  $('#fcTerm').textContent = c.t;
+  $('#fcTermAr').textContent = c.ta;
+  $('#fcDef').textContent = c.m;
+  $('#fcDefAr').textContent = c.ma;
+  $('#fcard').classList.remove('flipped');
+  $('#deckCount').textContent = `Card ${cardAt+1} of ${cards.length}`;
+  const known = cards.filter(x=>x.state==='got').length;
+  const again = cards.filter(x=>x.state==='again').length;
+  $('#deckStats').textContent = `Known ${known} · Still learning ${again} · Unmarked ${cards.length-known-again}`;
+}
+$('#fcard').addEventListener('click', ()=> $('#fcard').classList.toggle('flipped'));
+$('#fcard').addEventListener('keydown', e=>{
+  if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); $('#fcard').classList.toggle('flipped'); }
+});
+$('#fcNext').addEventListener('click', ()=>{ Voice.stop(); cardAt = (cardAt+1) % cards.length; paintCard(); });
+$('#fcPrev').addEventListener('click', ()=>{ Voice.stop(); cardAt = (cardAt-1+cards.length) % cards.length; paintCard(); });
+$('#fcShuffle').addEventListener('click', ()=>{
+  Voice.stop();
+  for(let i=cards.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [cards[i],cards[j]] = [cards[j],cards[i]]; }
+  cardAt = 0; paintCard(); toast('Deck shuffled');
+});
+$('#fcGot').addEventListener('click', ()=>{ cards[cardAt].state='got'; paintCard(); });
+$('#fcAgain').addEventListener('click', ()=>{ cards[cardAt].state='again'; paintCard(); });
+$('#fcSay').addEventListener('click', e=>{
+  const c = cards[cardAt];
+  Voice.play([{text:c.t, el:null}, {text:c.m, el:null}], e.currentTarget);
+});
+paintCard();
+
+/* ==================================================================
+   8 · COUNTRY SORT
+   ================================================================== */
+const lands = [
+  {n:'Myanmar', a:'ميانمار', key:'mainland'},
+  {n:'Thailand', a:'تايلاند', key:'mainland'},
+  {n:'Laos', a:'لاوس', key:'mainland'},
+  {n:'Cambodia', a:'كمبوديا', key:'mainland'},
+  {n:'Vietnam', a:'فيتنام', key:'mainland'},
+  {n:'Philippines', a:'الفلبين', key:'insular'},
+  {n:'Indonesia', a:'إندونيسيا', key:'insular'},
+  {n:'Singapore', a:'سنغافورة', key:'insular'},
+  {n:'Brunei', a:'بروناي', key:'insular'},
+  {n:'Timor-Leste', a:'تيمور الشرقية', key:'insular'},
+  {n:'Malaysia', a:'ماليزيا', key:'both'},
+];
+const LABELS = {mainland:'Mainland', insular:'Insular', both:'Both'};
+let sorted = 0;
+const sorterWrap = $('#sorter');
+lands.forEach(land=>{
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = `<div class="who"><b>${land.n}</b><div class="ar" style="text-align:left">${land.a}</div></div>
+    <div class="picks">
+      ${Object.keys(LABELS).map(k=>`<button class="pick" data-k="${k}">${LABELS[k]}</button>`).join('')}
+    </div>`;
+  sorterWrap.appendChild(row);
+  $$('.pick', row).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const right = btn.dataset.k === land.key;
+      $$('.pick', row).forEach(p=>{
+        p.disabled = true;
+        if(p.dataset.k === land.key) p.classList.add('right');
+      });
+      if(!right) btn.classList.add('wrong');
+      row.classList.add(right ? 'done' : 'miss');
+      if(right) addXp(1);
+      sorted++;
+      $('#sortStats').textContent = `${sorted} of ${lands.length} sorted`;
+      if(sorted === lands.length){ confetti(40); toast('All countries sorted!'); }
+    });
+  });
+});
+
+/* ==================================================================
+   9 · THE SEALED EXAM
+   Nothing is revealed until the whole exam is submitted.
+   ================================================================== */
+const questions = [
+  {q:'Southeast Asia covers an area of over ___ square kilometers.', a:'مساحة جنوب شرق آسيا تزيد عن ___ كيلومتر مربع.', o:['2.5 million','4.5 million','6.5 million','8.5 million'], c:1},
+  {q:'Which ocean is located to the East of Southeast Asia?', a:'أي محيط يقع إلى الشرق من جنوب شرق آسيا؟', o:['Indian Ocean','Pacific Ocean','Atlantic Ocean','Arctic Ocean'], c:1},
+  {q:'Which ocean is located to the South and West of Southeast Asia?', a:'أي محيط يقع إلى الجنوب والغرب من جنوب شرق آسيا؟', o:['Pacific Ocean','Arctic Ocean','Indian Ocean','Atlantic Ocean'], c:2},
+  {q:'True or False: Malaysia has both mainland and insular features.', a:'صح أم خطأ: ماليزيا لديها ملامح قارية وجزرية معاً.', o:['True','False'], c:0},
+  {q:'Which of these is NOT a Mainland Southeast Asian country?', a:'أي دولة من هذه ليست من دول جنوب شرق آسيا القارية؟', o:['Thailand','Vietnam','Indonesia','Laos'], c:2},
+  {q:'Which of these is an Insular Southeast Asian country?', a:'أي دولة من هذه من دول جنوب شرق آسيا الجزرية؟', o:['Cambodia','Myanmar','Philippines','Vietnam'], c:2},
+  {q:'Habagat is the ___ monsoon.', a:'هاباجات هي الرياح الموسمية ___.', o:['Northeast','Southwest','Northwest','Southeast'], c:1},
+  {q:'Amihan is the ___ monsoon.', a:'أميهان هي الرياح الموسمية ___.', o:['Southwest','Southeast','Northeast','Northwest'], c:2},
+  {q:'True or False: Southeast Asia has a tropical climate.', a:'صح أم خطأ: جنوب شرق آسيا لها مناخ استوائي.', o:['True','False'], c:0},
+  {q:'The lesson mentions mountain ranges that form natural boundaries between which countries?', a:'الدرس ذكر سلاسل جبلية تشكل حدوداً طبيعية بين أي دول؟', o:['Myanmar and India, China and Laos','Thailand and Vietnam','Only the Philippines','None of these'], c:0},
+  {q:'Which of these is NOT one of the five major rivers mentioned in the lesson?', a:'أي من هذه ليس من الأنهار الخمسة الرئيسية المذكورة في الدرس؟', o:['Mekong River','Red River','Nile River','Chao Phraya River'], c:2},
+  {q:'Rivers provide all of these EXCEPT:', a:'الأنهار توفر كل هذه ما عدا:', o:['Water','Agricultural support','Transportation','Government services'], c:3},
+  {q:'A strait is best defined as:', a:'أفضل تعريف للمضيق هو:', o:['A mountain range between countries','A narrow water passage connecting two larger bodies of water','A type of volcano','An area drained by a river'], c:1},
+  {q:'Which of these is an important strait mentioned in the lesson?', a:'أي من هذه مضيق مهم ذُكر في الدرس؟', o:['Strait of Gibraltar','Straits of Malacca','Bering Strait','Taiwan Strait'], c:1},
+  {q:'True or False: The South China Sea is also called the West Philippine Sea in the Philippine context.', a:'صح أم خطأ: بحر الصين الجنوبي يُعرف أيضاً ببحر الفلبين الغربي في السياق الفلبيني.', o:['True','False'], c:0},
+  {q:'Which three tectonic plates were mentioned as causing earthquakes and volcanic activity in Southeast Asia?', a:'ما هي الصفائح التكتونية الثلاث التي ذُكرت كسبب للزلازل والنشاط البركاني؟', o:['African, Antarctic, Pacific','Eurasian, Indo-Australian, Pacific','Eurasian, North American, Pacific','Nazca, Pacific, Eurasian'], c:1},
+  {q:'The Pacific Ring of Fire is best described as:', a:'أفضل وصف لحزام النار الهادئ هو:', o:['A river system in Asia','A mountain range in Mainland Southeast Asia','A tectonic belt around the Pacific Ocean','A type of monsoon'], c:2},
+  {q:'Krakatoa had a historic eruption in:', a:'ثار بركان كراكاتوا ثوراناً تاريخياً في عام:', o:['1883','1991','2004','1945'], c:0},
+  {q:'Mount Pinatubo, located in the Philippines, had a major eruption in:', a:'جبل بيناتوبو في الفلبين شهد ثوراناً كبيراً في عام:', o:['1883','1991','2004','1998'], c:1},
+  {q:'The 2004 Indian Ocean Tsunami particularly affected areas near:', a:'تسونامي المحيط الهندي 2004 أثر بشكل خاص على مناطق قرب:', o:['Luzon, Philippines','Sumatra, Indonesia','Bangkok, Thailand','Singapore'], c:1},
+];
+const KEYS = ['A','B','C','D'];
+
+const Exam = (function(){
+  let pool = questions.map((_,i)=>i);   /* which questions are in play */
+  let picks = {};                        /* question index -> chosen option */
+  let flags = new Set();
+  let at = 0, t0 = null, tick = null, elapsed = 0, xpGiven = 0, sealed = true;
+
+  function enter(){
+    if(sealed && !t0){ t0 = Date.now(); tick = setInterval(clock, 1000); }
+  }
+  function clock(){
+    elapsed = t0 ? Math.floor((Date.now()-t0)/1000) : 0;
+    $('#clock').textContent = fmt(elapsed);
+  }
+  function fmt(s){ return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+
+  function paint(){
+    const qi = pool[at], q = questions[qi];
+    $('#qNum').textContent = `Q${at+1} / ${pool.length}`;
+    $('#qText').textContent = q.q;
+    $('#qAr').textContent = q.a;
+    $('#qFlag').classList.toggle('on', flags.has(qi));
+    $('#qFlag').innerHTML = flags.has(qi) ? '⚑ Flagged' : '⚑ Flag';
+
+    const box = $('#qOpts');
+    box.innerHTML = '';
+    q.o.forEach((text, oi)=>{
+      const b = document.createElement('button');
+      b.className = 'opt' + (picks[qi] === oi ? ' chosen' : '');
+      b.innerHTML = `<span class="key">${KEYS[oi]}</span><span>${text}</span>`;
+      b.addEventListener('click', ()=>{
+        picks[qi] = oi;                     /* selection only — no verdict */
+        paint(); meter();
+        if(at < pool.length-1) setTimeout(()=>{ at++; paint(); }, 260);
+      });
+      box.appendChild(b);
+    });
+
+    $('#qPrev').disabled = at === 0;
+    $('#qNext').disabled = at === pool.length-1;
+    grid(); meter();
+  }
+
+  function grid(){
+    const g = $('#navGrid');
+    g.innerHTML = '';
+    pool.forEach((qi, n)=>{
+      const cell = document.createElement('button');
+      cell.className = 'navcell'
+        + (picks[qi] != null ? ' filled' : '')
+        + (flags.has(qi) ? ' flagged' : '')
+        + (n === at ? ' here' : '');
+      cell.textContent = n+1;
+      cell.addEventListener('click', ()=>{ Voice.stop(); at = n; paint(); $('#qstage').scrollIntoView({block:'start', behavior:'smooth'}); });
+      g.appendChild(cell);
+    });
+  }
+
+  function meter(){
+    const done = pool.filter(qi => picks[qi] != null).length;
+    $('#examMeter').style.width = (done / pool.length * 100) + '%';
+    $('#answeredCount').textContent = `${done} answered`;
+    $('#leftCount').textContent = `${pool.length - done} left`;
+  }
+
+  function submit(){
+    sealed = false;
+    if(tick){ clearInterval(tick); tick = null; }
+    Voice.stop();
+
+    const right = pool.filter(qi => picks[qi] === questions[qi].c).length;
+    const pct = Math.round(right / pool.length * 100);
+
+    /* XP: award only what has not been earned before */
+    addXp(Math.max(0, right - xpGiven));
+    xpGiven = Math.max(xpGiven, right);
+
+    $('#examLive').style.display = 'none';
+    $('#results').classList.add('on');
+
+    const R = 52, C = 2 * Math.PI * R;
+    const dial = $('#dialVal');
+    dial.style.strokeDasharray = C;
+    dial.style.strokeDashoffset = C;
+    requestAnimationFrame(()=>{ dial.style.strokeDashoffset = C * (1 - pct/100); });
+    dial.style.stroke = pct >= 80 ? 'var(--lagoon)' : pct >= 60 ? '#e8bc63' : 'var(--ember)';
+
+    $('#pct').textContent = pct + '%';
+    $('#tRight').textContent = right;
+    $('#tWrong').textContent = pool.length - right;
+    $('#tTime').textContent = fmt(elapsed);
+
+    const band = pct >= 90 ? ['Outstanding','Excellent','ممتازة! مستوى عالي جداً — استمري كده.']
+              : pct >= 80 ? ['Strong work','Very good','ممتاز! مستواكِ قوي — راجعي الأسئلة الخطأ فقط.']
+              : pct >= 70 ? ['Solid','Good','كويس! راجعي الملاحظات وأعيدي الأسئلة الخطأ.']
+              : pct >= 60 ? ['Getting there','Fair','مقبول — ذاكري الملاحظات تاني وأعيدي الامتحان.']
+              : ['Back to the notes','Keep training','محتاجة مراجعة — ارجعي للملاحظات واسمعيها، وبعدين أعيدي.'];
+    $('#grade').textContent = band[1];
+    $('#verdict').textContent = band[0];
+    $('#verdictNote').textContent = `${right} of ${pool.length} correct in ${fmt(elapsed)}.`;
+    $('#verdictAr').textContent = band[2];
+
+    review();
+    if(pct >= 80) confetti(pct >= 90 ? 70 : 45);
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function review(){
+    const list = $('#reviewList');
+    list.innerHTML = '';
+    pool.forEach((qi, n)=>{
+      const q = questions[qi];
+      const mine = picks[qi];
+      const hit = mine === q.c;
+      const item = document.createElement('div');
+      item.className = 'review-item' + (hit ? '' : ' wrong');
+      item.innerHTML = `
+        <div class="rq"><span class="qnum">Q${n+1}</span> ${q.q}</div>
+        <div class="ar">${q.a}</div>
+        <div class="answer-line">
+          <span class="tag yours ${hit ? 'ok' : ''}">Your answer</span>
+          <span>${mine == null ? '— left blank / لم تُجب' : KEYS[mine] + '. ' + q.o[mine]}</span>
+        </div>
+        ${hit ? '' : `<div class="answer-line"><span class="tag key">Correct</span><span>${KEYS[q.c]}. ${q.o[q.c]}</span></div>`}
+        <div class="fold-tools">${listenHTML('Listen', 'mini')}</div>`;
+      list.appendChild(item);
+      $('.listen', item).addEventListener('click', e=>{
+        Voice.play([
+          {text:q.q, el:null},
+          {text:'The correct answer is ' + q.o[q.c], el:null}
+        ], e.currentTarget);
+      });
+    });
+  }
+
+  function restart(only){
+    pool = only && only.length ? only : questions.map((_,i)=>i);
+    picks = {}; flags = new Set(); at = 0;
+    sealed = true; t0 = Date.now(); elapsed = 0;
+    if(tick) clearInterval(tick);
+    tick = setInterval(clock, 1000);
+    $('#clock').textContent = '0:00';
+    $('#results').classList.remove('on');
+    $('#examLive').style.display = '';
+    paint();
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* wiring */
+  $('#qPrev').addEventListener('click', ()=>{ Voice.stop(); if(at>0){ at--; paint(); } });
+  $('#qNext').addEventListener('click', ()=>{ Voice.stop(); if(at<pool.length-1){ at++; paint(); } });
+  $('#qFlag').addEventListener('click', ()=>{
+    const qi = pool[at];
+    flags.has(qi) ? flags.delete(qi) : flags.add(qi);
+    paint();
+  });
+  $('#qSay').addEventListener('click', e=>{
+    const q = questions[pool[at]];
+    Voice.play([{text:q.q, el:null}].concat(q.o.map((o,i)=>({text:KEYS[i] + '. ' + o, el:null}))), e.currentTarget);
+  });
+
+  $('#submitBtn').addEventListener('click', ()=>{
+    const blank = pool.filter(qi => picks[qi] == null).length;
+    $('#modalTitle').textContent = blank ? `${blank} question${blank>1?'s are':' is'} still blank` : 'Ready to unseal?';
+    $('#modalBody').textContent = blank
+      ? 'Blank questions are counted as wrong. You can go back and finish them first.'
+      : 'Every question is answered. Submitting reveals your score and all the correct answers.';
+    $('#modalAr').textContent = blank
+      ? 'الأسئلة الفارغة تُحسب خطأ. تقدري ترجعي وتكمليها الأول.'
+      : 'جاوبتِ على كل الأسئلة. التسليم هيكشف درجتك وكل الإجابات الصحيحة.';
+    $('#veil').classList.add('on');
+  });
+  $('#modalBack').addEventListener('click', ()=> $('#veil').classList.remove('on'));
+  $('#modalGo').addEventListener('click', ()=>{ $('#veil').classList.remove('on'); submit(); });
+  $('#veil').addEventListener('click', e=>{ if(e.target === $('#veil')) $('#veil').classList.remove('on'); });
+
+  $('#againBtn').addEventListener('click', ()=> restart(null));
+  $('#missedBtn').addEventListener('click', ()=>{
+    const missed = pool.filter(qi => picks[qi] !== questions[qi].c);
+    if(!missed.length){ toast('Nothing missed — a perfect run!'); return; }
+    restart(missed);
+    toast(`Retaking ${missed.length} question${missed.length>1?'s':''}`);
+  });
+  $('#toNotes').addEventListener('click', ()=> goTab('notes'));
+
+  paint();
+  return { enter };
+})();
+
+/* keyboard: Escape stops the reading voice and closes the modal */
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){ Voice.stop(); $('#veil').classList.remove('on'); }
+});
+</script>
+</body>
+</html>
