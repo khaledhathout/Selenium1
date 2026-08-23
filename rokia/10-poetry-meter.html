@@ -1,13 +1,17 @@
-# -*- coding: utf-8 -*-
-"""Shared kit for Rokia's lesson pages: one design system, one engine, nine pages."""
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Beat of a Poem</title>
+<style>
 
-CSS = r"""
 :root{
   --bg:#fbfaf8; --card:#ffffff; --soft:#f3f1ee;
   --ink:#1e2230; --ink2:#414a60; --muted:#6d7791;
   --line:#e7e4de; --line2:#f0eeea;
-  --a:%(A)s; --a-deep:%(AD)s; --a-wash:%(AW)s;
-  --b:%(B)s; --b-wash:%(BW)s;
+  --a:#8a4b78; --a-deep:#66365a; --a-wash:#f6e8f3;
+  --b:#c78b2a; --b-wash:#faeed6;
   --good:#1f8a5b; --good-wash:#dff3e8;
   --bad:#c8452f; --bad-wash:#fce3dd;
   --gold:#b8860b; --gold-wash:#fbeed0;
@@ -23,8 +27,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#d094c4; --a-deep:#e6bfe0; --a-wash:#3a1f34;
+  --b:#e0b463; --b-wash:#3a2c12;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -34,8 +38,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#d094c4; --a-deep:#e6bfe0; --a-wash:#3a1f34;
+  --b:#e0b463; --b-wash:#3a2c12;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -245,9 +249,156 @@ table.tbl td:first-child{font-weight:700;color:var(--ink)}
 @keyframes fall{to{transform:translateY(105vh) rotate(520deg);opacity:.2}}
 @media (max-width:520px){ .mgrid{grid-template-columns:1fr} .card{padding:.95rem} }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-"""
 
-ENGINE = r"""
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">English · Poetry</div>
+        <h1>The Beat of a Poem</h1>
+        <div class="sub">Poems have a heartbeat. Learn to count it, name it, and hear it in every line.</div>
+        <div class="ar">للقصيدة نبض. تعلّمي كيف تعدّينه وتسمّينه وتسمعينه في كل سطر.</div>
+      </div>
+      <div class="tools">
+        <div class="ring">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle class="bg" cx="30" cy="30" r="26"></circle><circle class="fg" id="ringFg" cx="30" cy="30" r="26"></circle></svg>
+          <b id="ringTxt">0%</b>
+        </div>
+        <div class="iconbtns">
+          <button class="ib" id="tDn" title="Smaller text" aria-label="Smaller text">A−</button>
+          <button class="ib" id="tUp" title="Bigger text" aria-label="Bigger text">A+</button>
+          <button class="ib" id="themeBtn" title="Light or dark" aria-label="Light or dark">◐</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab on" data-go="learn">Learn<span class="ar c">الدرس</span></button>
+  <button class="tab" data-go="cards">Cards<span class="ar c">بطاقات</span></button>
+  <button class="tab" data-go="play">Play<span class="ar c">لعبة</span></button>
+  <button class="tab" data-go="quiz">Quiz<span class="ar c">اختبار</span></button>
+</nav>
+
+<main>
+  <section class="panel on" id="learn">
+    <div class="card">
+      <span class="chip">Listen and read</span>
+      <h2>Meter, feet, and rhythm</h2>
+      <p class="lead">Open a part to read it, and press Listen to hear it read aloud in English.</p>
+      <div class="ar">افتحي أي جزء لقراءته، واضغطي «Listen» لسماعه بالإنجليزية.</div>
+      <div class="voicebar">
+        <span class="chip" style="background:transparent;color:var(--muted)">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button><button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button><button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">Stop</button>
+      </div>
+    </div>
+    <div id="parts"></div>
+  </section>
+
+  <section class="panel" id="cards">
+    <div class="card">
+      <span class="chip">Flip cards</span>
+      <h2>Poetry cards</h2>
+      <p class="lead">Say the meaning out loud, then flip the card to check.</p>
+      <div class="ar">قولي المعنى بصوت عالٍ ثم اقلبي البطاقة للتأكد.</div>
+    </div>
+    <div class="deck">
+      <div class="dcount" id="dcount"></div>
+      <div class="flip">
+        <div class="flip-in" id="flip" role="button" tabindex="0" aria-label="Flashcard, activate to flip">
+          <div class="face face-a"><div class="big" id="cFront"></div><div class="ar c" id="cFrontAr"></div><div class="tapme">Tap to flip · اضغطي للقلب</div></div>
+          <div class="face face-b"><div class="def" id="cBack"></div><div class="ar c" id="cBackAr"></div><div class="tapme">Tap to flip back</div></div>
+        </div>
+      </div>
+      <div class="rowbtns" style="justify-content:center"><button id="cSay" class="listen" data-label="Listen to this card"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen to this card</span></button></div>
+      <div class="rowbtns"><button class="btn" id="cAgain" style="flex:1">Practise again</button><button class="btn solid" id="cKnow" style="flex:1">I know it</button></div>
+      <div class="rowbtns"><button class="btn" id="cPrev" style="flex:1">◀ Back</button><button class="btn" id="cShuf" style="flex:1">Shuffle</button><button class="btn" id="cNext" style="flex:1">Next ▶</button></div>
+      <div class="dstat" id="dstat"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="play">
+    <div class="card">
+      <span class="chip">Game · answers show at once</span>
+      <h2>Match each foot to its beat</h2>
+      <p class="lead">Tap a foot on the left, then tap its rhythm on the right.</p>
+      <div class="ar">اضغطي على التفعيلة في اليسار ثم على إيقاعها في اليمين.</div>
+    </div>
+    <div id="playArea"></div>
+    <div class="gstat" id="gstat"></div>
+  </section>
+
+  <section class="panel" id="quiz">
+    <div id="quizLive">
+      <div class="sealed">
+        <span class="lock">🔒</span>
+        <div>
+          <p><b>Sealed quiz.</b> No answer and no tick appears while you work. Answer all 12 questions, then press <b>See my score</b> — only then do the answers appear.</p>
+          <div class="ar">اختبار مغلق: لا تظهر أي إجابة أو علامة أثناء الحل. جاوبي على الأسئلة كلها ثم اضغطي «See my score» — عندها فقط تظهر الإجابات.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div><span class="chip">Quiz</span><h2>12 Questions</h2></div>
+          <div class="chip" id="clock" style="background:var(--soft);color:var(--muted)">0:00</div>
+        </div>
+        <div class="qbar"><i id="qfill"></i></div>
+        <div class="qcount"><span id="qdone">0 answered</span><span id="qleft">12 to go</span></div>
+      </div>
+      <div class="card" id="qcard">
+        <div class="qtop"><span class="qno" id="qno">Q1</span><span class="sp"></span><button id="qsay" class="listen mini" data-label="Listen"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen</span></button><button class="flagb" id="qflag">Flag</button></div>
+        <div class="qtext" id="qtext"></div>
+        <div class="ar" id="qar"></div>
+        <div class="opts" id="qopts"></div>
+        <div class="qnav"><button class="btn" id="qprev">◀ Back</button><button class="btn solid" id="qnext">Next ▶</button></div>
+      </div>
+      <div class="card">
+        <span class="chip">Question map</span>
+        <div class="qmap" id="qmap"></div>
+        <div class="acts" style="margin-bottom:0"><button class="btn warm" id="submit">🔓 See my score<div class="ar">شوفي درجتك</div></button></div>
+      </div>
+    </div>
+    <div class="res" id="res">
+      <div class="score">
+        <div class="dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="54"></circle><circle class="fg" id="dialFg" cx="60" cy="60" r="54"></circle></svg>
+          <div class="mid"><div class="pc" id="pct">0%</div><div class="gr" id="grade"></div></div></div>
+        <h2 id="verdict"></h2>
+        <div class="nt" id="vnote"></div>
+        <div class="ar c" id="var" style="color:rgba(255,255,255,.9)"></div>
+        <div class="tally"><div><b id="tR">0</b><span>Right</span></div><div><b id="tW">0</b><span>Missed</span></div><div><b id="tT">0:00</b><span>Time</span></div></div>
+      </div>
+      <div class="acts">
+        <button class="btn solid" id="again">Try all again<div class="ar">أعيدي الكل</div></button>
+        <button class="btn" id="missed">Retry missed<div class="ar">أعيدي الخطأ</div></button>
+        <button class="btn" id="toLesson">Back to lesson<div class="ar">راجعي الدرس</div></button>
+      </div>
+      <div class="card"><span class="chip">Unsealed</span><h2>Every question and its answer</h2>
+        <p class="lead">Your answer next to the right one. Press Listen to hear any question.</p>
+        <div class="ar">إجابتك بجانب الإجابة الصحيحة. اضغطي «Listen» لسماع أي سؤال.</div></div>
+      <div id="revList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="veil" id="veil"><div class="modal"><h2 id="mTitle" style="font-size:1.15rem"></h2><p id="mBody"></p><div class="ar" id="mAr"></div>
+  <div class="acts" style="margin-bottom:0"><button class="btn" id="mBack">Go back</button><button class="btn warm" id="mGo">Show me</button></div></div></div>
+<div class="toast" id="toast"></div><div id="fx" aria-hidden="true"></div>
+
+<script>
+const PARTS=[{"n": "1", "t": "What is meter?", "ta": "ما الوزن الشعري؟", "html": "<p><b>Meter</b> is the measured beat of a line of poetry. Three things decide the meter of a line:</p><ol><li>The <b>number of syllables</b> in the line.</li><li>The <b>number of feet</b> in the line.</li><li>The <b>stress and pattern</b> — which syllables are said louder.</li></ol><p>Read a line out loud and tap the table with your finger. The taps you press hardest on are the <b>stressed</b> syllables.</p>", "gloss": "<p><b>الوزن</b> هو الإيقاع المنتظم لسطر الشعر، ويتحدد بثلاثة أمور: <b>عدد المقاطع</b> في السطر، و<b>عدد التفعيلات</b>، و<b>النبر والنمط</b> أي المقاطع التي تُنطق بقوة أكبر.</p><p>اقرئي السطر بصوت عالٍ واطرقي بإصبعك على الطاولة؛ الطرقات الأقوى هي المقاطع <b>المنبورة</b>.</p>"}, {"n": "2", "t": "What is a foot?", "ta": "ما التفعيلة؟", "html": "<p>A <b>foot</b> is a unit of rhythm. It is a regular pattern of <b>stressed</b> and <b>unstressed</b> syllables.</p><p>Stressed syllables are also called <b>accented</b>. Unstressed syllables are called <b>unaccented</b>.</p><div class=\"hint\"><p>We write the beat like a drum: <b>da</b> for a quiet syllable and <b>DUM</b> for a strong one. So “be-LOW” is <b>da-DUM</b>.</p></div><p>A line of poetry is simply feet joined one after another, like beads on a string.</p>", "gloss": "<p><b>التفعيلة</b> وحدة إيقاعية، وهي نمط منتظم من المقاطع <b>المنبورة</b> و<b>غير المنبورة</b>.</p><p>ويسمى المقطع المنبور <b>accented</b>، وغير المنبور <b>unaccented</b>.</p><p>ونكتب الإيقاع كالطبل: <b>da</b> للمقطع الخفيف و<b>DUM</b> للقوي، فكلمة “be-LOW” تكون <b>da-DUM</b>. والسطر الشعري تفعيلات متتابعة كحبات العقد.</p>"}, {"n": "3", "t": "The four basic feet", "ta": "التفعيلات الأربع الأساسية", "html": "<div class=\"scroll\"><table class=\"tbl\"><tr><th>Foot</th><th>Syllables</th><th>Beat</th><th>Example word</th></tr><tr><td>Iamb</td><td>2</td><td>da-DUM</td><td>be-LOW, a-GAIN</td></tr><tr><td>Trochee</td><td>2</td><td>DUM-da</td><td>GAR-den, HAP-py</td></tr><tr><td>Anapaest</td><td>3</td><td>da-da-DUM</td><td>un-der-STAND</td></tr><tr><td>Dactyl</td><td>3</td><td>DUM-da-da</td><td>EL-e-phant, BEAU-ti-ful</td></tr></table></div><div class=\"hint\"><p><b>The quick way to remember:</b> iamb and trochee are the two-syllable pair and are mirror images. Anapaest and dactyl are the three-syllable pair, and they are mirror images too.</p></div>", "gloss": "<p><b>الأيامب</b> مقطعان: خفيف ثم قوي (da-DUM). و<b>التروكي</b> مقطعان: قوي ثم خفيف (DUM-da). و<b>الأنابيست</b> ثلاثة: خفيف خفيف قوي (da-da-DUM). و<b>الداكتيل</b> ثلاثة: قوي خفيف خفيف (DUM-da-da).</p><p><b>للتذكّر:</b> الأيامب والتروكي زوج من مقطعين وكل منهما عكس الآخر، والأنابيست والداكتيل زوج من ثلاثة مقاطع وكل منهما عكس الآخر.</p>"}, {"n": "4", "t": "Counting the feet in a line", "ta": "عدّ التفعيلات في السطر", "html": "<p>Once you know the foot, count how many times it repeats. That gives the line its full name.</p><div class=\"scroll\"><table class=\"tbl\"><tr><th>Feet in the line</th><th>Name</th></tr><tr><td>1</td><td>Monometer</td></tr><tr><td>2</td><td>Dimeter</td></tr><tr><td>3</td><td>Trimeter</td></tr><tr><td>4</td><td>Tetrameter</td></tr><tr><td>5</td><td>Pentameter</td></tr><tr><td>6</td><td>Hexameter</td></tr></table></div><p>So a line of five iambs — da-DUM da-DUM da-DUM da-DUM da-DUM — is called <b>iambic pentameter</b>. It is the most famous meter in English poetry.</p>", "gloss": "<p>بعد معرفة نوع التفعيلة، عُدّي كم مرة تتكرر ليكتمل اسم السطر: واحدة monometer، واثنتان dimeter، وثلاث trimeter، وأربع tetrameter، وخمس pentameter، وست hexameter.</p><p>فالسطر المكوّن من خمس تفعيلات أيامب يسمى <b>iambic pentameter</b>، وهو أشهر وزن في الشعر الإنجليزي.</p>"}];
+const CARDS=[{"f": "Meter", "fa": "الوزن", "b": "The measured beat of a line of poetry.", "ba": "الإيقاع المنتظم لسطر الشعر."}, {"f": "The three factors of meter", "fa": "عوامل الوزن الثلاثة", "b": "Number of syllables, number of feet, and stress and pattern.", "ba": "عدد المقاطع، وعدد التفعيلات، والنبر والنمط."}, {"f": "Foot", "fa": "التفعيلة", "b": "A unit of rhythm: a regular pattern of stressed and unstressed syllables.", "ba": "وحدة إيقاعية: نمط منتظم من المقاطع المنبورة وغير المنبورة."}, {"f": "Accented syllable", "fa": "مقطع منبور", "b": "A stressed syllable — the one you say louder.", "ba": "المقطع الذي يُنطق بقوة أكبر."}, {"f": "Unaccented syllable", "fa": "مقطع غير منبور", "b": "An unstressed syllable — the quieter one.", "ba": "المقطع الذي يُنطق بصوت أخف."}, {"f": "Iamb", "fa": "أيامب", "b": "Two syllables: da-DUM, as in “be-LOW”.", "ba": "مقطعان: خفيف ثم قوي، مثل be-LOW."}, {"f": "Trochee", "fa": "تروكي", "b": "Two syllables: DUM-da, as in “GAR-den”.", "ba": "مقطعان: قوي ثم خفيف، مثل GAR-den."}, {"f": "Anapaest", "fa": "أنابيست", "b": "Three syllables: da-da-DUM, as in “un-der-STAND”.", "ba": "ثلاثة مقاطع: خفيف خفيف قوي، مثل un-der-STAND."}, {"f": "Dactyl", "fa": "داكتيل", "b": "Three syllables: DUM-da-da, as in “EL-e-phant”.", "ba": "ثلاثة مقاطع: قوي خفيف خفيف، مثل EL-e-phant."}, {"f": "Iambic pentameter", "fa": "الخماسي الأيامبي", "b": "Five iambs in one line — the most famous meter in English poetry.", "ba": "خمس تفعيلات أيامب في السطر، وهو أشهر وزن في الشعر الإنجليزي."}];
+const GAME={"mode": "match", "pairs": [{"a": "Iamb", "aa": "أيامب", "b": "da-DUM", "ba": "خفيف ثم قوي"}, {"a": "Trochee", "aa": "تروكي", "b": "DUM-da", "ba": "قوي ثم خفيف"}, {"a": "Anapaest", "aa": "أنابيست", "b": "da-da-DUM", "ba": "خفيف خفيف قوي"}, {"a": "Dactyl", "aa": "داكتيل", "b": "DUM-da-da", "ba": "قوي خفيف خفيف"}, {"a": "Foot", "aa": "تفعيلة", "b": "A unit of rhythm", "ba": "وحدة إيقاعية"}, {"a": "Meter", "aa": "وزن", "b": "The measured beat of a line", "ba": "الإيقاع المنتظم للسطر"}, {"a": "Pentameter", "aa": "خماسي", "b": "Five feet in one line", "ba": "خمس تفعيلات في السطر"}, {"a": "Accented", "aa": "منبور", "b": "The stressed syllable", "ba": "المقطع القوي"}]};
+const QUIZ=[{"q": "Meter is decided by three factors. Which of these is NOT one of them?", "a": "الوزن تحدده ثلاثة عوامل، أيها ليس منها؟", "o": ["Number of syllables", "Number of feet", "Stress and pattern", "Number of letters"], "c": 3}, {"q": "A foot is best described as:", "a": "أفضل وصف للتفعيلة:", "o": ["A unit of rhythm made of stressed and unstressed syllables", "The last word of a line", "The title of a poem", "A rhyme at the end"], "c": 0}, {"q": "Another word for a stressed syllable is:", "a": "كلمة أخرى للمقطع المنبور:", "o": ["Unaccented", "Accented", "Silent", "Rhymed"], "c": 1}, {"q": "How many syllables are in an iamb?", "a": "كم مقطعاً في الأيامب؟", "o": ["1", "2", "3", "4"], "c": 1}, {"q": "How many syllables are in a dactyl?", "a": "كم مقطعاً في الداكتيل؟", "o": ["2", "3", "4", "5"], "c": 1}, {"q": "Which foot has the beat da-DUM?", "a": "أي تفعيلة إيقاعها da-DUM؟", "o": ["Trochee", "Iamb", "Dactyl", "Anapaest"], "c": 1}, {"q": "Which foot has the beat DUM-da?", "a": "أي تفعيلة إيقاعها DUM-da؟", "o": ["Iamb", "Trochee", "Anapaest", "Dactyl"], "c": 1}, {"q": "Which foot has the beat da-da-DUM?", "a": "أي تفعيلة إيقاعها da-da-DUM؟", "o": ["Anapaest", "Dactyl", "Iamb", "Trochee"], "c": 0}, {"q": "“EL-e-phant” is an example of a:", "a": "كلمة EL-e-phant مثال على:", "o": ["Iamb", "Trochee", "Dactyl", "Anapaest"], "c": 2}, {"q": "Which two feet have three syllables each?", "a": "أي تفعيلتين فيهما ثلاثة مقاطع؟", "o": ["Iamb and trochee", "Anapaest and dactyl", "Iamb and dactyl", "Trochee and anapaest"], "c": 1}, {"q": "A line with five feet is called:", "a": "السطر المكوّن من خمس تفعيلات يسمى:", "o": ["Trimeter", "Tetrameter", "Pentameter", "Hexameter"], "c": 2}, {"q": "A line of five iambs is called:", "a": "السطر المكوّن من خمس تفعيلات أيامب يسمى:", "o": ["Trochaic tetrameter", "Iambic pentameter", "Dactylic hexameter", "Anapaestic dimeter"], "c": 1}];
+const XP_MAX=20;
+
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2100);}
 function party(n=34){const l=$('#fx'),e=['⭐','✨','🎉','🎈'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='bit';b.textContent=e[Math.floor(Math.random()*e.length)];b.style.left=Math.random()*100+'vw';b.style.animationDuration=(2+Math.random()*1.6)+'s';l.appendChild(b);setTimeout(()=>b.remove(),4000);}}
@@ -465,4 +616,7 @@ const Quiz=(function(){
   $('#toLesson').addEventListener('click',()=>goTab('learn'));
   paint();return{enter};})();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){Voice.stop();$('#veil').classList.remove('on');}});
-"""
+
+</script>
+</body>
+</html>

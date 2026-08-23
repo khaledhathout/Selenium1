@@ -1,13 +1,17 @@
-# -*- coding: utf-8 -*-
-"""Shared kit for Rokia's lesson pages: one design system, one engine, nine pages."""
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Value and Prudence</title>
+<style>
 
-CSS = r"""
 :root{
   --bg:#fbfaf8; --card:#ffffff; --soft:#f3f1ee;
   --ink:#1e2230; --ink2:#414a60; --muted:#6d7791;
   --line:#e7e4de; --line2:#f0eeea;
-  --a:%(A)s; --a-deep:%(AD)s; --a-wash:%(AW)s;
-  --b:%(B)s; --b-wash:%(BW)s;
+  --a:#8a6a1f; --a-deep:#664e13; --a-wash:#f7eed6;
+  --b:#2f7d6b; --b-wash:#dbf0ec;
   --good:#1f8a5b; --good-wash:#dff3e8;
   --bad:#c8452f; --bad-wash:#fce3dd;
   --gold:#b8860b; --gold-wash:#fbeed0;
@@ -23,8 +27,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#e0bd63; --a-deep:#f0d999; --a-wash:#3a2e10;
+  --b:#5fc3ad; --b-wash:#0d3630;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -34,8 +38,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#e0bd63; --a-deep:#f0d999; --a-wash:#3a2e10;
+  --b:#5fc3ad; --b-wash:#0d3630;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -245,9 +249,156 @@ table.tbl td:first-child{font-weight:700;color:var(--ink)}
 @keyframes fall{to{transform:translateY(105vh) rotate(520deg);opacity:.2}}
 @media (max-width:520px){ .mgrid{grid-template-columns:1fr} .card{padding:.95rem} }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-"""
 
-ENGINE = r"""
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">Character Education</div>
+        <h1>Value and Prudence</h1>
+        <div class="sub">Every good act carries a value. Prudence is knowing how much of it to show, and when.</div>
+        <div class="ar">كل فعل حسن يحمل قيمة، والتعقّل أن تعرفي مقدار ما تُظهرينه منها ومتى.</div>
+      </div>
+      <div class="tools">
+        <div class="ring">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle class="bg" cx="30" cy="30" r="26"></circle><circle class="fg" id="ringFg" cx="30" cy="30" r="26"></circle></svg>
+          <b id="ringTxt">0%</b>
+        </div>
+        <div class="iconbtns">
+          <button class="ib" id="tDn" title="Smaller text" aria-label="Smaller text">A−</button>
+          <button class="ib" id="tUp" title="Bigger text" aria-label="Bigger text">A+</button>
+          <button class="ib" id="themeBtn" title="Light or dark" aria-label="Light or dark">◐</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab on" data-go="learn">Learn<span class="ar c">الدرس</span></button>
+  <button class="tab" data-go="cards">Cards<span class="ar c">بطاقات</span></button>
+  <button class="tab" data-go="play">Play<span class="ar c">لعبة</span></button>
+  <button class="tab" data-go="quiz">Quiz<span class="ar c">اختبار</span></button>
+</nav>
+
+<main>
+  <section class="panel on" id="learn">
+    <div class="card">
+      <span class="chip">Listen and read</span>
+      <h2>Thinking before you act</h2>
+      <p class="lead">Open a part to read it, and press Listen to hear it read aloud in English.</p>
+      <div class="ar">افتحي أي جزء لقراءته، واضغطي «Listen» لسماعه بالإنجليزية.</div>
+      <div class="voicebar">
+        <span class="chip" style="background:transparent;color:var(--muted)">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button><button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button><button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">Stop</button>
+      </div>
+    </div>
+    <div id="parts"></div>
+  </section>
+
+  <section class="panel" id="cards">
+    <div class="card">
+      <span class="chip">Flip cards</span>
+      <h2>Value cards</h2>
+      <p class="lead">Say the meaning out loud, then flip the card to check.</p>
+      <div class="ar">قولي المعنى بصوت عالٍ ثم اقلبي البطاقة للتأكد.</div>
+    </div>
+    <div class="deck">
+      <div class="dcount" id="dcount"></div>
+      <div class="flip">
+        <div class="flip-in" id="flip" role="button" tabindex="0" aria-label="Flashcard, activate to flip">
+          <div class="face face-a"><div class="big" id="cFront"></div><div class="ar c" id="cFrontAr"></div><div class="tapme">Tap to flip · اضغطي للقلب</div></div>
+          <div class="face face-b"><div class="def" id="cBack"></div><div class="ar c" id="cBackAr"></div><div class="tapme">Tap to flip back</div></div>
+        </div>
+      </div>
+      <div class="rowbtns" style="justify-content:center"><button id="cSay" class="listen" data-label="Listen to this card"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen to this card</span></button></div>
+      <div class="rowbtns"><button class="btn" id="cAgain" style="flex:1">Practise again</button><button class="btn solid" id="cKnow" style="flex:1">I know it</button></div>
+      <div class="rowbtns"><button class="btn" id="cPrev" style="flex:1">◀ Back</button><button class="btn" id="cShuf" style="flex:1">Shuffle</button><button class="btn" id="cNext" style="flex:1">Next ▶</button></div>
+      <div class="dstat" id="dstat"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="play">
+    <div class="card">
+      <span class="chip">Game · answers show at once</span>
+      <h2>What would a prudent person do?</h2>
+      <p class="lead">Match each everyday decision to the thoughtful choice.</p>
+      <div class="ar">وصّلي كل قرار يومي بالاختيار المتعقّل.</div>
+    </div>
+    <div id="playArea"></div>
+    <div class="gstat" id="gstat"></div>
+  </section>
+
+  <section class="panel" id="quiz">
+    <div id="quizLive">
+      <div class="sealed">
+        <span class="lock">🔒</span>
+        <div>
+          <p><b>Sealed quiz.</b> No answer and no tick appears while you work. Answer all 10 questions, then press <b>See my score</b> — only then do the answers appear.</p>
+          <div class="ar">اختبار مغلق: لا تظهر أي إجابة أو علامة أثناء الحل. جاوبي على الأسئلة كلها ثم اضغطي «See my score» — عندها فقط تظهر الإجابات.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div><span class="chip">Quiz</span><h2>10 Questions</h2></div>
+          <div class="chip" id="clock" style="background:var(--soft);color:var(--muted)">0:00</div>
+        </div>
+        <div class="qbar"><i id="qfill"></i></div>
+        <div class="qcount"><span id="qdone">0 answered</span><span id="qleft">10 to go</span></div>
+      </div>
+      <div class="card" id="qcard">
+        <div class="qtop"><span class="qno" id="qno">Q1</span><span class="sp"></span><button id="qsay" class="listen mini" data-label="Listen"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen</span></button><button class="flagb" id="qflag">Flag</button></div>
+        <div class="qtext" id="qtext"></div>
+        <div class="ar" id="qar"></div>
+        <div class="opts" id="qopts"></div>
+        <div class="qnav"><button class="btn" id="qprev">◀ Back</button><button class="btn solid" id="qnext">Next ▶</button></div>
+      </div>
+      <div class="card">
+        <span class="chip">Question map</span>
+        <div class="qmap" id="qmap"></div>
+        <div class="acts" style="margin-bottom:0"><button class="btn warm" id="submit">🔓 See my score<div class="ar">شوفي درجتك</div></button></div>
+      </div>
+    </div>
+    <div class="res" id="res">
+      <div class="score">
+        <div class="dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="54"></circle><circle class="fg" id="dialFg" cx="60" cy="60" r="54"></circle></svg>
+          <div class="mid"><div class="pc" id="pct">0%</div><div class="gr" id="grade"></div></div></div>
+        <h2 id="verdict"></h2>
+        <div class="nt" id="vnote"></div>
+        <div class="ar c" id="var" style="color:rgba(255,255,255,.9)"></div>
+        <div class="tally"><div><b id="tR">0</b><span>Right</span></div><div><b id="tW">0</b><span>Missed</span></div><div><b id="tT">0:00</b><span>Time</span></div></div>
+      </div>
+      <div class="acts">
+        <button class="btn solid" id="again">Try all again<div class="ar">أعيدي الكل</div></button>
+        <button class="btn" id="missed">Retry missed<div class="ar">أعيدي الخطأ</div></button>
+        <button class="btn" id="toLesson">Back to lesson<div class="ar">راجعي الدرس</div></button>
+      </div>
+      <div class="card"><span class="chip">Unsealed</span><h2>Every question and its answer</h2>
+        <p class="lead">Your answer next to the right one. Press Listen to hear any question.</p>
+        <div class="ar">إجابتك بجانب الإجابة الصحيحة. اضغطي «Listen» لسماع أي سؤال.</div></div>
+      <div id="revList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="veil" id="veil"><div class="modal"><h2 id="mTitle" style="font-size:1.15rem"></h2><p id="mBody"></p><div class="ar" id="mAr"></div>
+  <div class="acts" style="margin-bottom:0"><button class="btn" id="mBack">Go back</button><button class="btn warm" id="mGo">Show me</button></div></div></div>
+<div class="toast" id="toast"></div><div id="fx" aria-hidden="true"></div>
+
+<script>
+const PARTS=[{"n": "1", "t": "What is a value?", "ta": "ما القيمة؟", "html": "<p>A <b>value</b> is the good which is intrinsically found in every being, and in every action which flows from it.</p><p><i>Intrinsically</i> means the good is already inside the thing itself — nobody has to add it from outside.</p><div class=\"hint\"><p>So honesty is not good because someone praises it. It is good in itself, and the actions that come out of it carry that same goodness.</p></div>", "gloss": "<p><b>القيمة</b> هي الخير الموجود جوهرياً في كل كائن، وفي كل فعل ينبع منه.</p><p>وكلمة <i>جوهرياً</i> تعني أن الخير موجود داخل الشيء نفسه، لا يضيفه أحد من الخارج.</p><p>فالصدق ليس خيراً لأن أحداً امتدحه، بل هو خير في ذاته، والأفعال النابعة منه تحمل الخير نفسه.</p>"}, {"n": "2", "t": "What is prudence?", "ta": "ما التعقّل؟", "html": "<p><b>Prudence</b> helps all persons to correctly measure the appropriate intensity, or the right amount, of the value a person needs to show.</p><p>Notice the two words that matter: <b>measure</b> and <b>appropriate</b>. Prudence is not about doing less good — it is about doing the right good, in the right amount, at the right time.</p><div class=\"hint\"><p>Being generous is a value. Prudence tells you whether to give your friend your last pen, or to lend it and ask for it back at the end of the lesson.</p></div>", "gloss": "<p><b>التعقّل</b> يساعد كل إنسان على أن يقيس بدقة الشدة المناسبة، أي المقدار الصحيح، من القيمة التي يحتاج أن يُظهرها.</p><p>وانتبهي لكلمتين مهمتين: <b>يقيس</b> و<b>المناسب</b>. فالتعقّل ليس تقليلاً للخير، بل فعل الخير الصحيح بالمقدار الصحيح في الوقت الصحيح.</p><p>الكرم قيمة، والتعقّل يخبرك: أتعطين صديقتك آخر قلم لديك، أم تعيرينها إياه وتستردّينه في نهاية الحصة؟</p>"}, {"n": "3", "t": "A saying to keep", "ta": "حكمة تُحفظ", "html": "<p>A Filipino saying puts it simply:</p><p style=\"font-size:1.15rem;font-weight:700\">“Bago mo sabihin, sampung beses mo munang isipin.”</p><p>It means: <b>before you say it, think about it ten times first</b>.</p><p>The pause between the thought and the word is where prudence lives.</p>", "gloss": "<p>يقول مثل فلبيني: «Bago mo sabihin, sampung beses mo munang isipin».</p><p>ومعناه: <b>قبل أن تقولي شيئاً، فكّري فيه عشر مرات أولاً</b>.</p><p>وفي تلك اللحظة الفاصلة بين الفكرة والكلمة يسكن التعقّل.</p>"}, {"n": "4", "t": "Prudence in ordinary decisions", "ta": "التعقّل في القرارات اليومية", "html": "<p>Making decisions involves simple and mundane things, like these eight:</p><ol><li>What time should I wake up?</li><li>How will I fix my hair?</li><li>What things should I bring to school?</li><li>What do I eat during recess?</li><li>Where do I throw my trash?</li><li>Who will I consult regarding my homework?</li><li>What app should I use?</li><li>What time will I go home?</li></ol><p>None of these is dramatic. That is exactly the point: prudence is built in small, ordinary choices, long before the big ones arrive.</p>", "gloss": "<p>اتخاذ القرار يشمل أموراً بسيطة يومية، منها هذه الثمانية: متى أستيقظ؟ وكيف أصفف شعري؟ وماذا أحمل إلى المدرسة؟ وماذا آكل في الفسحة؟ وأين أرمي نفاياتي؟ ومن أستشير في واجبي؟ وأي تطبيق أستخدم؟ ومتى أعود إلى البيت؟</p><p>لا شيء منها كبير، وهذا هو المقصود: التعقّل يُبنى في الاختيارات الصغيرة اليومية قبل أن تأتي الكبيرة.</p>"}];
+const CARDS=[{"f": "Value", "fa": "القيمة", "b": "The good which is intrinsically found in every being and every action that flows from it.", "ba": "الخير الموجود جوهرياً في كل كائن وفي كل فعل ينبع منه."}, {"f": "Intrinsic", "fa": "جوهري", "b": "Already inside the thing itself, not added from outside.", "ba": "موجود داخل الشيء نفسه، لا يُضاف من الخارج."}, {"f": "Prudence", "fa": "التعقّل", "b": "Correctly measuring the appropriate amount of a value a person needs to show.", "ba": "قياس المقدار المناسب من القيمة التي يحتاج الإنسان أن يُظهرها."}, {"f": "Appropriate intensity", "fa": "الشدة المناسبة", "b": "The right amount — not too little, not too much.", "ba": "المقدار الصحيح، لا قليلاً ولا مبالغاً فيه."}, {"f": "“Bago mo sabihin…”", "fa": "المثل الفلبيني", "b": "Before you say it, think about it ten times first.", "ba": "قبل أن تقولي شيئاً، فكّري فيه عشر مرات أولاً."}, {"f": "Mundane decisions", "fa": "قرارات يومية", "b": "Simple everyday choices — where prudence is really built.", "ba": "الاختيارات اليومية البسيطة، وفيها يُبنى التعقّل حقاً."}, {"f": "Consulting someone", "fa": "الاستشارة", "b": "Asking a wise person before deciding — a prudent habit.", "ba": "سؤال شخص حكيم قبل القرار، وهي عادة متعقّلة."}, {"f": "The pause", "fa": "الوقفة", "b": "The moment between the thought and the word, where prudence lives.", "ba": "اللحظة بين الفكرة والكلمة، وفيها يسكن التعقّل."}];
+const GAME={"mode": "match", "pairs": [{"a": "Someone says something hurtful", "aa": "قال أحدهم كلاماً مؤذياً", "b": "Pause and think ten times before replying", "ba": "توقّفي وفكّري عشر مرات قبل الرد"}, {"a": "You are not sure about your homework", "aa": "لستِ متأكدة من واجبك", "b": "Consult someone who can help you", "ba": "استشيري من يستطيع مساعدتك"}, {"a": "You finish your snack at recess", "aa": "أنهيتِ وجبتك في الفسحة", "b": "Throw the wrapper in the bin", "ba": "ارمي الغلاف في سلة المهملات"}, {"a": "It is a school night", "aa": "ليلة يوم دراسي", "b": "Decide a wake-up time and sleep early", "ba": "حدّدي وقت الاستيقاظ وناما مبكراً"}, {"a": "You are packing your bag", "aa": "تجهّزين حقيبتك", "b": "Check what today’s lessons actually need", "ba": "تفقّدي ما تحتاجينه لدروس اليوم"}, {"a": "A new app looks fun", "aa": "تطبيق جديد يبدو ممتعاً", "b": "Ask whether it is safe and useful first", "ba": "اسألي أولاً: هل هو آمن ومفيد؟"}]};
+const QUIZ=[{"q": "A value is defined as:", "a": "تُعرَّف القيمة بأنها:", "o": ["The good intrinsically found in every being and every action flowing from it", "A price written on a label", "A rule made by a school", "A feeling that comes and goes"], "c": 0}, {"q": "“Intrinsically” means the good is:", "a": "كلمة «جوهرياً» تعني أن الخير:", "o": ["Added from outside", "Already inside the thing itself", "Only in expensive things", "Impossible to find"], "c": 1}, {"q": "Prudence helps a person to:", "a": "التعقّل يساعد الإنسان على أن:", "o": ["Avoid all decisions", "Correctly measure the appropriate amount of value to show", "Always say yes", "Copy what others do"], "c": 1}, {"q": "Prudence is mainly about doing the right good:", "a": "التعقّل أساساً هو فعل الخير الصحيح:", "o": ["In the right amount, at the right time", "As loudly as possible", "Only when watched", "Only for friends"], "c": 0}, {"q": "The saying “Bago mo sabihin, sampung beses mo munang isipin” means:", "a": "معنى المثل الفلبيني:", "o": ["Speak first, think later", "Before you say it, think about it ten times first", "Never speak at all", "Say it ten times"], "c": 1}, {"q": "Which of these is a mundane decision from the lesson?", "a": "أي مما يلي قرار يومي ورد في الدرس؟", "o": ["What time should I wake up", "Which country to live in", "What career to choose", "Which house to buy"], "c": 0}, {"q": "“Who will I consult regarding my homework?” shows the prudent habit of:", "a": "«من أستشير في واجبي؟» تُظهر عادة متعقّلة هي:", "o": ["Asking for guidance before deciding", "Copying an answer", "Ignoring the work", "Guessing quickly"], "c": 0}, {"q": "Why does the lesson use small everyday choices as examples?", "a": "لماذا يستخدم الدرس اختيارات يومية صغيرة كأمثلة؟", "o": ["Because prudence is built in small ordinary choices", "Because big decisions do not matter", "Because they are easy to forget", "Because they have no value"], "c": 0}, {"q": "A friend is generous with money. Prudence would help them decide:", "a": "صديق كريم بماله، التعقّل يساعده أن يقرر:", "o": ["How much to give and when", "Never to give anything", "To give everything at once", "To hide the money"], "c": 0}, {"q": "True or False: every action that flows from a being carries value.", "a": "صح أم خطأ: كل فعل ينبع من الكائن يحمل قيمة.", "o": ["True", "False"], "c": 0}];
+const XP_MAX=16;
+
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2100);}
 function party(n=34){const l=$('#fx'),e=['⭐','✨','🎉','🎈'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='bit';b.textContent=e[Math.floor(Math.random()*e.length)];b.style.left=Math.random()*100+'vw';b.style.animationDuration=(2+Math.random()*1.6)+'s';l.appendChild(b);setTimeout(()=>b.remove(),4000);}}
@@ -465,4 +616,7 @@ const Quiz=(function(){
   $('#toLesson').addEventListener('click',()=>goTab('learn'));
   paint();return{enter};})();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){Voice.stop();$('#veil').classList.remove('on');}});
-"""
+
+</script>
+</body>
+</html>

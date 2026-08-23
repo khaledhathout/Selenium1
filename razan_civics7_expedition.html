@@ -997,6 +997,13 @@ $('#xpChip').textContent = `0 / ${XP_MAX} XP`;
 /* ==================================================================
    3 · READING VOICE  (English read-aloud)
    ================================================================== */
+/* text of an element with any Arabic gloss stripped out — the voice reads English only */
+function englishOf(el){
+  const c = el.cloneNode(true);
+  c.querySelectorAll('.ar, .ar-block, .gloss').forEach(x => x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim();
+}
+
 const Voice = (function(){
   const synth = window.speechSynthesis;
   const ok = !!synth && typeof SpeechSynthesisUtterance === 'function';
@@ -1075,7 +1082,7 @@ const Voice = (function(){
     const blocks = $$('p, li, h4, h3, td, .keep, .term, .def, .qtext, .said', root)
       .filter(el => !el.closest('.ar, .ar-block'))
       .filter(el => !el.querySelector('p, li, td'));
-    const pieces = blocks.map(el => ({ text: el.textContent.replace(/\s+/g,' ').trim(), el }));
+    const pieces = blocks.map(el => ({ text: englishOf(el), el }));
     play(pieces, trigger);
   }
 

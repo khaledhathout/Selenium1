@@ -794,6 +794,13 @@ function addXp(n){
 /* ================================================================
    3 · READING VOICE — English only, Arabic gloss never spoken
    ================================================================ */
+/* text of an element with any Arabic gloss stripped out — the voice reads English only */
+function englishOf(el){
+  const c = el.cloneNode(true);
+  c.querySelectorAll('.ar, .ar-block, .gloss').forEach(x => x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim();
+}
+
 const Voice = (function(){
   const synth = window.speechSynthesis;
   const ok = !!synth && typeof SpeechSynthesisUtterance === 'function';
@@ -862,7 +869,7 @@ const Voice = (function(){
     const blocks = $$('p, li, h4, td, .u', root)
       .filter(el => !el.closest('.ar, .gloss'))
       .filter(el => !el.querySelector('p, li, td'));
-    play(blocks.map(el => ({text: el.textContent.replace(/\s+/g,' ').trim(), el})), trigger);
+    play(blocks.map(el => ({text: englishOf(el), el})), trigger);
   }
   return { ok, play, say, read, stop, setRate(r){ rate = r; stop(); } };
 })();

@@ -1,13 +1,17 @@
-# -*- coding: utf-8 -*-
-"""Shared kit for Rokia's lesson pages: one design system, one engine, nine pages."""
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Getting Started with Word</title>
+<style>
 
-CSS = r"""
 :root{
   --bg:#fbfaf8; --card:#ffffff; --soft:#f3f1ee;
   --ink:#1e2230; --ink2:#414a60; --muted:#6d7791;
   --line:#e7e4de; --line2:#f0eeea;
-  --a:%(A)s; --a-deep:%(AD)s; --a-wash:%(AW)s;
-  --b:%(B)s; --b-wash:%(BW)s;
+  --a:#1a5fb4; --a-deep:#134a8e; --a-wash:#e2ecf9;
+  --b:#c0392b; --b-wash:#fae3df;
   --good:#1f8a5b; --good-wash:#dff3e8;
   --bad:#c8452f; --bad-wash:#fce3dd;
   --gold:#b8860b; --gold-wash:#fbeed0;
@@ -23,8 +27,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#6aa6ee; --a-deep:#a3c9f5; --a-wash:#102437;
+  --b:#f07a68; --b-wash:#3a1a16;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -34,8 +38,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#6aa6ee; --a-deep:#a3c9f5; --a-wash:#102437;
+  --b:#f07a68; --b-wash:#3a1a16;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -245,9 +249,156 @@ table.tbl td:first-child{font-weight:700;color:var(--ink)}
 @keyframes fall{to{transform:translateY(105vh) rotate(520deg);opacity:.2}}
 @media (max-width:520px){ .mgrid{grid-template-columns:1fr} .card{padding:.95rem} }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-"""
 
-ENGINE = r"""
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">Computer · Unit 1, Lesson 1</div>
+        <h1>Getting Started with Word</h1>
+        <div class="sub">Productivity software turns your ideas into documents. Learn every part of the Word window.</div>
+        <div class="ar">برامج الإنتاجية تحوّل أفكارك إلى مستندات. تعرّفي على كل جزء من نافذة وورد.</div>
+      </div>
+      <div class="tools">
+        <div class="ring">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle class="bg" cx="30" cy="30" r="26"></circle><circle class="fg" id="ringFg" cx="30" cy="30" r="26"></circle></svg>
+          <b id="ringTxt">0%</b>
+        </div>
+        <div class="iconbtns">
+          <button class="ib" id="tDn" title="Smaller text" aria-label="Smaller text">A−</button>
+          <button class="ib" id="tUp" title="Bigger text" aria-label="Bigger text">A+</button>
+          <button class="ib" id="themeBtn" title="Light or dark" aria-label="Light or dark">◐</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab on" data-go="learn">Learn<span class="ar c">الدرس</span></button>
+  <button class="tab" data-go="cards">Cards<span class="ar c">بطاقات</span></button>
+  <button class="tab" data-go="play">Play<span class="ar c">لعبة</span></button>
+  <button class="tab" data-go="quiz">Quiz<span class="ar c">اختبار</span></button>
+</nav>
+
+<main>
+  <section class="panel on" id="learn">
+    <div class="card">
+      <span class="chip">Listen and read</span>
+      <h2>Word 2016 from the beginning</h2>
+      <p class="lead">Open a part to read it, and press Listen to hear it read aloud in English.</p>
+      <div class="ar">افتحي أي جزء لقراءته، واضغطي «Listen» لسماعه بالإنجليزية.</div>
+      <div class="voicebar">
+        <span class="chip" style="background:transparent;color:var(--muted)">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button><button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button><button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">Stop</button>
+      </div>
+    </div>
+    <div id="parts"></div>
+  </section>
+
+  <section class="panel" id="cards">
+    <div class="card">
+      <span class="chip">Flip cards</span>
+      <h2>Interface cards</h2>
+      <p class="lead">Say what each part does, then flip the card to check.</p>
+      <div class="ar">قولي وظيفة كل جزء ثم اقلبي البطاقة للتأكد.</div>
+    </div>
+    <div class="deck">
+      <div class="dcount" id="dcount"></div>
+      <div class="flip">
+        <div class="flip-in" id="flip" role="button" tabindex="0" aria-label="Flashcard, activate to flip">
+          <div class="face face-a"><div class="big" id="cFront"></div><div class="ar c" id="cFrontAr"></div><div class="tapme">Tap to flip · اضغطي للقلب</div></div>
+          <div class="face face-b"><div class="def" id="cBack"></div><div class="ar c" id="cBackAr"></div><div class="tapme">Tap to flip back</div></div>
+        </div>
+      </div>
+      <div class="rowbtns" style="justify-content:center"><button id="cSay" class="listen" data-label="Listen to this card"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen to this card</span></button></div>
+      <div class="rowbtns"><button class="btn" id="cAgain" style="flex:1">Practise again</button><button class="btn solid" id="cKnow" style="flex:1">I know it</button></div>
+      <div class="rowbtns"><button class="btn" id="cPrev" style="flex:1">◀ Back</button><button class="btn" id="cShuf" style="flex:1">Shuffle</button><button class="btn" id="cNext" style="flex:1">Next ▶</button></div>
+      <div class="dstat" id="dstat"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="play">
+    <div class="card">
+      <span class="chip">Game · answers show at once</span>
+      <h2>Match each part of the window to its job</h2>
+      <p class="lead">Tap a part on the left, then tap what it does on the right.</p>
+      <div class="ar">اضغطي على الجزء في اليسار ثم على وظيفته في اليمين.</div>
+    </div>
+    <div id="playArea"></div>
+    <div class="gstat" id="gstat"></div>
+  </section>
+
+  <section class="panel" id="quiz">
+    <div id="quizLive">
+      <div class="sealed">
+        <span class="lock">🔒</span>
+        <div>
+          <p><b>Sealed quiz.</b> No answer and no tick appears while you work. Answer all 12 questions, then press <b>See my score</b> — only then do the answers appear.</p>
+          <div class="ar">اختبار مغلق: لا تظهر أي إجابة أو علامة أثناء الحل. جاوبي على الأسئلة كلها ثم اضغطي «See my score» — عندها فقط تظهر الإجابات.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div><span class="chip">Quiz</span><h2>12 Questions</h2></div>
+          <div class="chip" id="clock" style="background:var(--soft);color:var(--muted)">0:00</div>
+        </div>
+        <div class="qbar"><i id="qfill"></i></div>
+        <div class="qcount"><span id="qdone">0 answered</span><span id="qleft">12 to go</span></div>
+      </div>
+      <div class="card" id="qcard">
+        <div class="qtop"><span class="qno" id="qno">Q1</span><span class="sp"></span><button id="qsay" class="listen mini" data-label="Listen"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen</span></button><button class="flagb" id="qflag">Flag</button></div>
+        <div class="qtext" id="qtext"></div>
+        <div class="ar" id="qar"></div>
+        <div class="opts" id="qopts"></div>
+        <div class="qnav"><button class="btn" id="qprev">◀ Back</button><button class="btn solid" id="qnext">Next ▶</button></div>
+      </div>
+      <div class="card">
+        <span class="chip">Question map</span>
+        <div class="qmap" id="qmap"></div>
+        <div class="acts" style="margin-bottom:0"><button class="btn warm" id="submit">🔓 See my score<div class="ar">شوفي درجتك</div></button></div>
+      </div>
+    </div>
+    <div class="res" id="res">
+      <div class="score">
+        <div class="dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="54"></circle><circle class="fg" id="dialFg" cx="60" cy="60" r="54"></circle></svg>
+          <div class="mid"><div class="pc" id="pct">0%</div><div class="gr" id="grade"></div></div></div>
+        <h2 id="verdict"></h2>
+        <div class="nt" id="vnote"></div>
+        <div class="ar c" id="var" style="color:rgba(255,255,255,.9)"></div>
+        <div class="tally"><div><b id="tR">0</b><span>Right</span></div><div><b id="tW">0</b><span>Missed</span></div><div><b id="tT">0:00</b><span>Time</span></div></div>
+      </div>
+      <div class="acts">
+        <button class="btn solid" id="again">Try all again<div class="ar">أعيدي الكل</div></button>
+        <button class="btn" id="missed">Retry missed<div class="ar">أعيدي الخطأ</div></button>
+        <button class="btn" id="toLesson">Back to lesson<div class="ar">راجعي الدرس</div></button>
+      </div>
+      <div class="card"><span class="chip">Unsealed</span><h2>Every question and its answer</h2>
+        <p class="lead">Your answer next to the right one. Press Listen to hear any question.</p>
+        <div class="ar">إجابتك بجانب الإجابة الصحيحة. اضغطي «Listen» لسماع أي سؤال.</div></div>
+      <div id="revList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="veil" id="veil"><div class="modal"><h2 id="mTitle" style="font-size:1.15rem"></h2><p id="mBody"></p><div class="ar" id="mAr"></div>
+  <div class="acts" style="margin-bottom:0"><button class="btn" id="mBack">Go back</button><button class="btn warm" id="mGo">Show me</button></div></div></div>
+<div class="toast" id="toast"></div><div id="fx" aria-hidden="true"></div>
+
+<script>
+const PARTS=[{"n": "1", "t": "Productivity software", "ta": "برامج الإنتاجية", "html": "<p>In some of our school activities we create meaningful information using <b>productivity software</b>. For example:</p><ul><li>English essays</li><li>Maths data and graphs</li><li>Science investigation presentations</li></ul><p>Productivity software is also called <b>personal</b> or <b>office productivity software</b>. It is an application we use to produce documents, presentations, spreadsheets, charts, and graphs.</p><p><b>Microsoft Office</b> has constantly been one of the leading office suites. The version in this lesson is <b>2016</b>, and it runs on Windows 10.</p>", "gloss": "<p>في بعض أنشطتنا المدرسية ننتج معلومات ذات معنى باستخدام <b>برامج الإنتاجية</b>، مثل: مقالات الإنجليزية، وبيانات ورسوم الرياضيات، وعروض البحث العلمي.</p><p>وتسمى أيضاً <b>برامج الإنتاجية الشخصية أو المكتبية</b>، وهي تطبيقات نستخدمها لإنتاج المستندات والعروض والجداول والمخططات والرسوم البيانية.</p><p>و<b>مايكروسوفت أوفيس</b> من أبرز الحزم المكتبية دائماً، ونسخة هذا الدرس هي <b>2016</b> وتعمل على ويندوز 10.</p>"}, {"n": "2", "t": "What Word 2016 is for", "ta": "فيمَ يُستخدم وورد 2016", "html": "<p><b>Word 2016</b> is a <b>word processing</b> application for creating texts and graphics.</p><p>Common outputs are:</p><ul><li>Brochures</li><li>Posters</li><li>Letters</li><li>Reports</li></ul><div class=\"hint\"><p>A word processor is not just a typewriter on a screen: it lets you change your mind. You can edit, move, restyle and reprint the same text as often as you like.</p></div>", "gloss": "<p><b>وورد 2016</b> تطبيق <b>معالجة نصوص</b> لإنشاء النصوص والرسوم.</p><p>ومن مخرجاته الشائعة: المطويات، والملصقات، والرسائل، والتقارير.</p><p>ومعالج النصوص ليس آلة كاتبة على الشاشة، بل يتيح لكِ تغيير رأيك: تعديل النص ونقله وإعادة تنسيقه وطباعته مرات كثيرة.</p>"}, {"n": "3", "t": "Two new features in Word 2016", "ta": "ميزتان جديدتان في وورد 2016", "html": "<h4>1 · Tell Me</h4><p>The <b>Tell Me</b> search bar is a versatile tool. You type what you want to do, and it finds the function you need instead of making you hunt through the tabs.</p><h4>2 · Smart Lookup</h4><p><b>Smart Lookup</b> is designed to deliver useful information. Select a word, and it brings definitions and web results into a pane beside your document.</p>", "gloss": "<p><b>١ · Tell Me</b> — شريط بحث متعدد الاستخدامات: تكتبين ما تريدين فعله فيجد لكِ الأمر المطلوب بدل البحث في التبويبات.</p><p><b>٢ · Smart Lookup</b> — مصمم ليقدّم معلومات مفيدة: تحدّدين كلمة فيعرض تعريفها ونتائج الويب في لوحة بجانب المستند.</p>"}, {"n": "4", "t": "The Word 2016 interface", "ta": "واجهة وورد 2016", "html": "<p>To begin, choose <b>Blank Document</b> to open. Then look around the window — these ten parts are the map of it:</p><div class=\"scroll\"><table class=\"tbl\"><tr><th>#</th><th>Part</th><th>What it does</th></tr><tr><td>1</td><td>Quick Access Toolbar<div class=\"ar l\">شريط الوصول السريع</div></td><td>Holds the buttons you use most, such as Save and Undo, whatever tab you are on.</td></tr><tr><td>2</td><td>File name<div class=\"ar l\">اسم الملف</div></td><td>Shows the name of the document you are working on.</td></tr><tr><td>3</td><td>Microsoft account<div class=\"ar l\">حساب مايكروسوفت</div></td><td>Shows who is signed in and lets you reach your files anywhere.</td></tr><tr><td>4</td><td>Ribbon display options<div class=\"ar l\">خيارات عرض الشريط</div></td><td>Let you hide or show the Ribbon to make more room for the page.</td></tr><tr><td>5</td><td>Ribbon<div class=\"ar l\">الشريط</div></td><td>The wide band of tabs and commands: Home, Insert, Design, Layout and more.</td></tr><tr><td>6</td><td>Rulers<div class=\"ar l\">المسطرتان</div></td><td>Show the width and height of the page so you can set margins and tabs.</td></tr><tr><td>7</td><td>Insertion point<div class=\"ar l\">مؤشر الكتابة</div></td><td>The blinking line that shows where your next letter will appear.</td></tr><tr><td>8</td><td>Document<div class=\"ar l\">المستند</div></td><td>The white page itself, where your text and pictures go.</td></tr><tr><td>9</td><td>Vertical scroll bar<div class=\"ar l\">شريط التمرير الرأسي</div></td><td>Moves you up and down through a long document.</td></tr><tr><td>10</td><td>Status bar<div class=\"ar l\">شريط الحالة</div></td><td>Shows the page number, word count and the view and zoom controls.</td></tr></table></div>", "gloss": "<p>للبدء اختاري <b>Blank Document</b> لفتح مستند فارغ، ثم تعرّفي على أجزاء النافذة العشرة: شريط الوصول السريع، واسم الملف، وحساب مايكروسوفت، وخيارات عرض الشريط، والشريط، والمسطرتان، ومؤشر الكتابة، والمستند، وشريط التمرير الرأسي، وشريط الحالة.</p>"}];
+const CARDS=[{"f": "Quick Access Toolbar", "fa": "شريط الوصول السريع", "b": "Holds the buttons you use most, such as Save and Undo, whatever tab you are on.", "ba": ""}, {"f": "File name", "fa": "اسم الملف", "b": "Shows the name of the document you are working on.", "ba": ""}, {"f": "Microsoft account", "fa": "حساب مايكروسوفت", "b": "Shows who is signed in and lets you reach your files anywhere.", "ba": ""}, {"f": "Ribbon display options", "fa": "خيارات عرض الشريط", "b": "Let you hide or show the Ribbon to make more room for the page.", "ba": ""}, {"f": "Ribbon", "fa": "الشريط", "b": "The wide band of tabs and commands: Home, Insert, Design, Layout and more.", "ba": ""}, {"f": "Rulers", "fa": "المسطرتان", "b": "Show the width and height of the page so you can set margins and tabs.", "ba": ""}, {"f": "Insertion point", "fa": "مؤشر الكتابة", "b": "The blinking line that shows where your next letter will appear.", "ba": ""}, {"f": "Document", "fa": "المستند", "b": "The white page itself, where your text and pictures go.", "ba": ""}, {"f": "Vertical scroll bar", "fa": "شريط التمرير الرأسي", "b": "Moves you up and down through a long document.", "ba": ""}, {"f": "Status bar", "fa": "شريط الحالة", "b": "Shows the page number, word count and the view and zoom controls.", "ba": ""}, {"f": "Productivity software", "fa": "برامج الإنتاجية", "b": "An application used to produce documents, presentations, spreadsheets, charts and graphs.", "ba": "تطبيق يُستخدم لإنتاج المستندات والعروض والجداول والمخططات والرسوم."}, {"f": "Word processing", "fa": "معالجة النصوص", "b": "Creating and editing texts and graphics on a computer.", "ba": "إنشاء النصوص والرسوم وتحريرها على الحاسوب."}, {"f": "Tell Me", "fa": "شريط Tell Me", "b": "A search bar that finds the function you need.", "ba": "شريط بحث يجد لكِ الأمر الذي تحتاجينه."}, {"f": "Smart Lookup", "fa": "Smart Lookup", "b": "A feature designed to deliver useful information about a selected word.", "ba": "ميزة تقدّم معلومات مفيدة عن الكلمة المحددة."}];
+const GAME={"mode": "match", "pairs": [{"a": "Ribbon", "aa": "الشريط", "b": "The band of tabs and commands", "ba": "شريط التبويبات والأوامر"}, {"a": "Insertion point", "aa": "مؤشر الكتابة", "b": "The blinking line where the next letter appears", "ba": "الخط الوامض حيث يظهر الحرف التالي"}, {"a": "Status bar", "aa": "شريط الحالة", "b": "Page number, word count, view and zoom", "ba": "رقم الصفحة وعدد الكلمات والعرض والتكبير"}, {"a": "Quick Access Toolbar", "aa": "شريط الوصول السريع", "b": "The buttons you use most, such as Save", "ba": "الأزرار الأكثر استخداماً مثل الحفظ"}, {"a": "Rulers", "aa": "المسطرتان", "b": "Show page width and height for margins", "ba": "تُظهران عرض الصفحة وارتفاعها للهوامش"}, {"a": "Vertical scroll bar", "aa": "شريط التمرير", "b": "Moves you up and down the document", "ba": "ينقلك أعلى وأسفل المستند"}, {"a": "Tell Me", "aa": "Tell Me", "b": "Type what you want to do and it finds it", "ba": "اكتبي ما تريدين فعله فيجده لكِ"}, {"a": "Smart Lookup", "aa": "Smart Lookup", "b": "Brings useful information about a selected word", "ba": "يجلب معلومات مفيدة عن كلمة محددة"}]};
+const QUIZ=[{"q": "Productivity software is used to produce:", "a": "برامج الإنتاجية تُستخدم لإنتاج:", "o": ["Documents, presentations, spreadsheets, charts and graphs", "Only photographs", "Only games", "Only music"], "c": 0}, {"q": "Another name for productivity software is:", "a": "اسم آخر لبرامج الإنتاجية:", "o": ["Operating system", "Personal or office productivity software", "Antivirus", "Web browser"], "c": 1}, {"q": "Which of these is an example of school work made with productivity software?", "a": "أي مما يلي مثال على عمل مدرسي بهذه البرامج؟", "o": ["English essays", "Running in PE", "Singing in choir", "Painting a wall"], "c": 0}, {"q": "Word 2016 is best described as a:", "a": "أفضل وصف لوورد 2016:", "o": ["Spreadsheet application", "Word processing application for creating texts and graphics", "Video editor", "Search engine"], "c": 1}, {"q": "Which of these is NOT listed as a common output of Word?", "a": "أي مما يلي ليس من مخرجات وورد المذكورة؟", "o": ["Brochures", "Posters", "Letters and reports", "Spreadsheets of formulas"], "c": 3}, {"q": "The Tell Me search bar helps you:", "a": "شريط Tell Me يساعدك على:", "o": ["Find the function you need", "Delete the document", "Change the wallpaper", "Turn off the computer"], "c": 0}, {"q": "Smart Lookup is designed to:", "a": "صُمِّم Smart Lookup لـ:", "o": ["Deliver useful information", "Print the page", "Save the file", "Count the pages"], "c": 0}, {"q": "To start a new file in Word 2016 you choose:", "a": "لبدء ملف جديد في وورد 2016 تختارين:", "o": ["Blank Document", "Print Preview", "Save As", "Exit"], "c": 0}, {"q": "The blinking line that shows where your next letter appears is the:", "a": "الخط الوامض الذي يبيّن مكان الحرف التالي هو:", "o": ["Ruler", "Insertion point", "Status bar", "Scroll bar"], "c": 1}, {"q": "The wide band that holds the tabs and commands is the:", "a": "الشريط العريض الذي يضم التبويبات والأوامر هو:", "o": ["Ribbon", "Status bar", "Rulers", "Document"], "c": 0}, {"q": "Page number and word count are shown on the:", "a": "رقم الصفحة وعدد الكلمات يظهران في:", "o": ["Quick Access Toolbar", "Status bar", "Ribbon", "Rulers"], "c": 1}, {"q": "Word 2016 in this lesson runs on:", "a": "وورد 2016 في هذا الدرس يعمل على:", "o": ["Windows 10", "Windows 95", "A calculator", "A smart TV only"], "c": 0}];
+const XP_MAX=20;
+
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2100);}
 function party(n=34){const l=$('#fx'),e=['⭐','✨','🎉','🎈'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='bit';b.textContent=e[Math.floor(Math.random()*e.length)];b.style.left=Math.random()*100+'vw';b.style.animationDuration=(2+Math.random()*1.6)+'s';l.appendChild(b);setTimeout(()=>b.remove(),4000);}}
@@ -465,4 +616,7 @@ const Quiz=(function(){
   $('#toLesson').addEventListener('click',()=>goTab('learn'));
   paint();return{enter};})();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){Voice.stop();$('#veil').classList.remove('on');}});
-"""
+
+</script>
+</body>
+</html>

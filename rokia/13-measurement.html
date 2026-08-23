@@ -1,13 +1,17 @@
-# -*- coding: utf-8 -*-
-"""Shared kit for Rokia's lesson pages: one design system, one engine, nine pages."""
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Measuring the World</title>
+<style>
 
-CSS = r"""
 :root{
   --bg:#fbfaf8; --card:#ffffff; --soft:#f3f1ee;
   --ink:#1e2230; --ink2:#414a60; --muted:#6d7791;
   --line:#e7e4de; --line2:#f0eeea;
-  --a:%(A)s; --a-deep:%(AD)s; --a-wash:%(AW)s;
-  --b:%(B)s; --b-wash:%(BW)s;
+  --a:#0d7490; --a-deep:#095a70; --a-wash:#dbeef4;
+  --b:#c2410c; --b-wash:#fbe6da;
   --good:#1f8a5b; --good-wash:#dff3e8;
   --bad:#c8452f; --bad-wash:#fce3dd;
   --gold:#b8860b; --gold-wash:#fbeed0;
@@ -23,8 +27,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#4fc3e0; --a-deep:#8fdcf0; --a-wash:#08313d;
+  --b:#f08a55; --b-wash:#3a2013;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -34,8 +38,8 @@ CSS = r"""
   --bg:#14161d; --card:#1c1f29; --soft:#232733;
   --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
   --line:#2e3342; --line2:#262b37;
-  --a:%(AL)s; --a-deep:%(ALD)s; --a-wash:%(ALW)s;
-  --b:%(BL)s; --b-wash:%(BLW)s;
+  --a:#4fc3e0; --a-deep:#8fdcf0; --a-wash:#08313d;
+  --b:#f08a55; --b-wash:#3a2013;
   --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
   --gold:#e5bd63; --gold-wash:#372c12;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
@@ -245,9 +249,156 @@ table.tbl td:first-child{font-weight:700;color:var(--ink)}
 @keyframes fall{to{transform:translateY(105vh) rotate(520deg);opacity:.2}}
 @media (max-width:520px){ .mgrid{grid-template-columns:1fr} .card{padding:.95rem} }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-"""
 
-ENGINE = r"""
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">Science · Measurement</div>
+        <h1>Measuring the World</h1>
+        <div class="sub">Seven base units, one careful eye, and two formulas that move between scales.</div>
+        <div class="ar">سبع وحدات أساسية، وعين دقيقة، ومعادلتان تنقلان بين المقاييس.</div>
+      </div>
+      <div class="tools">
+        <div class="ring">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle class="bg" cx="30" cy="30" r="26"></circle><circle class="fg" id="ringFg" cx="30" cy="30" r="26"></circle></svg>
+          <b id="ringTxt">0%</b>
+        </div>
+        <div class="iconbtns">
+          <button class="ib" id="tDn" title="Smaller text" aria-label="Smaller text">A−</button>
+          <button class="ib" id="tUp" title="Bigger text" aria-label="Bigger text">A+</button>
+          <button class="ib" id="themeBtn" title="Light or dark" aria-label="Light or dark">◐</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab on" data-go="learn">Learn<span class="ar c">الدرس</span></button>
+  <button class="tab" data-go="cards">Cards<span class="ar c">بطاقات</span></button>
+  <button class="tab" data-go="play">Play<span class="ar c">لعبة</span></button>
+  <button class="tab" data-go="quiz">Quiz<span class="ar c">اختبار</span></button>
+</nav>
+
+<main>
+  <section class="panel on" id="learn">
+    <div class="card">
+      <span class="chip">Listen and read</span>
+      <h2>Units, reading, and converting</h2>
+      <p class="lead">Open a part to read it, and press Listen to hear it read aloud in English.</p>
+      <div class="ar">افتحي أي جزء لقراءته، واضغطي «Listen» لسماعه بالإنجليزية.</div>
+      <div class="voicebar">
+        <span class="chip" style="background:transparent;color:var(--muted)">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button><button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button><button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">Stop</button>
+      </div>
+    </div>
+    <div id="parts"></div>
+  </section>
+
+  <section class="panel" id="cards">
+    <div class="card">
+      <span class="chip">Flip cards</span>
+      <h2>Measurement cards</h2>
+      <p class="lead">Answer in your head first, then flip the card to check.</p>
+      <div class="ar">أجيبي في ذهنك أولاً ثم اقلبي البطاقة للتأكد.</div>
+    </div>
+    <div class="deck">
+      <div class="dcount" id="dcount"></div>
+      <div class="flip">
+        <div class="flip-in" id="flip" role="button" tabindex="0" aria-label="Flashcard, activate to flip">
+          <div class="face face-a"><div class="big" id="cFront"></div><div class="ar c" id="cFrontAr"></div><div class="tapme">Tap to flip · اضغطي للقلب</div></div>
+          <div class="face face-b"><div class="def" id="cBack"></div><div class="ar c" id="cBackAr"></div><div class="tapme">Tap to flip back</div></div>
+        </div>
+      </div>
+      <div class="rowbtns" style="justify-content:center"><button id="cSay" class="listen" data-label="Listen to this card"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen to this card</span></button></div>
+      <div class="rowbtns"><button class="btn" id="cAgain" style="flex:1">Practise again</button><button class="btn solid" id="cKnow" style="flex:1">I know it</button></div>
+      <div class="rowbtns"><button class="btn" id="cPrev" style="flex:1">◀ Back</button><button class="btn" id="cShuf" style="flex:1">Shuffle</button><button class="btn" id="cNext" style="flex:1">Next ▶</button></div>
+      <div class="dstat" id="dstat"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="play">
+    <div class="card">
+      <span class="chip">Game · answers show at once</span>
+      <h2>Match each quantity to its SI unit</h2>
+      <p class="lead">Tap a physical quantity on the left, then tap its unit on the right.</p>
+      <div class="ar">اضغطي على الكمية الفيزيائية في اليسار ثم على وحدتها في اليمين.</div>
+    </div>
+    <div id="playArea"></div>
+    <div class="gstat" id="gstat"></div>
+  </section>
+
+  <section class="panel" id="quiz">
+    <div id="quizLive">
+      <div class="sealed">
+        <span class="lock">🔒</span>
+        <div>
+          <p><b>Sealed quiz.</b> No answer and no tick appears while you work. Answer all 14 questions, then press <b>See my score</b> — only then do the answers appear.</p>
+          <div class="ar">اختبار مغلق: لا تظهر أي إجابة أو علامة أثناء الحل. جاوبي على الأسئلة كلها ثم اضغطي «See my score» — عندها فقط تظهر الإجابات.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div><span class="chip">Quiz</span><h2>14 Questions</h2></div>
+          <div class="chip" id="clock" style="background:var(--soft);color:var(--muted)">0:00</div>
+        </div>
+        <div class="qbar"><i id="qfill"></i></div>
+        <div class="qcount"><span id="qdone">0 answered</span><span id="qleft">14 to go</span></div>
+      </div>
+      <div class="card" id="qcard">
+        <div class="qtop"><span class="qno" id="qno">Q1</span><span class="sp"></span><button id="qsay" class="listen mini" data-label="Listen"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen</span></button><button class="flagb" id="qflag">Flag</button></div>
+        <div class="qtext" id="qtext"></div>
+        <div class="ar" id="qar"></div>
+        <div class="opts" id="qopts"></div>
+        <div class="qnav"><button class="btn" id="qprev">◀ Back</button><button class="btn solid" id="qnext">Next ▶</button></div>
+      </div>
+      <div class="card">
+        <span class="chip">Question map</span>
+        <div class="qmap" id="qmap"></div>
+        <div class="acts" style="margin-bottom:0"><button class="btn warm" id="submit">🔓 See my score<div class="ar">شوفي درجتك</div></button></div>
+      </div>
+    </div>
+    <div class="res" id="res">
+      <div class="score">
+        <div class="dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="54"></circle><circle class="fg" id="dialFg" cx="60" cy="60" r="54"></circle></svg>
+          <div class="mid"><div class="pc" id="pct">0%</div><div class="gr" id="grade"></div></div></div>
+        <h2 id="verdict"></h2>
+        <div class="nt" id="vnote"></div>
+        <div class="ar c" id="var" style="color:rgba(255,255,255,.9)"></div>
+        <div class="tally"><div><b id="tR">0</b><span>Right</span></div><div><b id="tW">0</b><span>Missed</span></div><div><b id="tT">0:00</b><span>Time</span></div></div>
+      </div>
+      <div class="acts">
+        <button class="btn solid" id="again">Try all again<div class="ar">أعيدي الكل</div></button>
+        <button class="btn" id="missed">Retry missed<div class="ar">أعيدي الخطأ</div></button>
+        <button class="btn" id="toLesson">Back to lesson<div class="ar">راجعي الدرس</div></button>
+      </div>
+      <div class="card"><span class="chip">Unsealed</span><h2>Every question and its answer</h2>
+        <p class="lead">Your answer next to the right one. Press Listen to hear any question.</p>
+        <div class="ar">إجابتك بجانب الإجابة الصحيحة. اضغطي «Listen» لسماع أي سؤال.</div></div>
+      <div id="revList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="veil" id="veil"><div class="modal"><h2 id="mTitle" style="font-size:1.15rem"></h2><p id="mBody"></p><div class="ar" id="mAr"></div>
+  <div class="acts" style="margin-bottom:0"><button class="btn" id="mBack">Go back</button><button class="btn warm" id="mGo">Show me</button></div></div></div>
+<div class="toast" id="toast"></div><div id="fx" aria-hidden="true"></div>
+
+<script>
+const PARTS=[{"n": "1", "t": "The seven SI base units", "ta": "وحدات النظام الدولي السبع", "html": "<p>Scientists everywhere agree on one set of units, the <b>SI units</b>, so a measurement means the same thing in every country.</p><div class=\"scroll\"><table class=\"tbl\"><tr><th>Physical quantity</th><th>SI unit</th><th>Symbol</th></tr><tr><td>Amount of substance<div class=\"ar l\">كمية المادة</div></td><td>mole</td><td>mol</td></tr><tr><td>Electric current<div class=\"ar l\">التيار الكهربائي</div></td><td>ampere</td><td>A</td></tr><tr><td>Length<div class=\"ar l\">الطول</div></td><td>metre</td><td>m</td></tr><tr><td>Luminous intensity<div class=\"ar l\">شدة الإضاءة</div></td><td>candela</td><td>cd</td></tr><tr><td>Mass<div class=\"ar l\">الكتلة</div></td><td>kilogram</td><td>kg</td></tr><tr><td>Temperature<div class=\"ar l\">درجة الحرارة</div></td><td>kelvin</td><td>K</td></tr><tr><td>Time<div class=\"ar l\">الزمن</div></td><td>second</td><td>s</td></tr></table></div><div class=\"hint\"><p>Watch the capitals: units named after people take a capital symbol (A for ampere, K for kelvin), but the unit word itself stays lower case.</p></div>", "gloss": "<p>يتفق العلماء في كل مكان على مجموعة واحدة من الوحدات هي <b>وحدات النظام الدولي (SI)</b>، حتى يعني القياس الشيء نفسه في كل بلد.</p><p>كمية المادة: مول (mol). التيار الكهربائي: أمبير (A). الطول: متر (m). شدة الإضاءة: كانديلا (cd). الكتلة: كيلوجرام (kg). درجة الحرارة: كلفن (K). الزمن: ثانية (s).</p><p><b>انتبهي للحروف الكبيرة:</b> الوحدات المسماة بأسماء علماء يكون رمزها بحرف كبير مثل A و K، أما اسم الوحدة نفسه فيبقى بحروف صغيرة.</p>"}, {"n": "2", "t": "Reading a liquid: the meniscus", "ta": "قراءة السائل: الهلال", "html": "<p>When you pour a liquid into a narrow cylinder, its surface is not flat. It curves.</p><p>That <b>curvature at the surface of a liquid</b> is called the <b>meniscus</b>.</p><h4>How to read it correctly</h4><ol><li>Put the cylinder on a flat table — never hold it in the air.</li><li>Bring your eye down to the same level as the liquid.</li><li>Read the mark at the <b>bottom of the curve</b>, not at the edges.</li></ol><div class=\"hint\"><p>Reading from above makes the number look bigger than it is, and reading from below makes it look smaller. Only eye level tells the truth.</p></div>", "gloss": "<p>عندما تصبّين سائلاً في مخبار ضيق لا يكون سطحه مستوياً بل ينحني، ويسمى هذا <b>الانحناء عند سطح السائل</b> بـ<b>الهلال (meniscus)</b>.</p><p><b>للقراءة الصحيحة:</b> ضعي المخبار على طاولة مستوية، واجعلي عينك في مستوى السائل نفسه، واقرئي العلامة عند <b>أسفل الانحناء</b> لا عند الحافتين.</p><p>فالقراءة من أعلى تُظهر الرقم أكبر مما هو، ومن أسفل أصغر مما هو، ولا يصدق إلا مستوى العين.</p>"}, {"n": "3", "t": "Converting temperature", "ta": "تحويل درجات الحرارة", "html": "<p>Two formulas move between Fahrenheit and Celsius:</p><p style=\"font-size:1.1rem;font-weight:700\">T<sub>F</sub> = 9/5 × T<sub>C</sub> + 32</p><p style=\"font-size:1.1rem;font-weight:700\">T<sub>C</sub> = 5/9 × (T<sub>F</sub> − 32)</p><h4>Worked example</h4><p>Change 25 °C into Fahrenheit: 9/5 × 25 = 45, then 45 + 32 = <b>77 °F</b>.</p><p>Change 212 °F into Celsius: 212 − 32 = 180, then 5/9 × 180 = <b>100 °C</b>.</p><div class=\"hint\"><p><b>Order matters.</b> Going to Fahrenheit you multiply first and add last. Coming back you subtract first and multiply last.</p></div>", "gloss": "<p>معادلتان للتحويل بين الفهرنهايت والسيليزيوس:</p><p>T<sub>F</sub> = ٩/٥ × T<sub>C</sub> + ٣٢ &nbsp;|&nbsp; T<sub>C</sub> = ٥/٩ × (T<sub>F</sub> − ٣٢)</p><p><b>مثال:</b> ٢٥ درجة سيليزية = (٩/٥ × ٢٥) + ٣٢ = ٧٧ فهرنهايت. و٢١٢ فهرنهايت = ٥/٩ × (٢١٢ − ٣٢) = ١٠٠ سيليزية.</p><p><b>الترتيب مهم:</b> نحو الفهرنهايت نضرب أولاً ونجمع أخيراً، وفي العودة نطرح أولاً ونضرب أخيراً.</p>"}, {"n": "4", "t": "Converting mass", "ta": "تحويل الكتلة", "html": "<p>Pounds and kilograms measure the same thing in different systems.</p><h4>Pounds to kilograms — divide</h4><p>1 kg = 2.205 lbs, so: 100 lbs ÷ 2.205 = <b>45.35 kg</b>.</p><h4>Kilograms to pounds — multiply</h4><p>1 kg = 2.2046 lbs, so: 51 kg × 2.2046 = <b>112.4 lbs</b>.</p><div class=\"hint\"><p><b>Check yourself:</b> a kilogram is bigger than a pound, so the number of pounds is always the larger number. If your answer went the other way, you multiplied when you should have divided.</p></div>", "gloss": "<p>الرطل والكيلوجرام يقيسان الشيء نفسه في نظامين مختلفين.</p><p><b>من الأرطال إلى الكيلوجرامات — نقسم:</b> ١ كجم = ٢٫٢٠٥ رطل، إذن ١٠٠ رطل ÷ ٢٫٢٠٥ = <b>٤٥٫٣٥ كجم</b>.</p><p><b>من الكيلوجرامات إلى الأرطال — نضرب:</b> ٥١ كجم × ٢٫٢٠٤٦ = <b>١١٢٫٤ رطل</b>.</p><p><b>تحقّقي:</b> الكيلوجرام أكبر من الرطل، فعدد الأرطال دائماً هو الأكبر. فإذا جاء العكس فقد ضربتِ بدل أن تقسمي.</p>"}];
+const CARDS=[{"f": "Amount of substance", "fa": "كمية المادة", "b": "SI unit: mole (mol)", "ba": "وحدة النظام الدولي: mole رمزها mol"}, {"f": "Electric current", "fa": "التيار الكهربائي", "b": "SI unit: ampere (A)", "ba": "وحدة النظام الدولي: ampere رمزها A"}, {"f": "Length", "fa": "الطول", "b": "SI unit: metre (m)", "ba": "وحدة النظام الدولي: metre رمزها m"}, {"f": "Luminous intensity", "fa": "شدة الإضاءة", "b": "SI unit: candela (cd)", "ba": "وحدة النظام الدولي: candela رمزها cd"}, {"f": "Mass", "fa": "الكتلة", "b": "SI unit: kilogram (kg)", "ba": "وحدة النظام الدولي: kilogram رمزها kg"}, {"f": "Temperature", "fa": "درجة الحرارة", "b": "SI unit: kelvin (K)", "ba": "وحدة النظام الدولي: kelvin رمزها K"}, {"f": "Time", "fa": "الزمن", "b": "SI unit: second (s)", "ba": "وحدة النظام الدولي: second رمزها s"}, {"f": "Meniscus", "fa": "الهلال", "b": "The curvature at the surface of a liquid.", "ba": "الانحناء عند سطح السائل."}, {"f": "How to read a meniscus", "fa": "كيف نقرأ الهلال", "b": "At eye level, at the bottom of the curve.", "ba": "في مستوى العين، وعند أسفل الانحناء."}, {"f": "T꜀ to Tᶠ", "fa": "من سيليزيوس إلى فهرنهايت", "b": "Multiply by 9/5, then add 32.", "ba": "اضربي في ٩/٥ ثم أضيفي ٣٢."}, {"f": "Tᶠ to T꜀", "fa": "من فهرنهايت إلى سيليزيوس", "b": "Subtract 32, then multiply by 5/9.", "ba": "اطرحي ٣٢ ثم اضربي في ٥/٩."}, {"f": "100 lbs in kilograms", "fa": "١٠٠ رطل بالكيلوجرام", "b": "100 ÷ 2.205 = 45.35 kg.", "ba": "١٠٠ ÷ ٢٫٢٠٥ = ٤٥٫٣٥ كجم."}, {"f": "51 kg in pounds", "fa": "٥١ كجم بالأرطال", "b": "51 × 2.2046 = 112.4 lbs.", "ba": "٥١ × ٢٫٢٠٤٦ = ١١٢٫٤ رطل."}];
+const GAME={"mode": "match", "pairs": [{"a": "Amount of substance", "aa": "كمية المادة", "b": "mole (mol)", "ba": ""}, {"a": "Electric current", "aa": "التيار الكهربائي", "b": "ampere (A)", "ba": ""}, {"a": "Length", "aa": "الطول", "b": "metre (m)", "ba": ""}, {"a": "Luminous intensity", "aa": "شدة الإضاءة", "b": "candela (cd)", "ba": ""}, {"a": "Mass", "aa": "الكتلة", "b": "kilogram (kg)", "ba": ""}, {"a": "Temperature", "aa": "درجة الحرارة", "b": "kelvin (K)", "ba": ""}, {"a": "Time", "aa": "الزمن", "b": "second (s)", "ba": ""}, {"a": "Meniscus", "aa": "الهلال", "b": "Curvature at the surface of a liquid", "ba": "انحناء سطح السائل"}]};
+const QUIZ=[{"q": "The SI unit of mass is the:", "a": "وحدة الكتلة في النظام الدولي:", "o": ["gram", "kilogram", "pound", "newton"], "c": 1}, {"q": "The SI unit of temperature is the:", "a": "وحدة درجة الحرارة في النظام الدولي:", "o": ["celsius", "fahrenheit", "kelvin", "degree"], "c": 2}, {"q": "The symbol for the ampere is:", "a": "رمز الأمبير:", "o": ["Am", "A", "a", "Ap"], "c": 1}, {"q": "The mole is the SI unit of:", "a": "المول وحدة قياس:", "o": ["Amount of substance", "Length", "Time", "Mass"], "c": 0}, {"q": "The candela measures:", "a": "الكانديلا تقيس:", "o": ["Electric current", "Luminous intensity", "Time", "Length"], "c": 1}, {"q": "The SI unit of time is the second, whose symbol is:", "a": "وحدة الزمن هي الثانية ورمزها:", "o": ["sec", "s", "S", "t"], "c": 1}, {"q": "The curvature at the surface of a liquid is called the:", "a": "الانحناء عند سطح السائل يسمى:", "o": ["Meniscus", "Molecule", "Margin", "Metre"], "c": 0}, {"q": "Where should you read the meniscus?", "a": "أين نقرأ الهلال؟", "o": ["At the top edges", "At the bottom of the curve, at eye level", "From above the cylinder", "Anywhere on the scale"], "c": 1}, {"q": "Which formula changes Celsius into Fahrenheit?", "a": "أي معادلة تحوّل من سيليزيوس إلى فهرنهايت؟", "o": ["TF = 9/5 × TC + 32", "TC = 5/9 × (TF − 32)", "TF = TC + 100", "TC = TF × 2"], "c": 0}, {"q": "25 °C in Fahrenheit is:", "a": "٢٥ درجة سيليزية بالفهرنهايت تساوي:", "o": ["57 °F", "77 °F", "97 °F", "45 °F"], "c": 1}, {"q": "212 °F in Celsius is:", "a": "٢١٢ فهرنهايت بالسيليزيوس تساوي:", "o": ["0 °C", "50 °C", "100 °C", "180 °C"], "c": 2}, {"q": "To change pounds into kilograms you:", "a": "لتحويل الأرطال إلى كيلوجرامات:", "o": ["Divide by 2.205", "Multiply by 2.205", "Add 32", "Subtract 2.205"], "c": 0}, {"q": "100 pounds is about:", "a": "١٠٠ رطل تساوي تقريباً:", "o": ["22.05 kg", "45.35 kg", "220.5 kg", "100 kg"], "c": 1}, {"q": "To change kilograms into pounds you:", "a": "لتحويل الكيلوجرامات إلى أرطال:", "o": ["Divide by 2.2046", "Multiply by 2.2046", "Add 2.2046", "Subtract 32"], "c": 1}];
+const XP_MAX=22;
+
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2100);}
 function party(n=34){const l=$('#fx'),e=['⭐','✨','🎉','🎈'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='bit';b.textContent=e[Math.floor(Math.random()*e.length)];b.style.left=Math.random()*100+'vw';b.style.animationDuration=(2+Math.random()*1.6)+'s';l.appendChild(b);setTimeout(()=>b.remove(),4000);}}
@@ -465,4 +616,7 @@ const Quiz=(function(){
   $('#toLesson').addEventListener('click',()=>goTab('learn'));
   paint();return{enter};})();
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){Voice.stop();$('#veil').classList.remove('on');}});
-"""
+
+</script>
+</body>
+</html>

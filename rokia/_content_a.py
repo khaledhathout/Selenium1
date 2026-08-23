@@ -135,27 +135,27 @@ PAGES.append(dict(
           '<p>ولكل حرف اسم، فعند قراءة الحروف نقول: ألف، باء، تاء، ثاء، جيم… وهكذا.</p>'),
   dict(n='2', t='The dots make the difference', ta='النقط تصنع الفرق',
     html='<p>Some letters look the same and only the <b>dots</b> tell them apart. Look carefully:</p>'
-         '<ul><li>ب has one dot below, ت has two dots above, ث has three dots above.</li>'
-         '<li>ج has one dot inside, ح has none, خ has one dot on top.</li>'
-         '<li>د has none, ذ has one dot. ر has none, ز has one dot.</li>'
-         '<li>س has none, ش has three dots. ص has none, ض has one dot.</li>'
-         '<li>ط has none, ظ has one dot. ع has none, غ has one dot.</li></ul>'
+         '<ul><li><span class="glyph" data-en="ba">ب</span> has one dot below, <span class="glyph" data-en="ta">ت</span> has two dots above, <span class="glyph" data-en="tha">ث</span> has three dots above.</li>'
+         '<li><span class="glyph" data-en="jim">ج</span> has one dot inside, <span class="glyph" data-en="ha">ح</span> has none, <span class="glyph" data-en="kha">خ</span> has one dot on top.</li>'
+         '<li><span class="glyph" data-en="dal">د</span> has none, <span class="glyph" data-en="zal">ذ</span> has one dot. <span class="glyph" data-en="ra">ر</span> has none, <span class="glyph" data-en="zay">ز</span> has one dot.</li>'
+         '<li><span class="glyph" data-en="sin">س</span> has none, <span class="glyph" data-en="shin">ش</span> has three dots. <span class="glyph" data-en="sad">ص</span> has none, <span class="glyph" data-en="dhad">ض</span> has one dot.</li>'
+         '<li><span class="glyph" data-en="ta heavy">ط</span> has none, <span class="glyph" data-en="zha">ظ</span> has one dot. <span class="glyph" data-en="ayn">ع</span> has none, <span class="glyph" data-en="gayn">غ</span> has one dot.</li></ul>'
          '<p>So counting the dots is a real reading skill!</p>',
     gloss='<p>بعض الحروف تتشابه في الشكل ولا يفرّق بينها إلا <b>النقط</b>: الباء نقطة تحت، والتاء نقطتان فوق، والثاء ثلاث نقاط فوق. والجيم نقطة بالداخل، والحاء بلا نقطة، والخاء نقطة فوق. وكذلك د/ذ و ر/ز و س/ش و ص/ض و ط/ظ و ع/غ.</p>'
           '<p>لذلك عدّ النقط مهارة قراءة حقيقية!</p>'),
   dict(n='3', t='Letters that never join forward', ta='حروف لا تتصل بما بعدها',
     html='<p>Most Arabic letters join to the letter after them. But six letters never join forward:</p>'
-         '<p style="font-size:1.6rem;letter-spacing:.5rem;direction:rtl;text-align:center">ا  د  ذ  ر  ز  و</p>'
+         '<p style="font-size:1.6rem;letter-spacing:.5rem;direction:rtl;text-align:center"><span class="glyph" data-en="alif, dal, zal, ra, zay, and waw">ا  د  ذ  ر  ز  و</span></p>'
          '<p>That is alif, dal, zal, ra, zay, and waw. After one of these, the next letter always starts fresh.</p>',
     gloss='<p>معظم الحروف العربية تتصل بالحرف الذي بعدها، لكن ستة حروف لا تتصل بما بعدها أبداً وهي: ا، د، ذ، ر، ز، و.</p>'
           '<p>بعد أي حرف منها يبدأ الحرف التالي منفصلاً.</p>'),
   dict(n='4', t='The full list', ta='القائمة كاملة',
     html='<div class="scroll"><table class="tbl"><tr><th>#</th><th>Letter</th><th>English name</th></tr>' +
-         ''.join('<tr><td>%d</td><td style="font-size:1.4rem">%s</td><td>%s<div class="ar l">%s</div></td></tr>' % (i+1,l[1],l[0],l[2]) for i,l in enumerate(LETTERS)) +
+         ''.join('<tr><td>%d</td><td style="font-size:1.4rem"><span class="glyph" data-en="%s">%s</span></td><td>%s<div class="ar l">%s</div></td></tr>' % (i+1,l[0],l[1],l[0],l[2]) for i,l in enumerate(LETTERS)) +
          '</table></div>',
     gloss='<p>هذه قائمة الحروف الثمانية والعشرين مرتبة، مع اسم كل حرف مكتوباً بالإنجليزية كما تكتبينه في الواجب.</p>'),
  ],
- cards=[dict(f=l[1], fa=l[2], b='This letter is called “%s”.' % l[0], ba='هذا الحرف اسمه «%s».' % l[2]) for l in LETTERS[:14]],
+ cards=[dict(f=l[1], fa=l[2], say='The letter %s' % l[0], b='This letter is called “%s”.' % l[0], ba='هذا الحرف اسمه «%s».' % l[2]) for l in LETTERS[:14]],
  game=dict(mode='match', pairs=[dict(a=l[1], aa='', b=l[0], ba=l[2]) for l in
       [LETTERS[0],LETTERS[1],LETTERS[4],LETTERS[7],LETTERS[11],LETTERS[19],LETTERS[23],LETTERS[27]]]),
  quiz=[

@@ -417,6 +417,13 @@ function addXp(n){if(n<=0)return;xp=Math.min(XP_MAX,xp+n);
   $('#ringFg').style.strokeDashoffset=RC*(1-xp/XP_MAX);
   if(xp>=XP_MAX)party(50);}
 
+/* text of an element with any Arabic gloss stripped out — the voice reads English only */
+function englishOf(el){const c=el.cloneNode(true);
+  c.querySelectorAll('.ar,.gloss').forEach(x=>x.remove());
+  /* a glyph is shown to the eye but spoken by its name, so the English voice can say it */
+  c.querySelectorAll('.glyph').forEach(g=>g.replaceWith(document.createTextNode(g.dataset.en||'')));
+  return c.textContent.replace(/\s+/g,' ').trim();}
+
 const Voice=(function(){const s=window.speechSynthesis,ok=!!s&&typeof SpeechSynthesisUtterance==='function';
 let rate=.85,v=null,ch=[],i=0,btn=null,mk=null,al=null,spoke=false;
 function pick(){if(!ok)return;const all=s.getVoices().filter(x=>/^en(-|_|$)/i.test(x.lang));if(!all.length)return;
@@ -438,7 +445,7 @@ function play(ps,t){if(!ok){toast('This browser cannot read aloud');return;}
   al=setInterval(()=>{if(s.speaking&&!s.paused){s.pause();s.resume();}},9000);run();}
 return{ok,play,stop,say:(t,b)=>play([{text:t,el:null}],b),
   read:(root,b)=>{const bl=$$('p, li, h4, td, .def, .qtext',root).filter(e=>!e.closest('.ar,.gloss')).filter(e=>!e.querySelector('p,li,td'));
-    play(bl.map(e=>({text:e.textContent.replace(/\s+/g,' ').trim(),el:e})),b);},
+    play(bl.map(e=>({text:englishOf(e),el:e})),b);},
   setRate:r=>{rate=r;stop();}};})();
 
 function lHTML(l='Listen',x=''){return '<button class="listen '+x+'" data-label="'+l+'"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">'+l+'</span></button>';}
@@ -482,7 +489,7 @@ $('#cPrev').addEventListener('click',()=>{Voice.stop();ci=(ci-1+deck.length)%dec
 $('#cShuf').addEventListener('click',()=>{Voice.stop();for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}ci=0;paintCard();toast('Shuffled!');});
 $('#cKnow').addEventListener('click',()=>{deck[ci].st='k';paintCard();});
 $('#cAgain').addEventListener('click',()=>{deck[ci].st='a';paintCard();});
-$('#cSay').addEventListener('click',e=>{const c=deck[ci];Voice.play([{text:c.f,el:null},{text:c.b,el:null}],e.currentTarget);});
+$('#cSay').addEventListener('click',e=>{const c=deck[ci];Voice.play([{text:c.say||c.f,el:null},{text:c.b,el:null}],e.currentTarget);});
 paintCard();
 
 /* ---- play ---- */

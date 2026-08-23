@@ -26,7 +26,7 @@ PAGES.append(dict(
     gloss='<p><b>المعنى الحرفي</b> هو معنى القاموس، و<b>المعنى المجازي</b> هو المشاعر والذكريات التي تثيرها الكلمة. «البيت مكان تعيش فيه الأسرة» حرفي، و«البيت يعني الحب والدفء» مجازي.</p>'),
   dict(n='2', t='Arabic — 28 letters', ta='العربية — ٢٨ حرفاً',
     html='<p>The Arabic alphabet has <b>28 letters</b> and is written from <b>right to left</b>.</p>'
-         '<p>Dots tell similar letters apart: ب has one dot below, ت two above, ث three above.</p>',
+         '<p>Dots tell similar letters apart: <span class="glyph" data-en="ba">ب</span> has one dot below, <span class="glyph" data-en="ta">ت</span> two above, <span class="glyph" data-en="tha">ث</span> three above.</p>',
     gloss='<p>الأبجدية العربية <b>٢٨ حرفاً</b> وتُكتب <b>من اليمين إلى اليسار</b>. والنقط تفرّق بين المتشابهات: الباء نقطة تحت، والتاء نقطتان فوق، والثاء ثلاث فوق.</p>'),
   dict(n='3', t='Science — how to think like a scientist', ta='العلوم — كيف تفكرين كعالمة',
     html='<p>The six basic skills are observing, measuring, classifying, inferring, predicting, and communicating.</p>'
