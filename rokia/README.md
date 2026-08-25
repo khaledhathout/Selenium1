@@ -20,6 +20,7 @@ Each page is a single self-contained HTML file that works offline.
 | `13-measurement.html` | SI base units, the meniscus, temperature and mass conversion | Science notebook |
 | `14-figures-of-speech.html` | Simile, metaphor, personification, hyperbole, alliteration, assonance, consonance | English 7 seatwork |
 | `15-angle-pairs.html` | Exterior and interior angle pairs of a polygon, and their 180° rule | Math 7 notebook |
+| `16-polygon-basics.html` | What makes a polygon, regular/irregular, convex/non-convex, and the (n−2)×180° interior angle sum | Math 7 textbook, Unit 1 |
 
 A glyph that is not English — an Arabic letter shown inside an English sentence —
 is wrapped in `<span class="glyph" data-en="...">` so the eye sees the letter and
