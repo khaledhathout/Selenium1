@@ -16,9 +16,9 @@ PAGES.append(dict(
  cards_h='Grammar cards',
  cards_p='Work out the rule in your head first, then flip the card to check.',
  cards_ar='احسبي القاعدة في ذهنك أولاً ثم اقلبي البطاقة للتأكد.',
- play_h='Correct or has an error?',
- play_p='Read each sentence from the worksheet. Is the verb right, or does it need fixing?',
- play_ar='اقرئي كل جملة من الورقة. هل الفعل صحيح أم يحتاج تصحيحاً؟',
+ play_h='Two exercises from the worksheet',
+ play_p='First, is the verb right or does it need fixing? Then, is the underlined noun concrete, abstract, or collective?',
+ play_ar='أولاً: هل الفعل صحيح أم يحتاج تصحيحاً؟ ثم: هل الاسم المسطَّر محسوس أم مجرد أم جماعي؟',
  parts=[
   dict(n='1', t='Subject pronouns and their verbs', ta='ضمائر الفاعل وأفعالها',
     html='<p><b>Subject pronouns</b> function as the subject of a sentence. They are: <b>I, we, you, he, she, it,</b> and <b>they</b>.</p>'
@@ -78,6 +78,19 @@ PAGES.append(dict(
           '<p>مثال: The (أداة) three (عدد) durable (نوعية) big (حجم) round (شكل) white (لون) plates (الاسم).</p>'
           '<p>«الأطباق الثلاثة المتينة الكبيرة المستديرة البيضاء تنكسر عندما تُسقطها لالا على أرضية المطبخ.»</p>'
           '<p><b>اقرئي بصوت عالٍ:</b> بدّلي ترتيب صفتين وستشعرين فوراً أن الجملة خاطئة، حتى لو لم تستطيعي تفسير السبب — تلك أذنك تتحقق من الترتيب نيابة عنك.</p>'),
+  dict(n='6', t='Concrete, abstract, or collective?', ta='محسوس أم مجرد أم جماعي؟',
+    html='<p>Every noun belongs to one of these types, and knowing which type tells you how the verb should behave.</p>'
+         '<h4>Concrete noun</h4><p>Names something you can see, hear, touch, smell, or taste — a physical thing. <i>Pencils, muffins, clothes,</i> and <i>balls</i> are concrete.</p>'
+         '<h4>Abstract noun</h4><p>Names an idea, quality, or feeling that has no physical form. <i>Knowledge, friendship, love,</i> and <i>faith</i> are abstract. In writing, an abstract noun usually takes a <b>singular</b> verb.</p>'
+         '<p><i>“Love makes the world go round.”</i> — <i>“Happiness is found in good friendships.”</i></p>'
+         '<h4>Collective noun</h4><p>Names a group of people, animals, or things treated as one unit — <i>family, team, flock, class,</i> and <i>army</i> are collective.</p>'
+         '<p>A collective noun usually takes the <b>singular</b> form of the verb. But if the collective noun refers to a group of individuals acting <b>separately</b> rather than together, it takes the <b>plural</b> form instead.</p>'
+         '<div class="hint"><p><b>Compare the pair:</b> <i>“The family is eating dinner”</i> (one unit, eating together) versus <i>“The family are arguing over dinner”</i> (individuals, each arguing on their own side).</p></div>',
+    gloss='<p>كل اسم ينتمي لأحد هذه الأنواع، ومعرفة النوع تخبرك كيف يجب أن يتصرف الفعل معه.</p>'
+          '<p><b>الاسم المحسوس (concrete):</b> يسمي شيئاً مادياً تراه أو تسمعه أو تلمسه، مثل pencils وmuffins وclothes وballs.</p>'
+          '<p><b>الاسم المجرد (abstract):</b> يسمي فكرة أو صفة أو شعوراً بلا شكل مادي، مثل knowledge وfriendship وlove وfaith، ويأخذ عادة فعلاً <b>مفرداً</b>: «Love makes the world go round».</p>'
+          '<p><b>الاسم الجماعي (collective):</b> يسمي مجموعة تُعامَل كوحدة واحدة، مثل family وteam وflock وclass وarmy، ويأخذ عادة فعلاً <b>مفرداً</b>. لكن إذا أشار إلى أفراد المجموعة وهم يتصرفون <b>منفصلين</b> لا معاً، يأخذ فعلاً <b>جمعاً</b>.</p>'
+          '<p><b>قارني:</b> «The family is eating dinner» (وحدة واحدة تأكل معاً) مقابل «The family are arguing over dinner» (أفراد، كل منهم يجادل من جهته).</p>'),
  ],
  cards=[
   dict(f='I, we, you, they', fa='I, we, you, they', b='Take the plural form of the verb.', ba='تأخذ صيغة الفعل الجمع.'),
@@ -90,8 +103,13 @@ PAGES.append(dict(
   dict(f='Abstract noun', fa='اسم مجرد', b='Names an idea, not a thing, and is still singular: bravery, wisdom, unity.', ba='يسمي فكرة لا شيئاً، ويبقى مفرداً: bravery, wisdom, unity.'),
   dict(f='Adjective order', fa='ترتيب الصفات', b='determiner, quantity, quality, size, shape, color, then the noun.', ba='أداة تعريف، عدد، نوعية، حجم، شكل، لون، ثم الاسم.'),
   dict(f='“The three durable big round white plates”', fa='مثال الترتيب', b='Determiner–quantity–quality–size–shape–color, in that order.', ba='أداة تعريف–عدد–نوعية–حجم–شكل–لون، بهذا الترتيب.'),
+  dict(f='Concrete noun', fa='اسم محسوس', b='Names a physical thing you can see, hear, touch, smell or taste.', ba='يسمي شيئاً مادياً تراه أو تسمعه أو تلمسه.'),
+  dict(f='Abstract noun', fa='اسم مجرد', b='Names an idea or feeling with no physical form, and takes a singular verb.', ba='يسمي فكرة أو شعوراً بلا شكل مادي، ويأخذ فعلاً مفرداً.'),
+  dict(f='Collective noun as ONE unit', fa='الاسم الجماعي كوحدة', b='“The family is eating dinner” — takes a singular verb.', ba='«The family is eating dinner» — فعل مفرد.'),
+  dict(f='Collective noun as SEPARATE individuals', fa='الاسم الجماعي كأفراد منفصلين', b='“The family are arguing over dinner” — takes a plural verb.', ba='«The family are arguing over dinner» — فعل جمع.'),
  ],
- game=dict(mode='sort',
+ game=[
+  dict(mode='sort', title='Correct, or does it have an error?', titleAr='صحيحة أم فيها خطأ؟',
    buckets=[dict(k='ok', label='Correct'), dict(k='fix', label='Has an error')],
    items=[
     dict(t='The family gathers to open the Christmas presents.', ta='العائلة تجتمع لفتح هدايا الكريسماس.', k='ok'),
@@ -105,6 +123,21 @@ PAGES.append(dict(
     dict(t='The committee discusses the plan for the event.', ta='اللجنة تناقش خطة الحدث.', k='ok'),
     dict(t='These tastes heavenly. Can I have more cookies?', ta='«These tastes» — خطأ.', k='fix'),
    ]),
+  dict(mode='sort', title='Concrete, abstract, or collective noun?', titleAr='اسم محسوس أم مجرد أم جماعي؟',
+   buckets=[dict(k='cn', label='Concrete'), dict(k='ab', label='Abstract'), dict(k='co', label='Collective')],
+   items=[
+    dict(t='The students gain knowledge in school.', ta='knowledge — اسم مجرد.', k='ab'),
+    dict(t='The pencils in Joaquin’s case are new.', ta='pencils — اسم محسوس.', k='cn'),
+    dict(t='They also learn about friendship.', ta='friendship — اسم مجرد.', k='ab'),
+    dict(t='My home is filled with so much love.', ta='love — اسم مجرد.', k='ab'),
+    dict(t='Having faith in God will help you succeed.', ta='faith — اسم مجرد.', k='ab'),
+    dict(t='The crowd welcomes the celebrity excitedly.', ta='crowd — اسم جماعي.', k='co'),
+    dict(t='The basket is filled with newly baked muffins.', ta='muffins — اسم محسوس.', k='cn'),
+    dict(t='Uncle Dada bought Ken new clothes for the outing.', ta='clothes — اسم محسوس.', k='cn'),
+    dict(t='The shepherd tends to his flock every day.', ta='flock — اسم جماعي.', k='co'),
+    dict(t='The kids enjoy jumping and rolling in the pool of colorful balls.', ta='balls — اسم محسوس.', k='cn'),
+   ]),
+ ],
  quiz=[
   dict(q='Which subject pronouns take the plural form of the verb?', a='أي ضمائر فاعل تأخذ صيغة الفعل الجمع؟',
        o=['He, she, it','I, we, you, they','This, that','Who, which'], c=1),
@@ -136,4 +169,18 @@ PAGES.append(dict(
        o=['Three','Durable','Round','White'], c=0),
   dict(q='In “the three durable big round white plates,” which word is the determiner?', a='في «the three durable big round white plates»، أي كلمة أداة التعريف؟',
        o=['Big','The','Round','Plates'], c=1),
+  dict(q='A noun that names a physical thing you can see or touch is:', a='الاسم الذي يسمي شيئاً مادياً تراه أو تلمسه:',
+       o=['Abstract','Concrete','Collective','A pronoun'], c=1),
+  dict(q='A noun that names an idea or feeling with no physical form is:', a='الاسم الذي يسمي فكرة أو شعوراً بلا شكل مادي:',
+       o=['Concrete','Collective','Abstract','A determiner'], c=2),
+  dict(q='In “Love makes the world go round,” the noun “love” is:', a='في «Love makes the world go round»، الاسم «love»:',
+       o=['Concrete','Abstract','Collective','Plural'], c=1),
+  dict(q='In “The pencils in Joaquin’s case are new,” the noun “pencils” is:', a='في «The pencils in Joaquin’s case are new»، الاسم «pencils»:',
+       o=['Abstract','Collective','Concrete','A relative pronoun'], c=2),
+  dict(q='In “The shepherd tends to his flock every day,” the noun “flock” is:', a='في «The shepherd tends to his flock every day»، الاسم «flock»:',
+       o=['Concrete','Abstract','Collective','A determiner'], c=2),
+  dict(q='“The family is eating dinner” treats the family as:', a='«The family is eating dinner» تعامل العائلة كـ:',
+       o=['One single unit','Separate individuals','A concrete noun only','An abstract idea'], c=0),
+  dict(q='“The family are arguing over dinner” takes a plural verb because:', a='«The family are arguing over dinner» تأخذ فعلاً جمعاً لأن:',
+       o=['Family is always plural','The individuals in the family are acting separately','It is a spelling mistake','Dinner is plural'], c=1),
  ]))

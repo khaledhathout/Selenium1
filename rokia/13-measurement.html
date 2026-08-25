@@ -492,54 +492,79 @@ $('#cAgain').addEventListener('click',()=>{deck[ci].st='a';paintCard();});
 $('#cSay').addEventListener('click',e=>{const c=deck[ci];Voice.play([{text:c.say||c.f,el:null},{text:c.b,el:null}],e.currentTarget);});
 paintCard();
 
-/* ---- play ---- */
-const pl=$('#playArea');let solved=0,total=0;
+/* ---- play ----
+   GAME is either one lab (old pages, unchanged behaviour) or an array of
+   labs (a page with more than one classifying exercise on its Play tab). */
 function gwin(){toast('You finished the game!');party(45);}
-if(GAME.mode==='sort'){
-  total=GAME.items.length;
-  GAME.items.forEach(it=>{const r=document.createElement('div');r.className='gline';
-    r.innerHTML='<span class="who">'+it.t+'<span class="ar l">'+it.ta+'</span></span><span class="picks">'+
-      GAME.buckets.map(b=>'<button class="pick" data-k="'+b.k+'">'+b.label+'</button>').join('')+'</span>';
-    pl.appendChild(r);
-    $$('.pick',r).forEach(btn=>btn.addEventListener('click',()=>{
-      const good=btn.dataset.k===it.k;
-      $$('.pick',r).forEach(p=>{p.disabled=true;if(p.dataset.k===it.k)p.classList.add('yes');});
-      if(!good)btn.classList.add('no');
-      r.classList.add(good?'ok':'err');
-      if(good)addXp(1);
-      solved++;$('#gstat').textContent=solved+' of '+total+' done';
-      if(solved===total)gwin();}));});
-}else if(GAME.mode==='match'){
-  total=GAME.pairs.length;
-  const L=GAME.pairs.map((p,i)=>({...p,i})),R=L.slice();
-  for(let i=R.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[R[i],R[j]]=[R[j],R[i]];}
-  pl.innerHTML='<div class="mgrid"><div class="mcol" id="colL"></div><div class="mcol" id="colR"></div></div>';
-  let selA=null;
-  const mk=(txt,ar,i,side)=>{const b=document.createElement('button');b.className='mbtn';b.dataset.i=i;b.dataset.side=side;
-    b.innerHTML=txt+(ar?'<span class="ar c">'+ar+'</span>':'');return b;};
-  L.forEach(p=>$('#colL').appendChild(mk(p.a,p.aa,p.i,'a')));
-  R.forEach(p=>$('#colR').appendChild(mk(p.b,p.ba,p.i,'b')));
-  $$('.mbtn',pl).forEach(b=>b.addEventListener('click',()=>{
-    if(b.classList.contains('done'))return;
-    if(b.dataset.side==='a'){$$('.mbtn[data-side="a"]',pl).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');selA=b;return;}
-    if(!selA){toast('Pick from the left first');return;}
-    if(selA.dataset.i===b.dataset.i){selA.classList.remove('sel');selA.classList.add('done');b.classList.add('done');
-      selA=null;solved++;addXp(1);$('#gstat').textContent=solved+' of '+total+' matched';if(solved===total)gwin();}
-    else{b.classList.add('miss');setTimeout(()=>b.classList.remove('miss'),380);}}));
-}else if(GAME.mode==='order'){
-  total=GAME.steps.length;let next=0;
-  const bag=GAME.steps.map((s,i)=>({...s,i}));
-  for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}
-  pl.innerHTML='<div class="steps" id="stepBox"></div>';
-  bag.forEach(s=>{const b=document.createElement('button');b.className='step';
-    b.innerHTML='<span class="num">?</span><span>'+s.t+'<span class="ar l">'+s.ta+'</span></span>';
-    b.addEventListener('click',()=>{if(b.classList.contains('placed'))return;
-      if(s.i===next){b.classList.add('placed');$('.num',b).textContent=next+1;next++;solved++;addXp(1);
-        $('#gstat').textContent=solved+' of '+total+' in order';if(solved===total)gwin();}
-      else{b.classList.add('wrongstep');setTimeout(()=>b.classList.remove('wrongstep'),380);toast('Not yet — which one comes next?');}});
-    $('#stepBox').appendChild(b);});
+function renderLab(lab,pl,statEl){
+  let solved=0,total=0;
+  if(lab.mode==='sort'){
+    total=lab.items.length;
+    lab.items.forEach(it=>{const r=document.createElement('div');r.className='gline';
+      r.innerHTML='<span class="who">'+it.t+'<span class="ar l">'+it.ta+'</span></span><span class="picks">'+
+        lab.buckets.map(b=>'<button class="pick" data-k="'+b.k+'">'+b.label+'</button>').join('')+'</span>';
+      pl.appendChild(r);
+      $$('.pick',r).forEach(btn=>btn.addEventListener('click',()=>{
+        const good=btn.dataset.k===it.k;
+        $$('.pick',r).forEach(p=>{p.disabled=true;if(p.dataset.k===it.k)p.classList.add('yes');});
+        if(!good)btn.classList.add('no');
+        r.classList.add(good?'ok':'err');
+        if(good)addXp(1);
+        solved++;statEl.textContent=solved+' of '+total+' done';
+        if(solved===total)gwin();}));});
+  }else if(lab.mode==='match'){
+    total=lab.pairs.length;
+    const L=lab.pairs.map((p,i)=>({...p,i})),R=L.slice();
+    for(let i=R.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[R[i],R[j]]=[R[j],R[i]];}
+    pl.innerHTML='<div class="mgrid"><div class="mcol" id="'+pl.id+'-L"></div><div class="mcol" id="'+pl.id+'-R"></div></div>';
+    const colL=$('#'+pl.id+'-L'),colR=$('#'+pl.id+'-R');
+    let selA=null;
+    const mk=(txt,ar,i,side)=>{const b=document.createElement('button');b.className='mbtn';b.dataset.i=i;b.dataset.side=side;
+      b.innerHTML=txt+(ar?'<span class="ar c">'+ar+'</span>':'');return b;};
+    L.forEach(p=>colL.appendChild(mk(p.a,p.aa,p.i,'a')));
+    R.forEach(p=>colR.appendChild(mk(p.b,p.ba,p.i,'b')));
+    $$('.mbtn',pl).forEach(b=>b.addEventListener('click',()=>{
+      if(b.classList.contains('done'))return;
+      if(b.dataset.side==='a'){$$('.mbtn[data-side="a"]',pl).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');selA=b;return;}
+      if(!selA){toast('Pick from the left first');return;}
+      if(selA.dataset.i===b.dataset.i){selA.classList.remove('sel');selA.classList.add('done');b.classList.add('done');
+        selA=null;solved++;addXp(1);statEl.textContent=solved+' of '+total+' matched';if(solved===total)gwin();}
+      else{b.classList.add('miss');setTimeout(()=>b.classList.remove('miss'),380);}}));
+  }else if(lab.mode==='order'){
+    total=lab.steps.length;let next=0;
+    const bag=lab.steps.map((s,i)=>({...s,i}));
+    for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}
+    pl.innerHTML='<div class="steps"></div>';
+    const box=pl.firstElementChild;
+    bag.forEach(s=>{const b=document.createElement('button');b.className='step';
+      b.innerHTML='<span class="num">?</span><span>'+s.t+'<span class="ar l">'+s.ta+'</span></span>';
+      b.addEventListener('click',()=>{if(b.classList.contains('placed'))return;
+        if(s.i===next){b.classList.add('placed');$('.num',b).textContent=next+1;next++;solved++;addXp(1);
+          statEl.textContent=solved+' of '+total+' in order';if(solved===total)gwin();}
+        else{b.classList.add('wrongstep');setTimeout(()=>b.classList.remove('wrongstep'),380);toast('Not yet — which one comes next?');}});
+      box.appendChild(b);});
+  }
+  statEl.textContent='0 of '+total+(lab.mode==='match'?' matched':lab.mode==='order'?' in order':' done');
 }
-$('#gstat').textContent='0 of '+total+(GAME.mode==='match'?' matched':GAME.mode==='order'?' in order':' done');
+const LABS=Array.isArray(GAME)?GAME:[GAME];
+let mainPlay=$('#playArea'),mainStat=$('#gstat');
+LABS.forEach((lab,li)=>{
+  let pl=mainPlay,statEl=mainStat;
+  if(li>0){
+    const card=document.createElement('div');card.className='card';
+    if(lab.title)card.innerHTML='<span class="chip">Practice</span><h2>'+lab.title+'</h2>'+(lab.titleAr?'<div class="ar">'+lab.titleAr+'</div>':'');
+    pl=document.createElement('div');pl.id='playArea'+li;
+    statEl=document.createElement('div');statEl.className='gstat';
+    card.appendChild(pl);card.appendChild(statEl);
+    mainStat.insertAdjacentElement('afterend',card);
+    mainStat=statEl;
+  } else if(lab.title){
+    const head=document.createElement('div');head.className='card';
+    head.innerHTML='<span class="chip">Practice</span><h2>'+lab.title+'</h2>'+(lab.titleAr?'<div class="ar">'+lab.titleAr+'</div>':'');
+    mainPlay.insertAdjacentElement('beforebegin',head);
+  }
+  renderLab(lab,pl,statEl);
+});
 
 /* ---- sealed quiz ---- */
 const KEYS=['A','B','C','D'];

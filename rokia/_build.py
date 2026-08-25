@@ -173,7 +173,8 @@ def build(p, outdir):
     for tok, val in zip(['A','AD','AW','B','BW','AL','ALD','ALW','BL','BLW'], pal):
         css = css.replace('%(' + tok + ')s', val)
     game = p['game']
-    n_game = len(game.get('items') or game.get('pairs') or game.get('steps'))
+    labs = game if isinstance(game, list) else [game]
+    n_game = sum(len(lab.get('items') or lab.get('pairs') or lab.get('steps')) for lab in labs)
     xpmax = n_game + len(p['quiz'])
     html = SHELL.format(
         title=p['title'], eyebrow=p['eyebrow'], blurb=p['blurb'], blurb_ar=p['blurb_ar'],
