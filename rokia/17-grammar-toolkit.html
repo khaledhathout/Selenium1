@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Grammar Toolkit</title>
+<style>
+
+:root{
+  --bg:#fbfaf8; --card:#ffffff; --soft:#f3f1ee;
+  --ink:#1e2230; --ink2:#414a60; --muted:#6d7791;
+  --line:#e7e4de; --line2:#f0eeea;
+  --a:#1f6f5c; --a-deep:#154f42; --a-wash:#dcf0ea;
+  --b:#a8501f; --b-wash:#f9e3d6;
+  --good:#1f8a5b; --good-wash:#dff3e8;
+  --bad:#c8452f; --bad-wash:#fce3dd;
+  --gold:#b8860b; --gold-wash:#fbeed0;
+  --r:18px; --r-s:12px;
+  --sh:0 1px 2px rgba(30,34,48,.05), 0 8px 22px rgba(30,34,48,.07);
+  --sh-l:0 3px 8px rgba(30,34,48,.09), 0 20px 44px rgba(30,34,48,.16);
+  --disp:"Trebuchet MS","Segoe UI",Verdana,system-ui,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ar:"SF Arabic","Geeza Pro","Segoe UI",Tahoma,"Noto Naskh Arabic",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14161d; --card:#1c1f29; --soft:#232733;
+  --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
+  --line:#2e3342; --line2:#262b37;
+  --a:#5fc0a4; --a-deep:#9adfc8; --a-wash:#0d2e26;
+  --b:#e08a55; --b-wash:#3a2011;
+  --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
+  --gold:#e5bd63; --gold-wash:#372c12;
+  --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
+  --sh-l:0 3px 8px rgba(0,0,0,.5), 0 20px 44px rgba(0,0,0,.55);
+}}
+:root[data-theme="dark"]{
+  --bg:#14161d; --card:#1c1f29; --soft:#232733;
+  --ink:#eef0f6; --ink2:#c9cfdd; --muted:#98a1b6;
+  --line:#2e3342; --line2:#262b37;
+  --a:#5fc0a4; --a-deep:#9adfc8; --a-wash:#0d2e26;
+  --b:#e08a55; --b-wash:#3a2011;
+  --good:#4cc98d; --good-wash:#123726; --bad:#ff8168; --bad-wash:#3a1a14;
+  --gold:#e5bd63; --gold-wash:#372c12;
+  --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.4);
+  --sh-l:0 3px 8px rgba(0,0,0,.5), 0 20px 44px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--a);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--disp);font-weight:700;margin:0;line-height:1.2;text-wrap:balance}
+.ar{display:block;direction:rtl;text-align:right;font-family:var(--ar);font-size:.74rem;line-height:1.8;color:var(--muted);margin-top:.25rem}
+.ar.c{text-align:center}.ar.l{text-align:left}
+.ic{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- header ---------- */
+header.top{background:linear-gradient(135deg,var(--a) 0%,var(--a-deep) 100%);color:#fff;padding:1rem 1.1rem 1.2rem;position:relative;overflow:hidden}
+header.top::after{content:"";position:absolute;right:-3rem;top:-3rem;width:12rem;height:12rem;border-radius:50%;background:rgba(255,255,255,.09)}
+.top-in{max-width:900px;margin:0 auto;position:relative;z-index:1}
+.top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.eyebrow{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+header.top h1{font-size:clamp(1.5rem,5.4vw,2.1rem);margin:.15rem 0 .1rem}
+header.top .sub{font-size:.94rem;opacity:.93;max-width:46ch}
+header.top .ar{color:rgba(255,255,255,.86);text-align:left;direction:rtl}
+.tools{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;flex:none}
+.ring{position:relative;width:3.3rem;height:3.3rem}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .bg{fill:none;stroke:rgba(255,255,255,.28);stroke-width:6}
+.ring .fg{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .5s cubic-bezier(.2,.7,.3,1)}
+.ring b{position:absolute;inset:0;display:grid;place-content:center;font-family:var(--mono);font-size:.72rem;font-weight:700}
+.iconbtns{display:flex;gap:.3rem}
+.ib{width:1.9rem;height:1.9rem;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:.7rem}
+.ib:hover{background:rgba(255,255,255,.3)}
+
+/* ---------- tabs ---------- */
+nav.tabs{position:sticky;top:0;z-index:30;display:flex;gap:.3rem;padding:.5rem;background:var(--bg);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:5rem;border:none;background:transparent;border-radius:999px;padding:.5rem .8rem;font-family:var(--disp);font-weight:700;font-size:.9rem;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.05rem;transition:background .16s,color .16s}
+.tab .ar{font-size:.62rem;color:inherit;opacity:.8;margin:0}
+.tab:hover{color:var(--ink2);background:var(--soft)}
+.tab.on{background:var(--a);color:#fff}
+.tab.on .ar{color:#fff}
+
+main{max-width:900px;margin:0 auto;padding:1.1rem .9rem 3rem}
+.panel{display:none}.panel.on{display:block;animation:pop .3s ease both}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.card{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);padding:1.1rem;box-shadow:var(--sh);margin-bottom:.9rem}
+.card h2{font-size:1.25rem;margin-bottom:.2rem}
+.card p{color:var(--ink2);font-size:.97rem;margin:.5rem 0}
+.lead{font-size:1.02rem;color:var(--ink2)}
+.chip{display:inline-block;background:var(--a-wash);color:var(--a-deep);border-radius:999px;padding:.2rem .65rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.hint{background:var(--b-wash);border-left:4px solid var(--b);border-radius:var(--r-s);padding:.7rem .85rem;margin-top:.8rem}
+.hint p{margin:.2rem 0;color:var(--ink2);font-size:.93rem}
+.rowbtns{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.9rem}
+.btn{border:2px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;padding:.5rem 1.05rem;font-family:var(--disp);font-weight:700;font-size:.92rem;transition:all .16s}
+.btn:hover{border-color:var(--a);color:var(--a-deep)}
+.btn.solid{background:var(--a);border-color:var(--a);color:#fff}
+.btn.solid:hover{background:var(--a-deep);border-color:var(--a-deep);color:#fff}
+.btn.warm{background:var(--b);border-color:var(--b);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn .ar{font-size:.62rem;color:inherit;opacity:.85;text-align:center;font-weight:400}
+
+/* ---------- listen ---------- */
+.listen{display:inline-flex;align-items:center;gap:.4rem;border:2px solid var(--a);background:transparent;color:var(--a-deep);border-radius:999px;padding:.35rem .8rem;font-family:var(--disp);font-weight:700;font-size:.85rem}
+.listen:hover{background:var(--a-wash)}
+.listen.playing{background:var(--a);color:#fff;border-color:var(--a)}
+.listen.mini{padding:.25rem .6rem;font-size:.78rem}
+.listen .wave{display:inline-flex;gap:2px;align-items:flex-end;height:.7rem}
+.listen .wave i{width:2.5px;height:34%;background:currentColor;border-radius:2px}
+.listen.playing .wave i{animation:bob .7s ease-in-out infinite}
+.listen.playing .wave i:nth-child(2){animation-delay:.15s}
+.listen.playing .wave i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,100%{height:30%}50%{height:100%}}
+.spoken{background:var(--gold-wash);box-shadow:-4px 0 0 var(--gold);border-radius:4px}
+.voicebar{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-top:.8rem;padding-top:.8rem;border-top:1px dashed var(--line)}
+.seg{display:inline-flex;border:2px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{border:none;background:transparent;padding:.3rem .65rem;font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.seg button.on{background:var(--a);color:#fff}
+
+/* ---------- lesson ---------- */
+.part{background:var(--card);border:1px solid var(--line2);border-radius:var(--r);margin-bottom:.6rem;overflow:hidden;box-shadow:var(--sh)}
+.part-h{width:100%;border:none;background:transparent;text-align:left;display:flex;align-items:center;gap:.75rem;padding:.9rem 1rem}
+.part-n{width:2.1rem;height:2.1rem;flex:none;border-radius:50%;background:var(--a-wash);color:var(--a-deep);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:.85rem}
+.part-t{flex:1;font-family:var(--disp);font-weight:700;font-size:1.05rem}
+.part-t .ar{font-weight:400;text-align:left}
+.caret{color:var(--muted);font-size:1.2rem;transition:transform .25s}
+.part.open .caret{transform:rotate(45deg)}
+.part-b{display:none;padding:0 1rem 1rem}
+.part.open .part-b{display:block;animation:pop .25s ease both}
+.part-b p{font-size:.98rem;line-height:1.75;color:var(--ink2);margin:.55rem 0}
+.part-b ul,.part-b ol{margin:.5rem 0;padding-left:1.2rem;color:var(--ink2);font-size:.98rem;line-height:1.8}
+.part-b h4{font-family:var(--disp);font-size:1rem;margin:.9rem 0 .1rem;color:var(--a-deep)}
+.gloss{direction:rtl;text-align:right;font-family:var(--ar);font-size:.78rem;line-height:1.95;color:var(--muted);background:var(--soft);border-radius:var(--r-s);padding:.7rem .85rem;margin-top:.9rem}
+.gloss p{margin:.25rem 0;font-size:.78rem;color:inherit}
+table.tbl{width:100%;min-width:22rem;border-collapse:collapse;font-size:.92rem;margin-top:.6rem}
+table.tbl th{background:var(--a);color:#fff;text-align:left;padding:.5rem .6rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+table.tbl td{border-bottom:1px solid var(--line2);padding:.55rem .6rem;vertical-align:top;color:var(--ink2)}
+table.tbl td:first-child{font-weight:700;color:var(--ink)}
+.scroll{overflow-x:auto}
+
+/* ---------- cards ---------- */
+.deck{max-width:27rem;margin:0 auto}
+.dcount{text-align:center;font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
+.flip{perspective:1400px}
+.flip-in{position:relative;width:100%;min-height:15rem;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.9,.3,1);cursor:pointer}
+.flip-in.over{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);padding:1.3rem;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.4rem;box-shadow:var(--sh-l)}
+.face-a{background:linear-gradient(140deg,var(--a),var(--a-deep));color:#fff}
+.face-a .big{font-family:var(--disp);font-size:1.6rem;font-weight:700;line-height:1.25}
+.face-a .ar{color:rgba(255,255,255,.9);text-align:center;font-size:1rem}
+.face-b{background:var(--card);color:var(--ink);border:2px solid var(--a-wash);transform:rotateY(180deg)}
+.face-b .def{font-size:1rem;color:var(--ink2);line-height:1.6}
+.tapme{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65;position:absolute;bottom:.8rem;left:0;right:0}
+.dstat{text-align:center;font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-top:.8rem}
+
+/* ---------- play ---------- */
+.gline{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;background:var(--card);border:2px solid var(--line2);border-radius:var(--r-s);padding:.6rem .7rem;margin-bottom:.45rem;transition:border-color .2s,background .2s}
+.gline .who{flex:1 1 8rem;min-width:7rem;font-weight:700;font-size:.97rem}
+.gline .who .ar{font-weight:400;text-align:left}
+.picks{display:flex;gap:.3rem;flex-wrap:wrap}
+.pick{border:2px solid var(--line);background:var(--soft);color:var(--muted);border-radius:999px;padding:.3rem .7rem;font-weight:700;font-size:.82rem}
+.pick:hover:not(:disabled){border-color:var(--a);color:var(--a-deep)}
+.pick.yes{background:var(--good);border-color:var(--good);color:#fff}
+.pick.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.gline.ok{border-color:var(--good);background:var(--good-wash)}
+.gline.err{border-color:var(--bad);background:var(--bad-wash)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.mcol{display:flex;flex-direction:column;gap:.4rem}
+.mbtn{border:2px solid var(--line);background:var(--card);border-radius:var(--r-s);padding:.65rem .6rem;font-weight:700;font-size:.92rem;text-align:center;transition:all .16s;min-height:3rem}
+.mbtn .ar{font-weight:400;text-align:center}
+.mbtn:hover:not(:disabled){border-color:var(--a)}
+.mbtn.sel{border-color:var(--a);background:var(--a-wash);color:var(--a-deep)}
+.mbtn.done{border-color:var(--good);background:var(--good-wash);color:var(--good);opacity:.75;cursor:default}
+.mbtn.miss{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.steps{display:flex;flex-direction:column;gap:.4rem}
+.step{display:flex;align-items:center;gap:.6rem;border:2px solid var(--line);background:var(--card);border-radius:var(--r-s);padding:.6rem .7rem;text-align:left;font-weight:600;font-size:.94rem;transition:all .16s}
+.step .num{width:1.7rem;height:1.7rem;flex:none;border-radius:50%;background:var(--soft);color:var(--muted);display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;font-weight:700}
+.step:hover:not(:disabled){border-color:var(--a)}
+.step.placed{border-color:var(--good);background:var(--good-wash)}
+.step.placed .num{background:var(--good);color:#fff}
+.step.wrongstep{border-color:var(--bad);animation:shake .35s}
+.gstat{text-align:center;font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-top:.8rem}
+
+/* ---------- quiz ---------- */
+.sealed{display:flex;gap:.7rem;background:var(--b-wash);border:2px solid var(--b);border-radius:var(--r);padding:.85rem .95rem;margin-bottom:1rem}
+.sealed .lock{font-size:1.4rem;line-height:1}
+.sealed p{margin:0;font-size:.93rem;color:var(--ink2)}
+.sealed b{color:var(--b)}
+.qbar{height:8px;border-radius:99px;background:var(--soft);overflow:hidden;margin:.7rem 0 .35rem}
+.qbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:width .35s}
+.qcount{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.qtop{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.7rem}
+.qno{font-family:var(--mono);font-size:.74rem;font-weight:700;background:var(--a);color:#fff;border-radius:999px;padding:.25rem .6rem}
+.sp{flex:1}
+.flagb{border:2px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:.25rem .6rem;font-size:.78rem;font-weight:700}
+.flagb.on{background:var(--gold-wash);border-color:var(--gold);color:var(--gold)}
+.qtext{font-family:var(--disp);font-size:1.15rem;font-weight:700;line-height:1.4}
+.opts{display:flex;flex-direction:column;gap:.45rem;margin-top:.9rem}
+.opt{display:flex;align-items:center;gap:.7rem;text-align:left;border:2px solid var(--line);background:var(--card);color:var(--ink2);border-radius:var(--r-s);padding:.7rem .8rem;font-size:.97rem;transition:all .15s}
+.opt:hover{border-color:var(--a)}
+.opt .k{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:.75rem;font-weight:700;color:var(--muted)}
+.opt.on{border-color:var(--a);background:var(--a-wash);color:var(--ink)}
+.opt.on .k{background:var(--a);border-color:var(--a);color:#fff}
+.qnav{display:flex;gap:.5rem;margin-top:1rem}
+.qnav .btn{flex:1}
+.qmap{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.3rem,1fr));gap:.35rem;margin-top:.6rem}
+.cell{aspect-ratio:1;border:2px solid var(--line);background:var(--soft);color:var(--muted);border-radius:10px;font-family:var(--mono);font-size:.8rem;font-weight:700;display:grid;place-items:center;position:relative}
+.cell.fill{background:var(--a-wash);border-color:var(--a);color:var(--a-deep)}
+.cell.here{outline:3px solid var(--b);outline-offset:1px}
+.cell.flag::after{content:"";position:absolute;top:-3px;right:-3px;width:.5rem;height:.5rem;border-radius:50%;background:var(--gold)}
+.res{display:none}.res.on{display:block;animation:pop .35s ease both}
+.score{background:linear-gradient(140deg,var(--a),var(--a-deep));color:#fff;border-radius:var(--r);padding:1.6rem 1.1rem;text-align:center;box-shadow:var(--sh-l)}
+.dial{position:relative;width:9rem;height:9rem;margin:0 auto 1rem}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dial .bg{fill:none;stroke:rgba(255,255,255,.22);stroke-width:10}
+.dial .fg{fill:none;stroke:#fff;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(.2,.7,.3,1)}
+.dial .mid{position:absolute;inset:0;display:grid;place-content:center}
+.dial .pc{font-family:var(--mono);font-size:2rem;font-weight:700}
+.dial .gr{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+.score h2{font-size:1.4rem}
+.score .nt{opacity:.9;font-size:.95rem;margin-top:.3rem}
+.tally{display:flex;justify-content:center;gap:1.6rem;margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.25)}
+.tally b{display:block;font-family:var(--mono);font-size:1.25rem}
+.tally span{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.acts{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.acts .btn{flex:1 1 9rem}
+.rev{background:var(--card);border:1px solid var(--line2);border-left:5px solid var(--good);border-radius:var(--r-s);padding:.85rem .9rem;margin-bottom:.5rem;box-shadow:var(--sh)}
+.rev.no{border-left-color:var(--bad)}
+.rev .rq{font-weight:700;font-size:.98rem;line-height:1.45}
+.aline{display:flex;gap:.5rem;align-items:baseline;font-size:.9rem;margin-top:.35rem;color:var(--ink2)}
+.tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .4rem;border-radius:5px;flex:none;font-weight:700}
+.tag.mine{background:var(--bad-wash);color:var(--bad)}
+.tag.mine.ok{background:var(--good-wash);color:var(--good)}
+.tag.key{background:var(--good-wash);color:var(--good)}
+
+.veil{position:fixed;inset:0;z-index:60;background:rgba(20,22,29,.6);display:none;place-items:center;padding:1rem}
+.veil.on{display:grid}
+.modal{background:var(--card);border-radius:var(--r);padding:1.2rem;max-width:24rem;width:100%;box-shadow:var(--sh-l)}
+.modal p{color:var(--ink2);font-size:.94rem}
+.toast{position:fixed;left:50%;bottom:1.4rem;transform:translateX(-50%) translateY(.6rem);background:var(--ink);color:var(--bg);padding:.6rem 1.1rem;border-radius:999px;font-weight:700;font-size:.88rem;opacity:0;pointer-events:none;transition:.25s;z-index:70}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:65;overflow:hidden}
+.bit{position:absolute;top:-2rem;font-size:1.1rem;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(520deg);opacity:.2}}
+@media (max-width:520px){ .mgrid{grid-template-columns:1fr} .card{padding:.95rem} }
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="top-row">
+      <div>
+        <div class="eyebrow">English · Unit 1, Lesson 2</div>
+        <h1>The Grammar Toolkit</h1>
+        <div class="sub">A verb has to match its subject, a pronoun has to match its noun, and adjectives line up in one order. Learn the rules that make a sentence sound right.</div>
+        <div class="ar">الفعل يجب أن يطابق فاعله، والضمير يجب أن يطابق اسمه، والصفات تصطف بترتيب واحد. تعلّمي القواعد التي تجعل الجملة سليمة.</div>
+      </div>
+      <div class="tools">
+        <div class="ring">
+          <svg viewBox="0 0 60 60" aria-hidden="true"><circle class="bg" cx="30" cy="30" r="26"></circle><circle class="fg" id="ringFg" cx="30" cy="30" r="26"></circle></svg>
+          <b id="ringTxt">0%</b>
+        </div>
+        <div class="iconbtns">
+          <button class="ib" id="tDn" title="Smaller text" aria-label="Smaller text">A−</button>
+          <button class="ib" id="tUp" title="Bigger text" aria-label="Bigger text">A+</button>
+          <button class="ib" id="themeBtn" title="Light or dark" aria-label="Light or dark">◐</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab on" data-go="learn">Learn<span class="ar c">الدرس</span></button>
+  <button class="tab" data-go="cards">Cards<span class="ar c">بطاقات</span></button>
+  <button class="tab" data-go="play">Play<span class="ar c">لعبة</span></button>
+  <button class="tab" data-go="quiz">Quiz<span class="ar c">اختبار</span></button>
+</nav>
+
+<main>
+  <section class="panel on" id="learn">
+    <div class="card">
+      <span class="chip">Listen and read</span>
+      <h2>Three rules that hold a sentence together</h2>
+      <p class="lead">Open a part to read it, and press Listen to hear it read aloud in English.</p>
+      <div class="ar">افتحي أي جزء لقراءته، واضغطي «Listen» لسماعه بالإنجليزية.</div>
+      <div class="voicebar">
+        <span class="chip" style="background:transparent;color:var(--muted)">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button><button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button><button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">Stop</button>
+      </div>
+    </div>
+    <div id="parts"></div>
+  </section>
+
+  <section class="panel" id="cards">
+    <div class="card">
+      <span class="chip">Flip cards</span>
+      <h2>Grammar cards</h2>
+      <p class="lead">Work out the rule in your head first, then flip the card to check.</p>
+      <div class="ar">احسبي القاعدة في ذهنك أولاً ثم اقلبي البطاقة للتأكد.</div>
+    </div>
+    <div class="deck">
+      <div class="dcount" id="dcount"></div>
+      <div class="flip">
+        <div class="flip-in" id="flip" role="button" tabindex="0" aria-label="Flashcard, activate to flip">
+          <div class="face face-a"><div class="big" id="cFront"></div><div class="ar c" id="cFrontAr"></div><div class="tapme">Tap to flip · اضغطي للقلب</div></div>
+          <div class="face face-b"><div class="def" id="cBack"></div><div class="ar c" id="cBackAr"></div><div class="tapme">Tap to flip back</div></div>
+        </div>
+      </div>
+      <div class="rowbtns" style="justify-content:center"><button id="cSay" class="listen" data-label="Listen to this card"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen to this card</span></button></div>
+      <div class="rowbtns"><button class="btn" id="cAgain" style="flex:1">Practise again</button><button class="btn solid" id="cKnow" style="flex:1">I know it</button></div>
+      <div class="rowbtns"><button class="btn" id="cPrev" style="flex:1">◀ Back</button><button class="btn" id="cShuf" style="flex:1">Shuffle</button><button class="btn" id="cNext" style="flex:1">Next ▶</button></div>
+      <div class="dstat" id="dstat"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="play">
+    <div class="card">
+      <span class="chip">Game · answers show at once</span>
+      <h2>Correct or has an error?</h2>
+      <p class="lead">Read each sentence from the worksheet. Is the verb right, or does it need fixing?</p>
+      <div class="ar">اقرئي كل جملة من الورقة. هل الفعل صحيح أم يحتاج تصحيحاً؟</div>
+    </div>
+    <div id="playArea"></div>
+    <div class="gstat" id="gstat"></div>
+  </section>
+
+  <section class="panel" id="quiz">
+    <div id="quizLive">
+      <div class="sealed">
+        <span class="lock">🔒</span>
+        <div>
+          <p><b>Sealed quiz.</b> No answer and no tick appears while you work. Answer all 15 questions, then press <b>See my score</b> — only then do the answers appear.</p>
+          <div class="ar">اختبار مغلق: لا تظهر أي إجابة أو علامة أثناء الحل. جاوبي على الأسئلة كلها ثم اضغطي «See my score» — عندها فقط تظهر الإجابات.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div><span class="chip">Quiz</span><h2>15 Questions</h2></div>
+          <div class="chip" id="clock" style="background:var(--soft);color:var(--muted)">0:00</div>
+        </div>
+        <div class="qbar"><i id="qfill"></i></div>
+        <div class="qcount"><span id="qdone">0 answered</span><span id="qleft">15 to go</span></div>
+      </div>
+      <div class="card" id="qcard">
+        <div class="qtop"><span class="qno" id="qno">Q1</span><span class="sp"></span><button id="qsay" class="listen mini" data-label="Listen"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">Listen</span></button><button class="flagb" id="qflag">Flag</button></div>
+        <div class="qtext" id="qtext"></div>
+        <div class="ar" id="qar"></div>
+        <div class="opts" id="qopts"></div>
+        <div class="qnav"><button class="btn" id="qprev">◀ Back</button><button class="btn solid" id="qnext">Next ▶</button></div>
+      </div>
+      <div class="card">
+        <span class="chip">Question map</span>
+        <div class="qmap" id="qmap"></div>
+        <div class="acts" style="margin-bottom:0"><button class="btn warm" id="submit">🔓 See my score<div class="ar">شوفي درجتك</div></button></div>
+      </div>
+    </div>
+    <div class="res" id="res">
+      <div class="score">
+        <div class="dial"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="bg" cx="60" cy="60" r="54"></circle><circle class="fg" id="dialFg" cx="60" cy="60" r="54"></circle></svg>
+          <div class="mid"><div class="pc" id="pct">0%</div><div class="gr" id="grade"></div></div></div>
+        <h2 id="verdict"></h2>
+        <div class="nt" id="vnote"></div>
+        <div class="ar c" id="var" style="color:rgba(255,255,255,.9)"></div>
+        <div class="tally"><div><b id="tR">0</b><span>Right</span></div><div><b id="tW">0</b><span>Missed</span></div><div><b id="tT">0:00</b><span>Time</span></div></div>
+      </div>
+      <div class="acts">
+        <button class="btn solid" id="again">Try all again<div class="ar">أعيدي الكل</div></button>
+        <button class="btn" id="missed">Retry missed<div class="ar">أعيدي الخطأ</div></button>
+        <button class="btn" id="toLesson">Back to lesson<div class="ar">راجعي الدرس</div></button>
+      </div>
+      <div class="card"><span class="chip">Unsealed</span><h2>Every question and its answer</h2>
+        <p class="lead">Your answer next to the right one. Press Listen to hear any question.</p>
+        <div class="ar">إجابتك بجانب الإجابة الصحيحة. اضغطي «Listen» لسماع أي سؤال.</div></div>
+      <div id="revList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="veil" id="veil"><div class="modal"><h2 id="mTitle" style="font-size:1.15rem"></h2><p id="mBody"></p><div class="ar" id="mAr"></div>
+  <div class="acts" style="margin-bottom:0"><button class="btn" id="mBack">Go back</button><button class="btn warm" id="mGo">Show me</button></div></div></div>
+<div class="toast" id="toast"></div><div id="fx" aria-hidden="true"></div>
+
+<script>
+const PARTS=[{"n": "1", "t": "Subject pronouns and their verbs", "ta": "ضمائر الفاعل وأفعالها", "html": "<p><b>Subject pronouns</b> function as the subject of a sentence. They are: <b>I, we, you, he, she, it,</b> and <b>they</b>.</p><p>A pronoun replaces a noun in a sentence to avoid repeating it — and once it does, the verb has to agree with it in number.</p><ul><li><b>I, we, you,</b> and <b>they</b> take the <b>plural</b> form of the verb.</li><li><b>He, she,</b> and <b>it</b> take the <b>singular</b> form of the verb.</li></ul><p><i>“I always have playdates with my friends.”</i> — <i>“She likes baking cookies with her friends.”</i></p>", "gloss": "<p><b>ضمائر الفاعل</b> تعمل كفاعل في الجملة، وهي: I, we, you, he, she, it, they.</p><p>الضمير يحل محل الاسم في الجملة لتجنّب تكراره، وبمجرد استخدامه يجب أن يطابقه الفعل في العدد.</p><p><b>I, we, you, they</b> تأخذ صيغة الفعل <b>الجمع</b>. و<b>he, she, it</b> تأخذ صيغة الفعل <b>المفرد</b>.</p><p>مثال: «I always have playdates» و«She likes baking cookies».</p>"}, {"n": "2", "t": "Demonstrative pronouns: near and far", "ta": "ضمائر الإشارة: قريب وبعيد", "html": "<p><b>Demonstrative pronouns</b> point out specific persons, places, or things, and show how near or far the thing being referred to is.</p><p>The four demonstrative pronouns are <b>this, that, these,</b> and <b>those</b>.</p><ul><li><b>This</b> (near) and <b>that</b> (far) take the <b>singular</b> form of the verb.</li><li><b>These</b> (near) and <b>those</b> (far) take the <b>plural</b> form of the verb.</li></ul><p><i>“This is a good place to relax.”</i> — <i>“These look very rare and expensive.”</i></p><div class=\"hint\"><p><b>Take note:</b> the near/far pairing is about distance, but the singular/plural pairing is about the verb — this and that always want a singular verb, no matter what they point to.</p></div>", "gloss": "<p><b>ضمائر الإشارة</b> تشير إلى أشخاص أو أماكن أو أشياء محددة، وتوضح مدى قرب أو بعد الشيء المُشار إليه.</p><p>الأربعة هي: this, that (قريب/بعيد للمفرد)، وthese, those (قريب/بعيد للجمع).</p><p><b>this</b> و<b>that</b> تأخذان صيغة الفعل <b>المفرد</b>. و<b>these</b> و<b>those</b> تأخذان صيغة الفعل <b>الجمع</b>.</p><p>مثال: «This is a good place» و«These look very rare».</p>"}, {"n": "3", "t": "Relative pronouns and their antecedent", "ta": "ضمائر الوصل واسمها الموصول", "html": "<p><b>Relative pronouns</b> are found at the start of a relative clause — a clause that gives more information about the noun right before it.</p><p>Common relative pronouns are <b>who, that, which, whose,</b> and <b>whom</b>. The noun that the relative pronoun replaces is called the <b>antecedent</b>.</p><p>In writing, the verb inside the relative clause must agree with the <b>antecedent</b> in number — not with anything else in the sentence.</p><p><i>“The man <b>who</b> sings beautifully is my uncle.”</i> — the antecedent is “the man” (singular), so the verb is “sings”.</p><p><i>“The dancing lights <b>that</b> fill the park with colors are fun to watch.”</i> — the antecedent is “the dancing lights” (plural), so the verb is “fill”.</p><div class=\"hint\"><p><b>Find the antecedent first.</b> Ask “who or what does the relative pronoun stand for?” — that word decides whether the clause verb is singular or plural.</p></div>", "gloss": "<p><b>ضمائر الوصل</b> تقع في بداية جملة الصلة، وهي جملة تعطي معلومات إضافية عن الاسم الذي يسبقها مباشرة.</p><p>الشائعة منها: who, that, which, whose, whom. والاسم الذي يحل محله ضمير الوصل يسمى <b>الاسم الموصول (antecedent)</b>.</p><p>يجب أن يطابق الفعل داخل جملة الصلة الاسمَ الموصول في العدد لا أي كلمة أخرى في الجملة.</p><p>مثال: «The man who sings beautifully» — الاسم الموصول «the man» مفرد، فالفعل «sings». ومثال: «The dancing lights that fill the park» — الاسم الموصول جمع، فالفعل «fill».</p><p><b>ابحثي عن الاسم الموصول أولاً:</b> اسألي «إلى من أو ماذا يعود ضمير الوصل؟» — تلك الكلمة تحدد صيغة الفعل.</p>"}, {"n": "4", "t": "Tricky subjects: collective and abstract nouns", "ta": "فاعلون خادعون: أسماء جماعية ومجردة", "html": "<p>Some subjects look like they should take a plural verb, but they do not.</p><ul><li><b>Collective nouns</b> — like <i>family, team, committee,</i> and <i>board</i> — name a group, but the group acts as <b>one unit</b>, so it takes a singular verb: <i>“The family gathers.”</i> “The committee discusses.”</li><li><b>A herd/group “of” something</b> — the verb agrees with the collective word, not the plural noun after “of”: <i>“A herd of cattle grazes”</i>, not “graze”.</li><li><b>Abstract nouns</b> — like <i>bravery, wisdom,</i> and <i>unity</i> — name an idea, not a person or thing, but they are still singular: <i>“Wisdom comes with experience.”</i></li></ul><div class=\"hint\"><p><b>The trap to avoid:</b> “The books on the old man’s shelf are all classics” — the verb agrees with <i>books</i> (the real subject), not with <i>shelf</i>, the closer noun.</p></div>", "gloss": "<p>بعض الفاعلين يبدون وكأنهم يحتاجون فعلاً بصيغة الجمع، لكنهم لا يحتاجون.</p><p><b>الأسماء الجماعية</b> مثل family وteam وcommittee وboard تسمي مجموعة، لكن المجموعة تتصرف <b>كوحدة واحدة</b> فتأخذ فعلاً مفرداً: «The family gathers».</p><p><b>مجموعة «من» شيء</b> — يطابق الفعل الكلمة الجماعية لا الاسم الجمع بعد «of»: «A herd of cattle grazes» لا «graze».</p><p><b>الأسماء المجردة</b> مثل bravery وwisdom وunity تسمي فكرة لا شخصاً أو شيئاً، لكنها تبقى مفردة: «Wisdom comes with experience».</p><p><b>فخ يجب تجنبه:</b> «The books on the old man’s shelf are all classics» — يطابق الفعل «books» الفاعل الحقيقي، لا «shelf» الاسم الأقرب.</p>"}, {"n": "5", "t": "Putting adjectives in order", "ta": "ترتيب الصفات", "html": "<p>Writers use <b>adjectives</b> to describe a noun or pronoun — they modify or add information about the word they describe.</p><p>When more than one adjective describes the same word, they must be arranged in a certain order:</p><p style=\"font-size:1.05rem;font-weight:700\">determiner → quantity → quality → size → shape → color → noun</p><div class=\"scroll\"><table class=\"tbl\"><tr><th>Determiner</th><th>Quantity</th><th>Quality</th><th>Size</th><th>Shape</th><th>Color</th><th>Noun</th></tr><tr><td>The</td><td>three</td><td>durable</td><td>big</td><td>round</td><td>white</td><td>plates</td></tr></table></div><p><i>“The three, durable, big, round, white plates break when Lala drops them onto the kitchen floor.”</i></p><div class=\"hint\"><p><b>Say it out loud.</b> Swap two of the categories and the sentence instantly sounds wrong, even if you cannot explain why — that is your ear checking the order for you.</p></div>", "gloss": "<p>يستخدم الكتّاب <b>الصفات</b> لوصف اسم أو ضمير — فهي تعدّل أو تضيف معلومات عن الكلمة التي تصفها.</p><p>وعندما تصف أكثر من صفة نفس الكلمة، يجب ترتيبها بطريقة معينة:</p><p><b>أداة تعريف ← عدد ← نوعية ← حجم ← شكل ← لون ← الاسم</b></p><p>مثال: The (أداة) three (عدد) durable (نوعية) big (حجم) round (شكل) white (لون) plates (الاسم).</p><p>«الأطباق الثلاثة المتينة الكبيرة المستديرة البيضاء تنكسر عندما تُسقطها لالا على أرضية المطبخ.»</p><p><b>اقرئي بصوت عالٍ:</b> بدّلي ترتيب صفتين وستشعرين فوراً أن الجملة خاطئة، حتى لو لم تستطيعي تفسير السبب — تلك أذنك تتحقق من الترتيب نيابة عنك.</p>"}];
+const CARDS=[{"f": "I, we, you, they", "fa": "I, we, you, they", "b": "Take the plural form of the verb.", "ba": "تأخذ صيغة الفعل الجمع."}, {"f": "He, she, it", "fa": "He, she, it", "b": "Take the singular form of the verb.", "ba": "تأخذ صيغة الفعل المفرد."}, {"f": "This / that", "fa": "this / that", "b": "Near and far, singular — take the singular form of the verb.", "ba": "قريب وبعيد للمفرد، يأخذان صيغة الفعل المفرد."}, {"f": "These / those", "fa": "these / those", "b": "Near and far, plural — take the plural form of the verb.", "ba": "قريب وبعيد للجمع، يأخذان صيغة الفعل الجمع."}, {"f": "Antecedent", "fa": "الاسم الموصول", "b": "The noun that a relative pronoun replaces — the clause verb must agree with it.", "ba": "الاسم الذي يحل محله ضمير الوصل، ويجب أن يطابقه فعل جملة الصلة."}, {"f": "Relative pronouns", "fa": "ضمائر الوصل", "b": "who, that, which, whose, whom — start a relative clause.", "ba": "who, that, which, whose, whom — تبدأ بها جملة الصلة."}, {"f": "Collective noun", "fa": "اسم جماعي", "b": "Names a group acting as one unit, so it takes a singular verb: family, team, committee, board.", "ba": "يسمي مجموعة تتصرف كوحدة، فيأخذ فعلاً مفرداً: family, team, committee, board."}, {"f": "Abstract noun", "fa": "اسم مجرد", "b": "Names an idea, not a thing, and is still singular: bravery, wisdom, unity.", "ba": "يسمي فكرة لا شيئاً، ويبقى مفرداً: bravery, wisdom, unity."}, {"f": "Adjective order", "fa": "ترتيب الصفات", "b": "determiner, quantity, quality, size, shape, color, then the noun.", "ba": "أداة تعريف، عدد، نوعية، حجم، شكل، لون، ثم الاسم."}, {"f": "“The three durable big round white plates”", "fa": "مثال الترتيب", "b": "Determiner–quantity–quality–size–shape–color, in that order.", "ba": "أداة تعريف–عدد–نوعية–حجم–شكل–لون، بهذا الترتيب."}];
+const GAME={"mode": "sort", "buckets": [{"k": "ok", "label": "Correct"}, {"k": "fix", "label": "Has an error"}], "items": [{"t": "The family gathers to open the Christmas presents.", "ta": "العائلة تجتمع لفتح هدايا الكريسماس.", "k": "ok"}, {"t": "The plants makes granny’s garden vibrant and colorful.", "ta": "«The plants makes» — خطأ.", "k": "fix"}, {"t": "A herd of cattle grazes peacefully in the grass field.", "ta": "قطيع الماشية يرعى بسلام.", "k": "ok"}, {"t": "This sound like a song from the past.", "ta": "«This sound» — خطأ.", "k": "fix"}, {"t": "The books on the old man’s shelf are all classics.", "ta": "الكتب على رف الرجل العجوز كلها كلاسيكيات.", "k": "ok"}, {"t": "The school bus that fetch me for school is unavailable today.", "ta": "«that fetch» — خطأ.", "k": "fix"}, {"t": "Wisdom always comes with experience.", "ta": "الحكمة تأتي دائماً مع الخبرة.", "k": "ok"}, {"t": "The board decide on the very important matters.", "ta": "«The board decide» — خطأ.", "k": "fix"}, {"t": "The committee discusses the plan for the event.", "ta": "اللجنة تناقش خطة الحدث.", "k": "ok"}, {"t": "These tastes heavenly. Can I have more cookies?", "ta": "«These tastes» — خطأ.", "k": "fix"}]};
+const QUIZ=[{"q": "Which subject pronouns take the plural form of the verb?", "a": "أي ضمائر فاعل تأخذ صيغة الفعل الجمع؟", "o": ["He, she, it", "I, we, you, they", "This, that", "Who, which"], "c": 1}, {"q": "Which subject pronouns take the singular form of the verb?", "a": "أي ضمائر فاعل تأخذ صيغة الفعل المفرد؟", "o": ["I, we, you", "He, she, it", "These, those", "They"], "c": 1}, {"q": "“This” and “that” take which form of the verb?", "a": "«this» و«that» تأخذان أي صيغة للفعل؟", "o": ["Plural", "Singular", "No verb at all", "Both forms"], "c": 1}, {"q": "“These” and “those” take which form of the verb?", "a": "«these» و«those» تأخذان أي صيغة للفعل؟", "o": ["Singular", "Plural", "No verb at all", "Depends on the noun"], "c": 1}, {"q": "A relative clause gives more information about:", "a": "جملة الصلة تعطي معلومات إضافية عن:", "o": ["The noun right before it", "The whole paragraph", "The title of the text", "Nothing in particular"], "c": 0}, {"q": "The noun that a relative pronoun replaces is called the:", "a": "الاسم الذي يحل محله ضمير الوصل يسمى:", "o": ["Subject", "Antecedent", "Determiner", "Object"], "c": 1}, {"q": "“The man who sings beautifully is my uncle.” The verb “sings” agrees with:", "a": "في «The man who sings beautifully»، يطابق الفعل «sings»:", "o": ["“Beautifully”", "“The man”", "“My uncle”", "Nothing"], "c": 1}, {"q": "“The family gathers to open the presents.” Why is “gathers” singular?", "a": "لماذا الفعل «gathers» مفرد في «The family gathers»؟", "o": ["Because family is a collective noun acting as one unit", "Because it is a mistake", "Because presents is plural", "There is no reason"], "c": 0}, {"q": "Correct the error: “The plants makes granny’s garden vibrant.”", "a": "صححي الخطأ: «The plants makes granny’s garden vibrant».", "o": ["The plants make granny’s garden vibrant", "The plants maked granny’s garden vibrant", "No error", "The plant makes granny’s garden vibrant"], "c": 0}, {"q": "Correct the error: “This sound like a song from the past.”", "a": "صححي الخطأ: «This sound like a song from the past».", "o": ["This sounds like a song from the past", "This sound liked a song from the past", "No error", "These sound like a song from the past"], "c": 0}, {"q": "Correct the error: “The board decide on the very important matters.”", "a": "صححي الخطأ: «The board decide on the very important matters».", "o": ["The board decides on the very important matters", "The boards decide on the very important matters", "No error", "The board deciding on the matters"], "c": 0}, {"q": "Which sentence has NO error in subject-verb agreement?", "a": "أي جملة لا تحتوي خطأ في تطابق الفاعل والفعل؟", "o": ["Bravery is the choice to face your fears with faith in your heart.", "This sound like a song from the past.", "The board decide on the matters.", "The plants makes the garden vibrant."], "c": 0}, {"q": "Adjectives describing the same noun are arranged in the order:", "a": "الصفات التي تصف نفس الاسم تُرتَّب بالترتيب:", "o": ["Color, shape, size, quality, quantity, determiner", "Determiner, quantity, quality, size, shape, color", "Size, color, shape, quantity, quality, determiner", "Any order is correct"], "c": 1}, {"q": "In “the three durable big round white plates,” which word shows quantity?", "a": "في «the three durable big round white plates»، أي كلمة تدل على العدد؟", "o": ["Three", "Durable", "Round", "White"], "c": 0}, {"q": "In “the three durable big round white plates,” which word is the determiner?", "a": "في «the three durable big round white plates»، أي كلمة أداة التعريف؟", "o": ["Big", "The", "Round", "Plates"], "c": 1}];
+const XP_MAX=25;
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2100);}
+function party(n=34){const l=$('#fx'),e=['⭐','✨','🎉','🎈'];for(let i=0;i<n;i++){const b=document.createElement('div');b.className='bit';b.textContent=e[Math.floor(Math.random()*e.length)];b.style.left=Math.random()*100+'vw';b.style.animationDuration=(2+Math.random()*1.6)+'s';l.appendChild(b);setTimeout(()=>b.remove(),4000);}}
+
+$('#themeBtn').addEventListener('click',()=>{const r=document.documentElement;
+  const d=r.getAttribute('data-theme')==='dark'||(!r.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+  r.setAttribute('data-theme',d?'light':'dark');});
+const SZ=[14,15,16,17.5,19,21];let szi=2;
+$('#tUp').addEventListener('click',()=>{szi=Math.min(SZ.length-1,szi+1);document.documentElement.style.fontSize=SZ[szi]+'px';});
+$('#tDn').addEventListener('click',()=>{szi=Math.max(0,szi-1);document.documentElement.style.fontSize=SZ[szi]+'px';});
+
+let xp=0;const RC=2*Math.PI*26;
+$('#ringFg').style.strokeDasharray=RC;$('#ringFg').style.strokeDashoffset=RC;
+function addXp(n){if(n<=0)return;xp=Math.min(XP_MAX,xp+n);
+  $('#ringTxt').textContent=Math.round(xp/XP_MAX*100)+'%';
+  $('#ringFg').style.strokeDashoffset=RC*(1-xp/XP_MAX);
+  if(xp>=XP_MAX)party(50);}
+
+/* text of an element with any Arabic gloss stripped out — the voice reads English only */
+function englishOf(el){const c=el.cloneNode(true);
+  c.querySelectorAll('.ar,.gloss').forEach(x=>x.remove());
+  /* a glyph is shown to the eye but spoken by its name, so the English voice can say it */
+  c.querySelectorAll('.glyph').forEach(g=>g.replaceWith(document.createTextNode(g.dataset.en||'')));
+  return c.textContent.replace(/\s+/g,' ').trim();}
+
+const Voice=(function(){const s=window.speechSynthesis,ok=!!s&&typeof SpeechSynthesisUtterance==='function';
+let rate=.85,v=null,ch=[],i=0,btn=null,mk=null,al=null,spoke=false;
+function pick(){if(!ok)return;const all=s.getVoices().filter(x=>/^en(-|_|$)/i.test(x.lang));if(!all.length)return;
+  const like=['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Karen','Moira','Daniel'];
+  v=all.find(x=>like.some(n=>x.name.includes(n)))||all.find(x=>/en[-_]US/i.test(x.lang))||all[0];}
+if(ok){pick();s.addEventListener('voiceschanged',pick);}
+function dress(b,p){if(!b)return;b.classList.toggle('playing',p);const l=b.querySelector('.lbl');if(l)l.textContent=p?'Stop':(b.dataset.label||'Listen');}
+function clr(){if(mk){mk.classList.remove('spoken');mk=null;}dress(btn,false);btn=null;ch=[];i=0;if(al){clearInterval(al);al=null;}}
+function stop(){if(ok){try{s.cancel();}catch(e){}}clr();}
+function run(){if(i>=ch.length){if(!spoke)toast('No English voice on this device');clr();return;}
+  const p=ch[i],u=new SpeechSynthesisUtterance(p.text);u.lang=(v&&v.lang)||'en-US';if(v)u.voice=v;u.rate=rate;
+  u.onstart=()=>{spoke=true;if(mk)mk.classList.remove('spoken');mk=p.el||null;
+    if(mk){mk.classList.add('spoken');const r=mk.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight-30)mk.scrollIntoView({block:'center',behavior:'smooth'});}};
+  u.onend=()=>{i++;run();};u.onerror=()=>{i++;run();};s.speak(u);}
+function play(ps,t){if(!ok){toast('This browser cannot read aloud');return;}
+  const same=t&&t===btn;stop();if(same)return;
+  ch=ps.filter(p=>p.text&&p.text.trim().length>1);if(!ch.length)return;
+  i=0;spoke=false;btn=t||null;dress(btn,true);
+  al=setInterval(()=>{if(s.speaking&&!s.paused){s.pause();s.resume();}},9000);run();}
+return{ok,play,stop,say:(t,b)=>play([{text:t,el:null}],b),
+  read:(root,b)=>{const bl=$$('p, li, h4, td, .def, .qtext',root).filter(e=>!e.closest('.ar,.gloss')).filter(e=>!e.querySelector('p,li,td'));
+    play(bl.map(e=>({text:englishOf(e),el:e})),b);},
+  setRate:r=>{rate=r;stop();}};})();
+
+function lHTML(l='Listen',x=''){return '<button class="listen '+x+'" data-label="'+l+'"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">'+l+'</span></button>';}
+$$('.listen').forEach(b=>{if(b.querySelector('.lbl'))return;const l=b.textContent.trim()||'Listen';b.dataset.label=l;
+  b.innerHTML='<span class="wave"><i></i><i></i><i></i></span><span class="lbl">'+l+'</span>';});
+document.addEventListener('click',e=>{const b=e.target.closest('.listen[data-say]');if(b)Voice.say(b.dataset.say,b);});
+$$('#rateSeg button').forEach(b=>b.addEventListener('click',()=>{$$('#rateSeg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');Voice.setRate(parseFloat(b.dataset.rate));}));
+$('#stopAll').addEventListener('click',()=>Voice.stop());
+
+$$('.tab').forEach(b=>b.addEventListener('click',()=>{Voice.stop();
+  $$('.tab').forEach(x=>x.classList.remove('on'));$$('.panel').forEach(p=>p.classList.remove('on'));
+  b.classList.add('on');$('#'+b.dataset.go).classList.add('on');scrollTo({top:0,behavior:'smooth'});
+  if(b.dataset.go==='quiz')Quiz.enter();}));
+function goTab(id){$$('.tab').find(b=>b.dataset.go===id).click();}
+
+/* ---- lesson ---- */
+const pw=$('#parts');
+PARTS.forEach(p=>{const s=document.createElement('section');s.className='part';
+  s.innerHTML='<button class="part-h" aria-expanded="false"><span class="part-n">'+p.n+'</span>'+
+    '<span class="part-t">'+p.t+'<span class="ar">'+p.ta+'</span></span><span class="caret">+</span></button>'+
+    '<div class="part-b">'+p.html+'<div class="gloss">'+p.gloss+'</div><div class="rowbtns">'+lHTML('Listen to this part')+'</div></div>';
+  pw.appendChild(s);
+  const h=$('.part-h',s),b=$('.part-b',s);
+  h.addEventListener('click',()=>{const o=s.classList.toggle('open');h.setAttribute('aria-expanded',o?'true':'false');
+    if(!o)Voice.stop();});
+  $('.listen',s).addEventListener('click',e=>{e.stopPropagation();Voice.read(b,e.currentTarget);});});
+
+/* ---- cards ---- */
+let deck=CARDS.map(c=>({...c,st:null})),ci=0;
+function paintCard(){const c=deck[ci];
+  $('#cFront').textContent=c.f;$('#cFrontAr').textContent=c.fa;
+  $('#cBack').textContent=c.b;$('#cBackAr').textContent=c.ba;
+  $('#flip').classList.remove('over');
+  $('#dcount').textContent='Card '+(ci+1)+' of '+deck.length;
+  const k=deck.filter(x=>x.st==='k').length,a=deck.filter(x=>x.st==='a').length;
+  $('#dstat').textContent='Known '+k+' · Practise again '+a+' · New '+(deck.length-k-a);}
+$('#flip').addEventListener('click',()=>$('#flip').classList.toggle('over'));
+$('#flip').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#flip').classList.toggle('over');}});
+$('#cNext').addEventListener('click',()=>{Voice.stop();ci=(ci+1)%deck.length;paintCard();});
+$('#cPrev').addEventListener('click',()=>{Voice.stop();ci=(ci-1+deck.length)%deck.length;paintCard();});
+$('#cShuf').addEventListener('click',()=>{Voice.stop();for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}ci=0;paintCard();toast('Shuffled!');});
+$('#cKnow').addEventListener('click',()=>{deck[ci].st='k';paintCard();});
+$('#cAgain').addEventListener('click',()=>{deck[ci].st='a';paintCard();});
+$('#cSay').addEventListener('click',e=>{const c=deck[ci];Voice.play([{text:c.say||c.f,el:null},{text:c.b,el:null}],e.currentTarget);});
+paintCard();
+
+/* ---- play ---- */
+const pl=$('#playArea');let solved=0,total=0;
+function gwin(){toast('You finished the game!');party(45);}
+if(GAME.mode==='sort'){
+  total=GAME.items.length;
+  GAME.items.forEach(it=>{const r=document.createElement('div');r.className='gline';
+    r.innerHTML='<span class="who">'+it.t+'<span class="ar l">'+it.ta+'</span></span><span class="picks">'+
+      GAME.buckets.map(b=>'<button class="pick" data-k="'+b.k+'">'+b.label+'</button>').join('')+'</span>';
+    pl.appendChild(r);
+    $$('.pick',r).forEach(btn=>btn.addEventListener('click',()=>{
+      const good=btn.dataset.k===it.k;
+      $$('.pick',r).forEach(p=>{p.disabled=true;if(p.dataset.k===it.k)p.classList.add('yes');});
+      if(!good)btn.classList.add('no');
+      r.classList.add(good?'ok':'err');
+      if(good)addXp(1);
+      solved++;$('#gstat').textContent=solved+' of '+total+' done';
+      if(solved===total)gwin();}));});
+}else if(GAME.mode==='match'){
+  total=GAME.pairs.length;
+  const L=GAME.pairs.map((p,i)=>({...p,i})),R=L.slice();
+  for(let i=R.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[R[i],R[j]]=[R[j],R[i]];}
+  pl.innerHTML='<div class="mgrid"><div class="mcol" id="colL"></div><div class="mcol" id="colR"></div></div>';
+  let selA=null;
+  const mk=(txt,ar,i,side)=>{const b=document.createElement('button');b.className='mbtn';b.dataset.i=i;b.dataset.side=side;
+    b.innerHTML=txt+(ar?'<span class="ar c">'+ar+'</span>':'');return b;};
+  L.forEach(p=>$('#colL').appendChild(mk(p.a,p.aa,p.i,'a')));
+  R.forEach(p=>$('#colR').appendChild(mk(p.b,p.ba,p.i,'b')));
+  $$('.mbtn',pl).forEach(b=>b.addEventListener('click',()=>{
+    if(b.classList.contains('done'))return;
+    if(b.dataset.side==='a'){$$('.mbtn[data-side="a"]',pl).forEach(x=>x.classList.remove('sel'));b.classList.add('sel');selA=b;return;}
+    if(!selA){toast('Pick from the left first');return;}
+    if(selA.dataset.i===b.dataset.i){selA.classList.remove('sel');selA.classList.add('done');b.classList.add('done');
+      selA=null;solved++;addXp(1);$('#gstat').textContent=solved+' of '+total+' matched';if(solved===total)gwin();}
+    else{b.classList.add('miss');setTimeout(()=>b.classList.remove('miss'),380);}}));
+}else if(GAME.mode==='order'){
+  total=GAME.steps.length;let next=0;
+  const bag=GAME.steps.map((s,i)=>({...s,i}));
+  for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}
+  pl.innerHTML='<div class="steps" id="stepBox"></div>';
+  bag.forEach(s=>{const b=document.createElement('button');b.className='step';
+    b.innerHTML='<span class="num">?</span><span>'+s.t+'<span class="ar l">'+s.ta+'</span></span>';
+    b.addEventListener('click',()=>{if(b.classList.contains('placed'))return;
+      if(s.i===next){b.classList.add('placed');$('.num',b).textContent=next+1;next++;solved++;addXp(1);
+        $('#gstat').textContent=solved+' of '+total+' in order';if(solved===total)gwin();}
+      else{b.classList.add('wrongstep');setTimeout(()=>b.classList.remove('wrongstep'),380);toast('Not yet — which one comes next?');}});
+    $('#stepBox').appendChild(b);});
+}
+$('#gstat').textContent='0 of '+total+(GAME.mode==='match'?' matched':GAME.mode==='order'?' in order':' done');
+
+/* ---- sealed quiz ---- */
+const KEYS=['A','B','C','D'];
+const Quiz=(function(){
+  let pool=QUIZ.map((_,i)=>i),pick={},flag=new Set(),i=0,t0=null,tk=null,sec=0,given=0;
+  const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  function clock(){sec=t0?Math.floor((Date.now()-t0)/1000):0;$('#clock').textContent=fmt(sec);}
+  function enter(){if(!t0){t0=Date.now();tk=setInterval(clock,1000);}}
+  function paint(){const qi=pool[i],q=QUIZ[qi];
+    $('#qno').textContent='Q'+(i+1)+' / '+pool.length;
+    $('#qtext').textContent=q.q;$('#qar').textContent=q.a;
+    $('#qflag').classList.toggle('on',flag.has(qi));$('#qflag').textContent=flag.has(qi)?'Flagged':'Flag';
+    const box=$('#qopts');box.innerHTML='';
+    q.o.forEach((t,oi)=>{const b=document.createElement('button');
+      b.className='opt'+(pick[qi]===oi?' on':'');
+      b.innerHTML='<span class="k">'+KEYS[oi]+'</span><span>'+t+'</span>';
+      b.addEventListener('click',()=>{pick[qi]=oi;paint();if(i<pool.length-1)setTimeout(()=>{i++;paint();},240);});
+      box.appendChild(b);});
+    $('#qprev').disabled=i===0;$('#qnext').disabled=i===pool.length-1;
+    map();meter();}
+  function map(){const g=$('#qmap');g.innerHTML='';
+    pool.forEach((qi,n)=>{const c=document.createElement('button');
+      c.className='cell'+(pick[qi]!=null?' fill':'')+(flag.has(qi)?' flag':'')+(n===i?' here':'');
+      c.textContent=n+1;c.addEventListener('click',()=>{Voice.stop();i=n;paint();$('#qcard').scrollIntoView({block:'start',behavior:'smooth'});});
+      g.appendChild(c);});}
+  function meter(){const d=pool.filter(q=>pick[q]!=null).length;
+    $('#qfill').style.width=(d/pool.length*100)+'%';
+    $('#qdone').textContent=d+' answered';$('#qleft').textContent=(pool.length-d)+' to go';}
+  function submit(){if(tk){clearInterval(tk);tk=null;}Voice.stop();
+    const right=pool.filter(q=>pick[q]===QUIZ[q].c).length,pct=Math.round(right/pool.length*100);
+    addXp(Math.max(0,right-given));given=Math.max(given,right);
+    $('#quizLive').style.display='none';$('#res').classList.add('on');
+    const C=2*Math.PI*54,d=$('#dialFg');d.style.strokeDasharray=C;d.style.strokeDashoffset=C;
+    requestAnimationFrame(()=>{d.style.strokeDashoffset=C*(1-pct/100);});
+    $('#pct').textContent=pct+'%';$('#tR').textContent=right;$('#tW').textContent=pool.length-right;$('#tT').textContent=fmt(sec);
+    const band=pct>=90?['Brilliant!','Excellent','رائع! مستوى ممتاز.']
+      :pct>=80?['Great work!','Very good','ممتاز! راجعي الأسئلة الخطأ فقط.']
+      :pct>=70?['Good job!','Good','جيد! راجعي الدرس وأعيدي الأسئلة الخطأ.']
+      :pct>=60?['Nearly there','Fair','قريبة! ذاكري الدرس مرة أخرى.']
+      :['Let’s learn it again','Keep going','محتاجة مراجعة — ارجعي للدرس واسمعيه ثم أعيدي.'];
+    $('#grade').textContent=band[1];$('#verdict').textContent=band[0];
+    $('#vnote').textContent=right+' of '+pool.length+' correct in '+fmt(sec)+'.';
+    $('#var').textContent=band[2];
+    const L=$('#revList');L.innerHTML='';
+    pool.forEach((qi,n)=>{const q=QUIZ[qi],m=pick[qi],hit=m===q.c;const d=document.createElement('div');
+      d.className='rev'+(hit?'':' no');
+      d.innerHTML='<div class="rq"><span class="qno">Q'+(n+1)+'</span> '+q.q+'</div><div class="ar">'+q.a+'</div>'+
+        '<div class="aline"><span class="tag mine '+(hit?'ok':'')+'">Your answer</span><span>'+(m==null?'— blank / لم تُجب':KEYS[m]+'. '+q.o[m])+'</span></div>'+
+        (hit?'':'<div class="aline"><span class="tag key">Correct</span><span>'+KEYS[q.c]+'. '+q.o[q.c]+'</span></div>')+
+        '<div class="rowbtns">'+lHTML('Listen','mini')+'</div>';
+      L.appendChild(d);
+      $('.listen',d).addEventListener('click',e=>Voice.play([{text:q.q,el:null},{text:'The correct answer is '+q.o[q.c],el:null}],e.currentTarget));});
+    if(pct>=80)party(pct>=90?60:40);
+    scrollTo({top:0,behavior:'smooth'});}
+  function restart(only){pool=only&&only.length?only:QUIZ.map((_,n)=>n);
+    pick={};flag=new Set();i=0;sec=0;t0=Date.now();if(tk)clearInterval(tk);tk=setInterval(clock,1000);
+    $('#clock').textContent='0:00';$('#res').classList.remove('on');$('#quizLive').style.display='';paint();scrollTo({top:0,behavior:'smooth'});}
+  $('#qprev').addEventListener('click',()=>{Voice.stop();if(i>0){i--;paint();}});
+  $('#qnext').addEventListener('click',()=>{Voice.stop();if(i<pool.length-1){i++;paint();}});
+  $('#qflag').addEventListener('click',()=>{const qi=pool[i];flag.has(qi)?flag.delete(qi):flag.add(qi);paint();});
+  $('#qsay').addEventListener('click',e=>{const q=QUIZ[pool[i]];
+    Voice.play([{text:q.q,el:null}].concat(q.o.map((o,n)=>({text:KEYS[n]+'. '+o,el:null}))),e.currentTarget);});
+  $('#submit').addEventListener('click',()=>{const blank=pool.filter(q=>pick[q]==null).length;
+    $('#mTitle').textContent=blank?blank+' question'+(blank>1?'s are':' is')+' still empty':'Ready to see your score?';
+    $('#mBody').textContent=blank?'Empty questions count as wrong. You can go back and finish them first.':'Every question is answered. Now you will see your score and all the correct answers.';
+    $('#mAr').textContent=blank?'الأسئلة الفارغة تُحسب خطأ. تقدري ترجعي وتكمليها الأول.':'جاوبتِ على كل الأسئلة. دلوقتِ هتظهر درجتك وكل الإجابات الصحيحة.';
+    $('#veil').classList.add('on');});
+  $('#mBack').addEventListener('click',()=>$('#veil').classList.remove('on'));
+  $('#mGo').addEventListener('click',()=>{$('#veil').classList.remove('on');submit();});
+  $('#veil').addEventListener('click',e=>{if(e.target===$('#veil'))$('#veil').classList.remove('on');});
+  $('#again').addEventListener('click',()=>restart(null));
+  $('#missed').addEventListener('click',()=>{const m=pool.filter(q=>pick[q]!==QUIZ[q].c);
+    if(!m.length){toast('Nothing missed — perfect!');return;}restart(m);toast('Retrying '+m.length+' question'+(m.length>1?'s':''));});
+  $('#toLesson').addEventListener('click',()=>goTab('learn'));
+  paint();return{enter};})();
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){Voice.stop();$('#veil').classList.remove('on');}});
+
+</script>
+</body>
+</html>
