@@ -18,6 +18,8 @@ Each page is a single self-contained HTML file that works offline.
 | `11-value-prudence.html` | Value, prudence and everyday decisions | Character Education notebook |
 | `12-word-2016.html` | Productivity software and the Word 2016 window | Computer notebook, Unit 1 |
 | `13-measurement.html` | SI base units, the meniscus, temperature and mass conversion | Science notebook |
+| `14-figures-of-speech.html` | Simile, metaphor, personification, hyperbole, alliteration, assonance, consonance | English 7 seatwork |
+| `15-angle-pairs.html` | Exterior and interior angle pairs of a polygon, and their 180° rule | Math 7 notebook |
 
 A glyph that is not English — an Arabic letter shown inside an English sentence —
 is wrapped in `<span class="glyph" data-en="...">` so the eye sees the letter and
