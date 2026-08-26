@@ -39,13 +39,13 @@ is never spoken by the read-aloud.
 The pages are generated so they stay consistent:
 
 ```
-cd rokia && python3 -c "
-import sys; sys.path.insert(0,'.')
-from _build import build
-import _content_a,_content_b,_content_c,_content_d
-for p in _content_a.PAGES+_content_b.PAGES+_content_c.PAGES+_content_d.PAGES: build(p,'.')"
+cd rokia && python3 build_all.py
 ```
 
 - `_kit.py` — the shared design system and engine (audio, cards, games, quiz)
 - `_build.py` — page shell and builder
+- `build_all.py` — driver: imports every `_content_*.py` and builds all pages
 - `_content_*.py` — the lesson content, one dict per page
+- `verify.mjs` — automated gate; run `node verify.mjs` after any change (see
+  the `lesson-page-builder` skill for the full pipeline: intake → dedup →
+  content → build → verify → Drive mirror)
