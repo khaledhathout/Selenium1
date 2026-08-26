@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Farm Tool Manual</title>
+<style>
+/* ===================================================================
+   FARM TOOL MANUAL — Agricultural tools, implements, and equipment
+   English leads. Arabic is a small support gloss.
+   =================================================================== */
+:root{
+  --paper:#eef1ec;
+  --paper-2:#e3e8e2;
+  --card:#fbfcfa;
+  --card-2:#f2f5f1;
+  --ink:#171b16;
+  --ink-2:#394437;
+  --muted:#687464;
+  --line:#d5dcd2;
+  --line-2:#e5eae3;
+
+  --plate:#1d2720;
+  --plate-2:#111913;
+  --on-plate:#e8eee9;
+  --on-plate-2:#9db0a3;
+
+  --field:#2f6f4a;
+  --field-deep:#245638;
+  --field-wash:#dfeee5;
+  --rust:#a4441f;
+  --rust-wash:#f7e5db;
+  --amber:#8f6b12;
+  --amber-wash:#f3e9cf;
+  --good:#2f6f4a;
+  --good-wash:#dfeee5;
+  --bad:#a4321f;
+  --bad-wash:#f7e0da;
+
+  --shadow:0 1px 2px rgba(23,27,22,.05), 0 6px 18px rgba(23,27,22,.06);
+  --shadow-lift:0 2px 5px rgba(23,27,22,.09), 0 18px 42px rgba(23,27,22,.16);
+
+  --display:"Arial Narrow","Helvetica Neue Condensed","Liberation Sans Narrow",Arial,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --arabic:"SF Arabic","Geeza Pro","Segoe UI",Tahoma,"Noto Naskh Arabic",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101410; --paper-2:#0a0e0a; --card:#1a201a; --card-2:#212821;
+    --ink:#e7ece5; --ink-2:#c3cfc0; --muted:#8b9a88; --line:#2c362c; --line-2:#232c23;
+    --plate:#0e150f; --plate-2:#080d09; --on-plate:#e7ece5; --on-plate-2:#8b9a88;
+    --field:#63b07f; --field-deep:#8fcda4; --field-wash:#14301f;
+    --rust:#e07a4c; --rust-wash:#341709;
+    --amber:#d3ab55; --amber-wash:#2e2510;
+    --good:#63b07f; --good-wash:#14301f; --bad:#e0705a; --bad-wash:#341512;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 6px 18px rgba(0,0,0,.4);
+    --shadow-lift:0 2px 5px rgba(0,0,0,.5), 0 18px 42px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101410; --paper-2:#0a0e0a; --card:#1a201a; --card-2:#212821;
+  --ink:#e7ece5; --ink-2:#c3cfc0; --muted:#8b9a88; --line:#2c362c; --line-2:#232c23;
+  --plate:#0e150f; --plate-2:#080d09; --on-plate:#e7ece5; --on-plate-2:#8b9a88;
+  --field:#63b07f; --field-deep:#8fcda4; --field-wash:#14301f;
+  --rust:#e07a4c; --rust-wash:#341709;
+  --amber:#d3ab55; --amber-wash:#2e2510;
+  --good:#63b07f; --good-wash:#14301f; --bad:#e0705a; --bad-wash:#341512;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 6px 18px rgba(0,0,0,.4);
+  --shadow-lift:0 2px 5px rgba(0,0,0,.5), 0 18px 42px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{font-size:16px;}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:1rem;line-height:1.6;min-height:100vh;
+}
+button{font:inherit;color:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--field);outline-offset:2px;}
+
+h1,h2,h3{
+  font-family:var(--display);font-weight:700;
+  text-transform:uppercase;letter-spacing:.045em;
+  margin:0;line-height:1.12;text-wrap:balance;
+}
+.label{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+.ic{
+  fill:none;stroke:currentColor;stroke-width:2.6;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.ar{
+  display:block;
+  direction:rtl;text-align:right;font-family:var(--arabic);
+  font-size:.72rem;line-height:1.75;color:var(--muted);margin-top:.2rem;
+}
+.ar.c{text-align:center;}
+.ar.l{text-align:left;}
+
+/* ============================== MASTHEAD ============================== */
+.masthead{
+  background:linear-gradient(180deg,var(--plate),var(--plate-2));
+  color:var(--on-plate);border-bottom:3px solid var(--field);
+}
+.mast-in{
+  max-width:920px;margin:0 auto;padding:.85rem 1.1rem .75rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.mast-in h1{font-size:1.35rem;letter-spacing:.09em;}
+.mast-in .sub{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;color:var(--on-plate-2);margin-top:.25rem;text-transform:uppercase;}
+.mast-in .ar{color:var(--on-plate-2);text-align:left;direction:rtl;font-size:.68rem;}
+.mast-tools{display:flex;flex-direction:column;align-items:flex-end;gap:.4rem;flex:none;}
+.progress-read{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--on-plate-2);font-variant-numeric:tabular-nums;}
+.progress-read b{color:var(--on-plate);font-weight:600;}
+.mini-row{display:flex;gap:.3rem;}
+.mini{
+  width:1.75rem;height:1.75rem;border-radius:3px;
+  border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);
+  color:var(--on-plate);display:grid;place-items:center;
+  font-family:var(--mono);font-size:.68rem;
+}
+.mini:hover{background:rgba(255,255,255,.16);}
+.bar{height:2px;background:rgba(255,255,255,.12);}
+.bar i{display:block;height:100%;width:0;background:var(--field);transition:width .45s ease;}
+
+/* =============================== NAV =============================== */
+nav.tabs{
+  position:sticky;top:0;z-index:30;
+  background:var(--paper-2);border-bottom:1px solid var(--line);
+  display:flex;overflow-x:auto;scrollbar-width:none;
+}
+nav.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  flex:1 0 auto;min-width:5.4rem;border:none;background:transparent;
+  padding:.6rem .7rem .5rem;border-bottom:2px solid transparent;
+  font-family:var(--display);font-size:.86rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+  transition:color .16s ease,border-color .16s ease;
+}
+.tab .ar{font-family:var(--arabic);font-size:.6rem;letter-spacing:0;text-align:center;color:inherit;opacity:.75;margin-top:.05rem;}
+.tab:hover{color:var(--ink-2);}
+.tab.on{color:var(--field);border-bottom-color:var(--field);background:var(--card);}
+
+main{max-width:920px;margin:0 auto;padding:1.25rem 1.1rem 3rem;}
+.panel{display:none;}
+.panel.on{display:block;animation:in .28s ease both;}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ============================== BLOCKS ============================== */
+.intro{border-left:2px solid var(--field);padding-left:.9rem;margin-bottom:1.5rem;}
+.intro h2{font-size:1.5rem;margin-bottom:.35rem;}
+.intro p{margin:.4rem 0 0;font-size:.95rem;line-height:1.7;color:var(--ink-2);max-width:60ch;}
+.rule{height:1px;background:var(--line);margin:1.5rem 0;}
+
+.sheet-card{
+  background:var(--card);border:1px solid var(--line-2);
+  box-shadow:var(--shadow);padding:1.1rem;margin-bottom:1rem;
+}
+.toolbar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;
+  padding:.7rem 0;border-top:1px solid var(--line-2);margin-top:.9rem;
+}
+.seg{display:inline-flex;border:1px solid var(--line);background:var(--card-2);}
+.seg button{
+  border:none;background:transparent;padding:.28rem .6rem;
+  font-family:var(--mono);font-size:.7rem;color:var(--muted);
+}
+.seg button.on{background:var(--field);color:#fff;}
+
+.btn{
+  border:1px solid var(--line);background:var(--card);color:var(--ink-2);
+  padding:.45rem .95rem;font-family:var(--display);font-size:.85rem;
+  font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.btn:hover{border-color:var(--field);color:var(--field);}
+.btn.solid{background:var(--field);border-color:var(--field);color:#fff;}
+.btn.solid:hover{background:var(--field-deep);border-color:var(--field-deep);color:#fff;}
+.btn.warn{background:var(--rust);border-color:var(--rust);color:#fff;}
+.btn.warn:hover{filter:brightness(1.07);color:#fff;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn .ar{font-family:var(--arabic);font-weight:400;letter-spacing:0;text-align:center;color:inherit;opacity:.85;font-size:.6rem;}
+
+/* ============================ READ-ALOUD ============================ */
+.listen{
+  display:inline-flex;align-items:center;gap:.4rem;
+  border:1px solid var(--field);background:transparent;color:var(--field);
+  padding:.3rem .7rem;font-family:var(--display);font-size:.8rem;
+  font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+}
+.listen:hover{background:var(--field-wash);}
+.listen.playing{background:var(--field);color:#fff;}
+.listen.mini{padding:.22rem .5rem;font-size:.72rem;}
+.listen .wave{display:inline-flex;gap:1.5px;align-items:flex-end;height:.6rem;}
+.listen .wave i{width:2px;height:32%;background:currentColor;}
+.listen.playing .wave i{animation:bob .7s ease-in-out infinite;}
+.listen.playing .wave i:nth-child(2){animation-delay:.14s;}
+.listen.playing .wave i:nth-child(3){animation-delay:.28s;}
+@keyframes bob{0%,100%{height:30%}50%{height:100%}}
+.spoken{background:var(--amber-wash);box-shadow:-3px 0 0 var(--amber);}
+
+/* ============================= CATALOGUE ============================= */
+.filters{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;}
+.filter{
+  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  padding:.3rem .7rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;
+}
+.filter.on{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.6rem;}
+.item{
+  background:var(--card);border:1px solid var(--line-2);text-align:left;
+  padding:0;overflow:hidden;transition:border-color .16s ease,transform .12s ease;
+  display:flex;flex-direction:column;
+}
+.item:hover{border-color:var(--field);}
+.item:active{transform:translateY(1px);}
+.item.seen{border-color:var(--field);}
+.plate{
+  position:relative;background:linear-gradient(160deg,var(--plate),var(--plate-2));
+  aspect-ratio:4/3;display:grid;place-items:center;color:var(--on-plate);
+}
+.plate svg{width:64%;height:64%;}
+.plate .no{
+  position:absolute;top:.35rem;left:.4rem;
+  font-family:var(--mono);font-size:.6rem;color:var(--on-plate-2);letter-spacing:.06em;
+}
+.plate .tick{
+  position:absolute;top:.3rem;right:.4rem;width:.85rem;height:.85rem;
+  border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;
+  font-size:.6rem;color:var(--on-plate-2);
+}
+.plate .tick{color:transparent;}
+.item.seen .tick{background:var(--field);border-color:var(--field);color:#fff;}
+.item-body{padding:.55rem .6rem .65rem;flex:1;}
+.item-name,.item-cat{display:block;}
+.item-name{font-family:var(--display);font-weight:700;font-size:.94rem;text-transform:uppercase;letter-spacing:.03em;line-height:1.15;}
+.item-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem;}
+.cat-tool{color:var(--field);}
+.cat-equipment{color:var(--amber);}
+.cat-implement{color:var(--rust);}
+.item .ar{font-size:.66rem;text-align:left;margin-top:.15rem;}
+
+.detail{
+  display:none;margin:0 0 1rem;scroll-margin-top:4.6rem;background:var(--card);
+  border:1px solid var(--line);border-top:3px solid var(--field);box-shadow:var(--shadow-lift);
+}
+.detail.open{display:grid;grid-template-columns:11rem 1fr;animation:in .22s ease both;}
+.detail .d-plate{background:linear-gradient(160deg,var(--plate),var(--plate-2));display:grid;place-items:center;color:var(--on-plate);padding:1rem;}
+.detail .d-plate svg{width:100%;max-width:8rem;height:auto;}
+.detail .d-body{padding:1.1rem;}
+.detail h3{font-size:1.3rem;}
+.detail p{margin:.55rem 0 0;font-size:.95rem;line-height:1.7;color:var(--ink-2);}
+.detail .d-foot{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;}
+@media (max-width:560px){ .detail.open{grid-template-columns:1fr;} .detail .d-plate{aspect-ratio:16/9;} }
+
+/* ============================== LESSON ============================== */
+.part{border-top:1px solid var(--line);padding:1.1rem 0;}
+.part:first-child{border-top:none;}
+.part-head{display:flex;gap:.9rem;align-items:baseline;width:100%;border:none;background:transparent;text-align:left;padding:0;}
+.part-no{font-family:var(--mono);font-size:.7rem;color:var(--field);letter-spacing:.1em;flex:none;width:2rem;}
+.part-title{flex:1;font-family:var(--display);font-weight:700;font-size:1.12rem;text-transform:uppercase;letter-spacing:.045em;}
+.part-title .ar{font-family:var(--arabic);font-weight:400;letter-spacing:0;text-align:left;font-size:.68rem;text-transform:none;}
+.caret{color:var(--muted);font-family:var(--mono);flex:none;}
+.part-body{display:none;padding:.6rem 0 0 2.9rem;}
+.part.open .part-body{display:block;animation:in .22s ease both;}
+.part-body p{margin:.55rem 0;font-size:.94rem;line-height:1.75;color:var(--ink-2);max-width:62ch;}
+.part-body ul,.part-body ol{margin:.5rem 0;padding-left:1.1rem;font-size:.94rem;line-height:1.8;color:var(--ink-2);}
+.part-body li{margin:.15rem 0;}
+.part-body h4{font-family:var(--display);font-size:.92rem;text-transform:uppercase;letter-spacing:.06em;margin:1rem 0 .2rem;color:var(--ink);}
+.gloss{
+  direction:rtl;text-align:right;font-family:var(--arabic);
+  font-size:.74rem;line-height:1.9;color:var(--muted);
+  border-right:2px solid var(--line);padding-right:.7rem;margin-top:.9rem;
+}
+.gloss ol{padding-right:1rem;padding-left:0;font-size:.74rem;color:inherit;}
+.safety{background:var(--rust-wash);border-left:2px solid var(--rust);padding:.7rem .85rem;margin-top:.8rem;}
+.safety p{color:var(--ink-2);margin:.3rem 0;}
+.spec{width:100%;min-width:24rem;border-collapse:collapse;font-size:.88rem;margin-top:.6rem;}
+.spec th{
+  text-align:left;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid var(--line);padding:.4rem .5rem .35rem;font-weight:400;
+}
+.spec td{border-bottom:1px solid var(--line-2);padding:.5rem;vertical-align:top;color:var(--ink-2);}
+.spec td:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+.tbl-scroll{overflow-x:auto;}
+.part-tools{margin-top:.9rem;}
+
+/* =============================== DRILL =============================== */
+.drill{max-width:26rem;margin:0 auto;}
+.count{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--muted);text-align:center;margin-bottom:.5rem;}
+.flip{position:relative;perspective:1400px;}
+.flip-in{position:relative;width:100%;min-height:17rem;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.3,.9,.3,1);cursor:pointer;}
+.flip-in.over{transform:rotateY(180deg);}
+.side{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border:1px solid var(--line);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:1.2rem;gap:.5rem;
+}
+.side-a{background:linear-gradient(160deg,var(--plate),var(--plate-2));color:var(--on-plate);}
+.side-a svg{width:7rem;height:7rem;}
+.side-a .n{font-family:var(--display);font-size:1.3rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700;}
+.side-b{background:var(--card);color:var(--ink);transform:rotateY(180deg);}
+.side-b .u{font-size:1rem;line-height:1.6;color:var(--ink-2);}
+.hint{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6;}
+.drill-row{display:flex;gap:.4rem;margin-top:.6rem;}
+.drill-row .btn{flex:1;}
+.stat{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-align:center;margin-top:.7rem;font-variant-numeric:tabular-nums;}
+
+/* ============================= CLASSIFY ============================= */
+.class-row{
+  display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;
+  border:1px solid var(--line-2);background:var(--card);padding:.5rem .6rem;margin-bottom:.4rem;
+}
+.class-row .ico{width:2.4rem;height:2.4rem;flex:none;background:var(--plate);color:var(--on-plate);display:grid;place-items:center;}
+.class-row .ico svg{width:80%;height:80%;}
+.class-row .nm{flex:1 1 8rem;min-width:7rem;font-weight:600;font-size:.92rem;}
+.class-row .nm .ar{font-size:.64rem;text-align:left;}
+.picks{display:flex;gap:.3rem;flex-wrap:wrap;}
+.pick{
+  border:1px solid var(--line);background:var(--card-2);color:var(--muted);
+  padding:.28rem .6rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+}
+.pick:hover:not(:disabled){border-color:var(--field);color:var(--field);}
+.pick.right{background:var(--good);border-color:var(--good);color:#fff;}
+.pick.wrong{background:var(--bad);border-color:var(--bad);color:#fff;}
+.class-row.done{border-color:var(--good);}
+.class-row.miss{border-color:var(--bad);}
+
+/* =============================== EXAM =============================== */
+.sealed{border:1px solid var(--rust);border-left-width:3px;background:var(--rust-wash);padding:.85rem .95rem;margin-bottom:1.2rem;}
+.sealed h3{font-size:.95rem;color:var(--rust);margin-bottom:.3rem;}
+.sealed p{margin:0;font-size:.88rem;line-height:1.65;color:var(--ink-2);}
+.exam-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.meter{height:3px;background:var(--line);margin:.7rem 0 .35rem;}
+.meter i{display:block;height:100%;width:0;background:var(--field);transition:width .3s ease;}
+.counts{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;}
+.q-card{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);padding:1.1rem;margin:1rem 0;}
+.q-top{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.7rem;}
+.q-no{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;background:var(--ink);color:var(--paper);padding:.2rem .45rem;}
+.q-top .sp{flex:1;}
+.flagbtn{border:1px solid var(--line);background:var(--card-2);color:var(--muted);padding:.22rem .55rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;}
+.flagbtn.on{background:var(--amber-wash);border-color:var(--amber);color:var(--amber);}
+.q-text{font-size:1.05rem;line-height:1.5;font-weight:600;}
+.opts{display:flex;flex-direction:column;gap:.35rem;margin-top:.9rem;}
+.opt{
+  display:flex;align-items:center;gap:.65rem;text-align:left;
+  border:1px solid var(--line);background:var(--card-2);color:var(--ink-2);
+  padding:.6rem .7rem;font-size:.92rem;transition:border-color .14s ease,background .14s ease;
+}
+.opt:hover{border-color:var(--field);}
+.opt .k{
+  flex:none;width:1.45rem;height:1.45rem;border:1px solid var(--line);background:var(--card);
+  display:grid;place-items:center;font-family:var(--mono);font-size:.7rem;color:var(--muted);
+}
+.opt.on{border-color:var(--field);background:var(--field-wash);color:var(--ink);}
+.opt.on .k{background:var(--field);border-color:var(--field);color:#fff;}
+.q-nav{display:flex;gap:.5rem;margin-top:1rem;}
+.q-nav .btn{flex:1;}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(2.1rem,1fr));gap:.3rem;margin-top:.7rem;}
+.cell{
+  aspect-ratio:1;border:1px solid var(--line);background:var(--card-2);color:var(--muted);
+  font-family:var(--mono);font-size:.74rem;display:grid;place-items:center;position:relative;
+}
+.cell.filled{background:var(--field-wash);border-color:var(--field);color:var(--field);}
+.cell.here{outline:2px solid var(--ink);outline-offset:1px;}
+.cell.flagged::after{content:"";position:absolute;top:-2px;right:-2px;width:.4rem;height:.4rem;background:var(--amber);}
+.key{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.6rem;font-family:var(--mono);font-size:.64rem;color:var(--muted);}
+.key span{display:inline-flex;align-items:center;gap:.3rem;}
+.key i{width:.6rem;height:.6rem;border:1px solid var(--line);display:inline-block;}
+
+.result{display:none;}
+.result.on{display:block;animation:in .3s ease both;}
+.score{background:linear-gradient(160deg,var(--plate),var(--plate-2));color:var(--on-plate);padding:1.5rem 1.2rem;text-align:center;}
+.dial{position:relative;width:8rem;height:8rem;margin:0 auto 1rem;}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg);}
+.dial .bg{fill:none;stroke:rgba(255,255,255,.12);stroke-width:6;}
+.dial .fg{fill:none;stroke:var(--field);stroke-width:6;stroke-linecap:butt;transition:stroke-dashoffset 1s cubic-bezier(.2,.7,.3,1);}
+.dial .mid{position:absolute;inset:0;display:grid;place-content:center;}
+.dial .p{font-family:var(--mono);font-size:1.8rem;font-variant-numeric:tabular-nums;}
+.dial .g{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-plate-2);}
+.score h2{font-size:1.3rem;}
+.score .n{font-size:.88rem;color:var(--on-plate-2);margin-top:.3rem;}
+.tally{display:flex;justify-content:center;gap:1.5rem;margin-top:1.1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.14);}
+.tally b{display:block;font-family:var(--mono);font-size:1.1rem;font-variant-numeric:tabular-nums;}
+.tally span{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-plate-2);}
+.acts{display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0;}
+.acts .btn{flex:1 1 9rem;}
+.rev{background:var(--card);border:1px solid var(--line-2);border-left:3px solid var(--good);padding:.8rem .9rem;margin-bottom:.4rem;}
+.rev.no{border-left-color:var(--bad);}
+.rev .rq{font-weight:600;font-size:.95rem;line-height:1.5;}
+.aline{display:flex;gap:.5rem;align-items:baseline;font-size:.86rem;margin-top:.3rem;color:var(--ink-2);}
+.aline .t{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.12rem .35rem;flex:none;}
+.t.mine{background:var(--bad-wash);color:var(--bad);}
+.t.mine.ok{background:var(--good-wash);color:var(--good);}
+.t.right{background:var(--good-wash);color:var(--good);}
+
+.veil{position:fixed;inset:0;z-index:60;background:rgba(10,14,10,.66);display:none;place-items:center;padding:1rem;}
+.veil.on{display:grid;}
+.modal{background:var(--card);border:1px solid var(--line);max-width:24rem;width:100%;padding:1.2rem;box-shadow:var(--shadow-lift);}
+.modal h3{font-size:1.05rem;}
+.modal p{font-size:.9rem;color:var(--ink-2);margin:.5rem 0;}
+.toast{
+  position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(.6rem);
+  background:var(--ink);color:var(--paper);padding:.55rem 1rem;font-size:.84rem;
+  opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;z-index:70;
+}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media (max-width:560px){
+  .mast-in h1{font-size:1.1rem;}
+  .tab{font-size:.76rem;min-width:4.7rem;}
+  .part-body{padding-left:0;}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(8rem,1fr));}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-hoe" viewBox="0 0 64 64"><path d="M56 10 30 40"/><path d="M30 40 24 48"/><path d="M14 42 28 52 22 60 8 50Z"/></symbol>
+<symbol id="i-tiller" viewBox="0 0 64 64"><path d="M18 10h28"/><path d="M32 10v26"/><path d="M32 36c-8 5-11 11-13 20M32 36c-3 7-4 12-4 20M32 36c3 7 4 12 4 20M32 36c8 5 11 11 13 20"/></symbol>
+<symbol id="i-weedhoe" viewBox="0 0 64 64"><path d="M32 6v20"/><path d="M10 26h44l-7 14c-11 6-19 6-30 0Z"/><path d="M14 34h36"/></symbol>
+<symbol id="i-sickle" viewBox="0 0 64 64"><path d="M20 46 10 56"/><path d="M20 46C26 18 50 10 58 28 46 20 32 26 26 48Z"/></symbol>
+<symbol id="i-spade" viewBox="0 0 64 64"><path d="M26 14V9c0-4 12-4 12 0v5"/><path d="M32 14v24"/><path d="M22 38h20v14l-10 6-10-6Z"/></symbol>
+<symbol id="i-mattock" viewBox="0 0 64 64"><path d="M32 18v40"/><path d="M8 22C18 12 46 12 56 22"/><path d="M26 20h12"/></symbol>
+<symbol id="i-bolo" viewBox="0 0 64 64"><path d="M6 36v-8l14-1v9Z"/><path d="M20 28c16-3 34 2 40 16-14-3-28-6-40-9Z"/></symbol>
+<symbol id="i-shears" viewBox="0 0 64 64"><circle cx="10" cy="20" r="5"/><circle cx="10" cy="44" r="5"/><path d="M14 22 34 32l22 12"/><path d="M14 42 34 32l22-12"/><circle cx="34" cy="32" r="2.5"/></symbol>
+<symbol id="i-scythe" viewBox="0 0 64 64"><path d="M52 8 20 48"/><path d="M40 22l9 5"/><path d="M20 48c10 10 28 10 40 0"/></symbol>
+<symbol id="i-rake" viewBox="0 0 64 64"><path d="M32 6v26"/><path d="M10 32h44"/><path d="M12 32v18M20 32v18M28 32v18M36 32v18M44 32v18M52 32v18"/></symbol>
+<symbol id="i-trowel" viewBox="0 0 64 64"><path d="M4 4l10 10"/><path d="M8 2l8 8"/><path d="M14 12l5 5"/><path d="M19 17c14 3 25 17 23 31-14-1-21-13-23-31Z"/></symbol>
+<symbol id="i-fork" viewBox="0 0 64 64"><path d="M32 6v26"/><path d="M16 32h32"/><path d="M18 32v22M27 32v22M37 32v22M46 32v22"/></symbol>
+<symbol id="i-mister" viewBox="0 0 64 64"><path d="M22 30h18v26H22Z"/><path d="M28 30V20h-12"/><path d="M28 24h8"/><path d="M12 12 6 8M12 18 4 16M13 23 6 27"/></symbol>
+<symbol id="i-gps" viewBox="0 0 64 64"><path d="M20 12h24v44H20Z"/><path d="M24 18h16v12H24Z"/><path d="M26 38h4M34 38h4M26 46h4M34 46h4"/><path d="M44 14l6-6"/></symbol>
+<symbol id="i-sprayer" viewBox="0 0 64 64"><path d="M24 24h16v10H24Z"/><path d="M24 26 10 19M40 26l14-7M24 32 10 39M40 32l14 7"/><path d="M4 19h12M48 19h12M4 39h12M48 39h12"/><path d="M18 38h28"/><path d="M22 42v5M32 42v5M42 42v5"/></symbol>
+<symbol id="i-pump" viewBox="0 0 64 64"><circle cx="22" cy="32" r="10"/><path d="M32 26h20v12H32Z"/><path d="M22 22V10h9"/><path d="M12 32H4"/><path d="M8 50h48"/><path d="M18 42v8M46 38v12"/></symbol>
+<symbol id="i-thresher" viewBox="0 0 64 64"><path d="M10 26h36v18H10Z"/><path d="M17 26l4-12h18l4 12"/><path d="M46 34l12 6"/><circle cx="18" cy="49" r="5"/><circle cx="38" cy="49" r="5"/></symbol>
+<symbol id="i-harvester" viewBox="0 0 64 64"><circle cx="14" cy="28" r="8"/><path d="M14 20v16M6 28h16M8 22l12 12M20 22L8 34"/><path d="M6 40h20v6H6Z"/><path d="M26 26h24v18H26Z"/><path d="M34 16h14v10"/><circle cx="32" cy="48" r="4"/><circle cx="46" cy="48" r="4"/></symbol>
+<symbol id="i-tractor" viewBox="0 0 64 64"><circle cx="44" cy="43" r="12"/><circle cx="14" cy="47" r="8"/><path d="M8 40v-8h18l4-10h14v10h12"/><path d="M30 22V12"/></symbol>
+<symbol id="i-cultivator" viewBox="0 0 64 64"><path d="M8 18h48"/><path d="M4 24l8-6"/><path d="M14 18c0 12-4 18 0 26h6M26 18c0 12-4 18 0 26h6M38 18c0 12-4 18 0 26h6M50 18c0 12-4 18 0 26h6"/></symbol>
+<symbol id="i-drill" viewBox="0 0 64 64"><path d="M12 14h40l-6 16H18Z"/><path d="M22 30v14M32 30v14M42 30v14"/><circle cx="22" cy="48" r="4"/><circle cx="32" cy="48" r="4"/><circle cx="42" cy="48" r="4"/></symbol>
+<symbol id="i-harrow" viewBox="0 0 64 64"><path d="M8 20h48"/><path d="M16 20v10M28 20v10M40 20v10M52 20v10"/><circle cx="16" cy="40" r="8"/><circle cx="30" cy="40" r="8"/><circle cx="44" cy="40" r="8"/></symbol>
+<symbol id="i-plow" viewBox="0 0 64 64"><path d="M8 12h26"/><path d="M34 12v13"/><path d="M34 25c-11 1-19 7-23 17l25 8c5-10 4-19-2-25Z"/></symbol>
+<symbol id="i-baler" viewBox="0 0 64 64"><path d="M8 20h30v22H8Z"/><path d="M8 26 1 24"/><circle cx="50" cy="42" r="12"/><path d="M50 30c-7 0-12 5-12 12s5 8 9 8 6-3 6-6-2-4-4-4"/><circle cx="16" cy="47" r="4"/><circle cx="30" cy="47" r="4"/></symbol>
+<symbol id="i-spreader" viewBox="0 0 64 64"><path d="M12 10h40L38 32H26Z"/><path d="M22 36h20"/><path d="M32 32v4"/><path d="M16 44c6 8 26 8 32 0"/><path d="M12 52h4M24 54h4M36 54h4M48 52h4"/></symbol>
+</svg>
+<header class="masthead">
+  <div class="mast-in">
+    <div>
+      <h1>Farm Tool Manual</h1>
+      <div class="sub">Tools · Implements · Equipment</div>
+      <div class="ar">الأدوات والمعدات والملحقات الزراعية · لرزان</div>
+    </div>
+    <div class="mast-tools">
+      <div class="progress-read"><b id="xpNow">0</b> / <span id="xpMax">70</span> studied</div>
+      <div class="mini-row">
+        <button class="mini" id="textDown" title="Smaller text" aria-label="Smaller text">A−</button>
+        <button class="mini" id="textUp" title="Larger text" aria-label="Larger text">A+</button>
+        <button class="mini" id="themeBtn" title="Light or dark" aria-label="Switch light or dark theme">◐</button>
+      </div>
+    </div>
+  </div>
+  <div class="bar"><i id="xpBar"></i></div>
+</header>
+
+<nav class="tabs" id="tabs" aria-label="Sections">
+  <button class="tab on" data-go="catalogue">Catalogue<span class="ar c">الفهرس</span></button>
+  <button class="tab" data-go="lesson">Lesson<span class="ar c">الدرس</span></button>
+  <button class="tab" data-go="drill">Drill<span class="ar c">تدريب</span></button>
+  <button class="tab" data-go="classify">Classify<span class="ar c">تصنيف</span></button>
+  <button class="tab" data-go="exam">Exam<span class="ar c">امتحان</span></button>
+</nav>
+
+<main>
+
+  <!-- ======================= CATALOGUE ======================= -->
+  <section class="panel on" id="catalogue">
+    <div class="intro">
+      <div class="label">Plates 01–25</div>
+      <h2>Every tool in the lesson</h2>
+      <p>Twenty-five items, drawn and numbered. Open a plate to read what the tool is and what it does — each one you open is marked as studied.</p>
+      <div class="ar">خمسة وعشرون عنصراً، كل واحد مرسوم ومرقّم. افتحي أي لوحة لتقرئي اسم الأداة ووظيفتها — وكل لوحة تفتحيها تُحسب لكِ.</div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter on" data-cat="all">All 25</button>
+      <button class="filter" data-cat="tool">Tools 14</button>
+      <button class="filter" data-cat="equipment">Equipment 5</button>
+      <button class="filter" data-cat="implement">Implements 6</button>
+    </div>
+
+    <article class="detail" id="detail" aria-live="polite">
+      <div class="d-plate"><svg id="dIcon" class="ic" viewBox="0 0 64 64" aria-hidden="true"><use id="dUse" href="#i-hoe"/></svg></div>
+      <div class="d-body">
+        <div class="label" id="dCat"></div>
+        <h3 id="dName"></h3>
+        <p id="dUseText"></p>
+        <div class="ar" id="dAr"></div>
+        <div class="d-foot">
+          <button class="listen" id="dSay">Listen</button>
+          <button class="btn" id="dClose">Close</button>
+        </div>
+      </div>
+    </article>
+
+    <div class="grid" id="grid"></div>
+
+  </section>
+
+  <!-- ======================== LESSON ======================== -->
+  <section class="panel" id="lesson">
+    <div class="intro">
+      <div class="label">Reading</div>
+      <h2>The lesson, read aloud</h2>
+      <p>Open a part to read it. Press Listen and the English is read to you, one paragraph at a time, with the paragraph being spoken marked in the margin.</p>
+      <div class="ar">افتحي أي جزء لقراءته. اضغطي «Listen» ليُقرأ لكِ النص بالإنجليزية فقرة فقرة، مع تعليم الفقرة التي تُقرأ الآن.</div>
+      <div class="toolbar">
+        <span class="label">Speed</span>
+        <div class="seg" id="rateSeg">
+          <button data-rate="0.7">0.7×</button>
+          <button data-rate="0.85" class="on">0.85×</button>
+          <button data-rate="1">1×</button>
+          <button data-rate="1.15">1.15×</button>
+        </div>
+        <button class="btn" id="stopAll">Stop</button>
+      </div>
+      <div class="ar" id="voiceNote"></div>
+    </div>
+    <div id="parts"></div>
+  </section>
+
+  <!-- ========================= DRILL ========================= -->
+  <section class="panel" id="drill">
+    <div class="intro">
+      <div class="label">Recall</div>
+      <h2>Name it, then check</h2>
+      <p>The plate and the name are on the front. Say what it is used for out loud, then flip the card to check yourself.</p>
+      <div class="ar">اللوحة والاسم في الوجه الأول. قولي استخدام الأداة بصوت عالٍ، ثم اقلبي البطاقة لتتأكدي.</div>
+    </div>
+    <div class="drill">
+      <div class="count" id="dcCount"></div>
+      <div class="flip">
+        <div class="flip-in" id="fcard" role="button" tabindex="0" aria-label="Flashcard, activate to flip">
+          <div class="side side-a">
+            <svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><use id="fcUse" href="#i-hoe"/></svg>
+            <div class="n" id="fcName"></div>
+            <div class="ar c" id="fcNameAr" style="color:var(--on-plate-2)"></div>
+            <div class="hint">Tap to flip · اضغطي للقلب</div>
+          </div>
+          <div class="side side-b">
+            <div class="label" id="fcCat"></div>
+            <div class="u" id="fcUseText"></div>
+            <div class="ar c" id="fcAr"></div>
+            <div class="hint">Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+      <div class="drill-row"><button class="listen" id="fcSay" style="flex:1;justify-content:center">Listen</button></div>
+      <div class="drill-row">
+        <button class="btn" id="fcAgain">Study again</button>
+        <button class="btn solid" id="fcGot">I know it</button>
+      </div>
+      <div class="drill-row">
+        <button class="btn" id="fcPrev">◀ Prev</button>
+        <button class="btn" id="fcShuffle">Shuffle</button>
+        <button class="btn" id="fcNext">Next ▶</button>
+      </div>
+      <div class="stat" id="fcStat"></div>
+    </div>
+  </section>
+
+  <!-- ======================== CLASSIFY ======================== -->
+  <section class="panel" id="classify">
+    <div class="intro">
+      <div class="label">Practice · answers show at once</div>
+      <h2>Tool, equipment, or implement?</h2>
+      <p><b>Tools</b> are worked by hand. <b>Equipment</b> are powered machines that do a job on their own. <b>Implements</b> are attachments a tractor pulls or carries.</p>
+      <div class="ar">الأدوات تُستخدم باليد. المعدات آلات تعمل بقدرتها الذاتية. الملحقات قطع تُركَّب على الجرار ويسحبها أو يحملها.</div>
+      <p class="label" style="margin-top:.6rem">This is practice, so it answers immediately. The exam does not.</p>
+      <div class="ar">هذا تدريب فيظهر التصحيح فوراً، أما الامتحان فلا.</div>
+    </div>
+    <div id="classRows"></div>
+    <div class="stat" id="classStat"></div>
+  </section>
+
+  <!-- ========================== EXAM ========================== -->
+  <section class="panel" id="exam">
+    <div id="examLive">
+      <div class="sealed">
+        <h3>Sealed exam</h3>
+        <p>No answer, mark, or hint appears while you work. Answer all 20 questions, then press <b>Submit exam</b> — only then are your score and every correct answer revealed.</p>
+        <div class="ar">امتحان مغلق: لا تظهر أي إجابة أو علامة أو تلميح أثناء الحل. جاوبي على العشرين سؤالاً كلها ثم اضغطي «Submit exam» — عندها فقط تظهر درجتك وكل الإجابات الصحيحة.</div>
+      </div>
+
+      <div class="exam-head">
+        <div>
+          <div class="label">Assessment</div>
+          <h2 style="font-size:1.4rem">20 Questions</h2>
+        </div>
+        <div class="label" id="clock" style="font-variant-numeric:tabular-nums">0:00 elapsed</div>
+      </div>
+      <div class="meter"><i id="examMeter"></i></div>
+      <div class="counts"><span id="answered">0 answered</span><span id="left">20 blank</span></div>
+
+      <div class="q-card" id="qCard">
+        <div class="q-top">
+          <span class="q-no" id="qNo">Q1</span>
+          <span class="sp"></span>
+          <button class="listen mini" id="qSay">Listen</button>
+          <button class="flagbtn" id="qFlag">Flag</button>
+        </div>
+        <div class="q-text" id="qText"></div>
+        <div class="ar" id="qAr"></div>
+        <div class="opts" id="qOpts"></div>
+        <div class="q-nav">
+          <button class="btn" id="qPrev">◀ Previous</button>
+          <button class="btn solid" id="qNext">Next ▶</button>
+        </div>
+      </div>
+
+      <div class="sheet-card">
+        <div class="label">Question map</div>
+        <div class="map" id="qMap"></div>
+        <div class="key">
+          <span><i style="background:var(--field-wash);border-color:var(--field)"></i>answered</span>
+          <span><i style="background:var(--card-2)"></i>blank</span>
+          <span><i style="background:var(--amber);border-color:var(--amber)"></i>flagged</span>
+        </div>
+        <div class="acts" style="margin-bottom:0">
+          <button class="btn warn" id="submitBtn">Submit exam<div class="ar">سلّمي الامتحان</div></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="score">
+        <div class="dial">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="54"></circle>
+            <circle class="fg" id="dialFg" cx="60" cy="60" r="54"></circle>
+          </svg>
+          <div class="mid"><div class="p" id="pct">0%</div><div class="g" id="grade"></div></div>
+        </div>
+        <h2 id="verdict"></h2>
+        <div class="n" id="verdictNote"></div>
+        <div class="ar c" id="verdictAr" style="color:var(--on-plate-2)"></div>
+        <div class="tally">
+          <div><b id="tRight">0</b><span>Correct</span></div>
+          <div><b id="tWrong">0</b><span>Missed</span></div>
+          <div><b id="tTime">0:00</b><span>Time</span></div>
+        </div>
+      </div>
+      <div class="acts">
+        <button class="btn solid" id="againBtn">Retake all<div class="ar">أعيدي الامتحان</div></button>
+        <button class="btn" id="missedBtn">Retake missed<div class="ar">أعيدي الأسئلة الخطأ</div></button>
+        <button class="btn" id="toLesson">Back to lesson<div class="ar">راجعي الدرس</div></button>
+      </div>
+      <div class="intro" style="margin-top:1.4rem">
+        <div class="label">Unsealed</div>
+        <h2>Every question and its answer</h2>
+        <p>Your answer next to the correct one. Press Listen on any question to hear it read with its answer.</p>
+        <div class="ar">إجابتك بجانب الإجابة الصحيحة. اضغطي «Listen» على أي سؤال لتسمعيه مع إجابته.</div>
+      </div>
+      <div id="reviewList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="veil" id="veil">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <div class="ar" id="modalAr"></div>
+    <div class="acts" style="margin-bottom:0">
+      <button class="btn" id="modalBack">Go back</button>
+      <button class="btn warn" id="modalGo">Submit</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================================================================
+   0 · HELPERS
+   ================================================================ */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('on'), 2200);
+}
+
+/* ================================================================
+   1 · CATALOGUE DATA — 25 items, straight from the lesson
+   ================================================================ */
+const CAT = {tool:'Tool', equipment:'Equipment', implement:'Implement'};
+const CAT_AR = {tool:'أداة', equipment:'معدة', implement:'ملحق'};
+
+const items = [
+ {ic:'i-hoe', n:'Hoe and cultivator', na:'المعزقة والمحراث اليدوي', c:'tool',
+  u:'A farm tool for cultivating soil in preparation for seed planting.',
+  a:'أداة زراعية لحرث التربة وتجهيزها لزراعة البذور.'},
+ {ic:'i-tiller', n:'Hand tiller', na:'المقلّبة اليدوية', c:'tool',
+  u:'A garden tool having a lever or paddle at the bottom and an axle fastened to the top. Turning the soil requires pulling the tiller back and forth with your hands. It works to aerate the soil and get it ready for planting.',
+  a:'أداة بستنة لها ذراع أو مجداف في الأسفل ومحور مثبت في الأعلى. لتقليب التربة تُسحب الأداة للأمام والخلف باليدين، فتهوّي التربة وتجهزها للزراعة.'},
+ {ic:'i-weedhoe', n:'Weeding hoe', na:'معزقة إزالة الأعشاب', c:'tool',
+  u:'Used for removing weeds.', a:'تُستخدم لإزالة الأعشاب الضارة.'},
+ {ic:'i-sickle', n:'Sickle', na:'المنجل', c:'tool',
+  u:'A farming tool with a circular metal blade and a short handle or strap for holding it. Harvesting wheat, rice, barley, oats, maize, sorghum, millet, and rye are the conventional uses for it.',
+  a:'أداة زراعية بشفرة معدنية دائرية ومقبض قصير أو حزام للإمساك بها. تُستخدم عادةً في حصاد القمح والأرز والشعير والشوفان والذرة والذرة الرفيعة والدخن والجاودار.'},
+ {ic:'i-spade', n:'Spade', na:'المجرفة', c:'tool',
+  u:'A hand tool with a long blade and flat surface. It is used primarily for digging soil.',
+  a:'أداة يدوية بشفرة طويلة وسطح مستوٍ، تُستخدم أساساً لحفر التربة.'},
+ {ic:'i-mattock', n:'Pick mattock', na:'الفأس المدببة', c:'tool',
+  u:'A hand tool to break up clods of dirt or clay. It is usually made of wood and steel, with one or more blades attached to the end of the long handle.',
+  a:'أداة يدوية لتكسير كتل التراب أو الطين. تُصنع عادة من الخشب والفولاذ، ولها شفرة أو أكثر مثبتة في طرف المقبض الطويل.'},
+ {ic:'i-bolo', n:'Bolo', na:'البولو (ساطور)', c:'tool',
+  u:"A knife having a long blade fastened to the handle's tip. It can be used for many purposes, including chopping or cutting.",
+  a:'سكين بشفرة طويلة مثبتة في طرف المقبض، تُستخدم لأغراض كثيرة منها التقطيع أو القطع.'},
+ {ic:'i-shears', n:'Pruning shears', na:'مقص التقليم', c:'tool',
+  u:'Used to prune plants.', a:'يُستخدم لتقليم النباتات.'},
+ {ic:'i-scythe', n:'Scythe', na:'المنجل الكبير', c:'tool',
+  u:'Used to cut grass or reap crops.', a:'يُستخدم لقص العشب أو حصاد المحاصيل.'},
+ {ic:'i-rake', n:'Rake', na:'المشط الزراعي', c:'tool',
+  u:'Used to loosen the soil and remove weeds before preparing the ground for planting. It is also used to spread fertilizer, break up and remove soil clumps, smooth out the soil, and remove debris.',
+  a:'يُستخدم لتفكيك التربة وإزالة الأعشاب قبل تجهيز الأرض للزراعة، وكذلك لنثر السماد وتكسير كتل التربة وإزالتها وتسوية التربة وإزالة المخلفات.'},
+ {ic:'i-trowel', n:'Trowel', na:'المسطرين', c:'tool',
+  u:'Used for small digging tasks.', a:'يُستخدم لأعمال الحفر الصغيرة.'},
+ {ic:'i-fork', n:'Spading fork', na:'شوكة التقليب', c:'tool',
+  u:'Used for loosening, lifting, and turning over soil.', a:'تُستخدم لتفكيك التربة ورفعها وتقليبها.'},
+ {ic:'i-mister', n:'Plant mister', na:'بخّاخة النباتات', c:'tool',
+  u:'Plant misting can be accomplished with this compact, multipurpose plastic bottle. A high-pressure spray nozzle that doubles as a garden hose attachment is included.',
+  a:'زجاجة بلاستيكية صغيرة متعددة الاستخدامات لرش النباتات بالرذاذ، ومعها فوهة رش عالية الضغط يمكن تركيبها أيضاً على خرطوم الحديقة.'},
+ {ic:'i-gps', n:'GPS GLONASS land area measurer', na:'جهاز قياس مساحة الأرض', c:'tool',
+  u:'Used to measure land area.', a:'يُستخدم لقياس مساحة الأرض.'},
+
+ {ic:'i-sprayer', n:'Backpack / drone sprayer', na:'الرشاش الظهري أو الطائر', c:'equipment',
+  u:'A device for spraying crops with fertilizer, irrigation, weed and pest control agents.',
+  a:'جهاز لرش المحاصيل بالسماد ومياه الري ومبيدات الأعشاب والآفات.'},
+ {ic:'i-pump', n:'Irrigation pump', na:'مضخة الري', c:'equipment',
+  u:'Used to pump water for irrigation.', a:'تُستخدم لضخ المياه للري.'},
+ {ic:'i-thresher', n:'Thresher', na:'الدرّاسة', c:'equipment',
+  u:'Used to separate the grain from the stalks and husks.', a:'تُستخدم لفصل الحبوب عن السيقان والقشور.'},
+ {ic:'i-harvester', n:'Reaper / harvester', na:'الحاصدة', c:'equipment',
+  u:'Used to cut and gather crops when they are ripe.', a:'تُستخدم لقطع المحاصيل وجمعها عند نضجها.'},
+ {ic:'i-tractor', n:'Tractor', na:'الجرار الزراعي', c:'equipment',
+  u:'A high-power, low-speed traction vehicle and power unit intended for off-road use that shares mechanical similarities with a truck or car. Farmers utilize tractors for various tasks such as disking, planting, harrowing, tilling, and even towing trailers.',
+  a:'مركبة جر عالية القدرة ومنخفضة السرعة ووحدة طاقة مخصصة للاستخدام خارج الطرق، وتتشابه ميكانيكياً مع الشاحنة أو السيارة. يستخدمها المزارعون في مهام متعددة مثل التقطيع بالأقراص والزراعة والتمشيط والحرث وحتى جر المقطورات.'},
+
+ {ic:'i-cultivator', n:'Cultivators', na:'المحاريث الملحقة', c:'implement',
+  u:'An attachment for a tractor that allows you to use a gardening tool to cultivate, amend, aerate, and plant seeds in the soil.',
+  a:'ملحق يُركَّب على الجرار يتيح حرث التربة وتحسينها وتهويتها وزراعة البذور فيها.'},
+ {ic:'i-drill', n:'Seed drill', na:'آلة البذر', c:'implement',
+  u:'An attachment for a tractor to sow and spread seeds efficiently and neatly. They can be used for both small-scale and large-scale farming operations, and for a wide range of crops such as vegetables, grains, and fodder.',
+  a:'ملحق يُركَّب على الجرار لبذر البذور ونثرها بكفاءة وانتظام. يُستخدم في الزراعة الصغيرة والكبيرة ولمحاصيل متنوعة كالخضروات والحبوب والأعلاف.'},
+ {ic:'i-harrow', n:'Harrow', na:'المشط القرصي', c:'implement',
+  u:'Used to break up soil or clay.', a:'يُستخدم لتكسير التربة أو الطين.'},
+ {ic:'i-plow', n:'Plow', na:'المحراث', c:'implement',
+  u:'Used for tilling, turning the soil, and adding fertilizers.', a:'يُستخدم للحرث وتقليب التربة وإضافة الأسمدة.'},
+ {ic:'i-baler', n:'Hay baler', na:'آلة كبس التبن', c:'implement',
+  u:'A piece of agricultural equipment for compacting raked and cut crops into bales.',
+  a:'معدة زراعية لكبس المحاصيل المقطوعة والمجمّعة في بالات.'},
+ {ic:'i-spreader', n:'Fertilizer spreader', na:'ناثرة السماد', c:'implement',
+  u:'Used to evenly distribute fertilizer.', a:'يُستخدم لتوزيع السماد بالتساوي.'},
+];
+
+/* ================================================================
+   2 · THEME · TEXT SIZE · PROGRESS
+   ================================================================ */
+$('#themeBtn').addEventListener('click', ()=>{
+  const r = document.documentElement;
+  const dark = r.getAttribute('data-theme') === 'dark'
+    || (!r.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+  r.setAttribute('data-theme', dark ? 'light' : 'dark');
+});
+const SIZES = [14, 15, 16, 17.5, 19, 21];
+let sizeIdx = 2;
+$('#textUp').addEventListener('click', ()=>{ sizeIdx = Math.min(SIZES.length-1, sizeIdx+1); document.documentElement.style.fontSize = SIZES[sizeIdx]+'px'; });
+$('#textDown').addEventListener('click', ()=>{ sizeIdx = Math.max(0, sizeIdx-1); document.documentElement.style.fontSize = SIZES[sizeIdx]+'px'; });
+
+const XP_MAX = items.length * 2 + 20;   /* open 25 plates + classify 25 + 20 exam marks */
+let xp = 0;
+$('#xpMax').textContent = XP_MAX;
+function addXp(n){
+  if(n <= 0) return;
+  xp = Math.min(XP_MAX, xp + n);
+  $('#xpNow').textContent = xp;
+  $('#xpBar').style.width = (xp / XP_MAX * 100) + '%';
+}
+
+/* ================================================================
+   3 · READING VOICE — English only, Arabic gloss never spoken
+   ================================================================ */
+/* text of an element with any Arabic gloss stripped out — the voice reads English only */
+function englishOf(el){
+  const c = el.cloneNode(true);
+  c.querySelectorAll('.ar, .ar-block, .gloss').forEach(x => x.remove());
+  return c.textContent.replace(/\s+/g,' ').trim();
+}
+
+const Voice = (function(){
+  const synth = window.speechSynthesis;
+  const ok = !!synth && typeof SpeechSynthesisUtterance === 'function';
+  let rate = 0.85, voice = null, chain = [], step = 0, btn = null, mark = null, alive = null, spoke = false;
+
+  function chooseVoice(){
+    if(!ok) return;
+    const all = synth.getVoices().filter(v => /^en(-|_|$)/i.test(v.lang));
+    if(!all.length) return;
+    const liked = ['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Karen','Moira','Daniel'];
+    voice = all.find(v => liked.some(n => v.name.includes(n)))
+         || all.find(v => /en[-_]US/i.test(v.lang)) || all[0];
+  }
+  if(ok){ chooseVoice(); synth.addEventListener('voiceschanged', chooseVoice); }
+
+  function dress(b, playing){
+    if(!b) return;
+    b.classList.toggle('playing', playing);
+    const l = b.querySelector('.lbl');
+    if(l) l.textContent = playing ? 'Stop' : (b.dataset.label || 'Listen');
+  }
+  function clear(){
+    if(mark){ mark.classList.remove('spoken'); mark = null; }
+    dress(btn, false); btn = null; chain = []; step = 0;
+    if(alive){ clearInterval(alive); alive = null; }
+  }
+  function stop(){ if(ok){ try{ synth.cancel(); }catch(e){} } clear(); }
+
+  function run(){
+    if(step >= chain.length){
+      if(!spoke) toast('No English voice is installed on this device. Try Chrome, Edge, or Safari.');
+      clear(); return;
+    }
+    const piece = chain[step];
+    const u = new SpeechSynthesisUtterance(piece.text);
+    u.lang = (voice && voice.lang) || 'en-US';
+    if(voice) u.voice = voice;
+    u.rate = rate;
+    u.onstart = ()=>{
+      spoke = true;
+      if(mark) mark.classList.remove('spoken');
+      mark = piece.el || null;
+      if(mark){
+        mark.classList.add('spoken');
+        const b = mark.getBoundingClientRect();
+        if(b.top < 70 || b.bottom > innerHeight - 30) mark.scrollIntoView({block:'center', behavior:'smooth'});
+      }
+    };
+    u.onend = ()=>{ step++; run(); };
+    u.onerror = ()=>{ step++; run(); };
+    synth.speak(u);
+  }
+  function play(pieces, trigger){
+    if(!ok){ toast('This browser cannot read aloud. Try Chrome, Edge, or Safari.'); return; }
+    const same = trigger && trigger === btn;
+    stop();
+    if(same) return;
+    chain = pieces.filter(p => p.text && p.text.trim().length > 1);
+    if(!chain.length) return;
+    step = 0; spoke = false; btn = trigger || null; dress(btn, true);
+    alive = setInterval(()=>{ if(synth.speaking && !synth.paused){ synth.pause(); synth.resume(); } }, 9000);
+    run();
+  }
+  function say(text, trigger){ play([{text, el:null}], trigger); }
+  function read(root, trigger){
+    const blocks = $$('p, li, h4, td, .u', root)
+      .filter(el => !el.closest('.ar, .gloss'))
+      .filter(el => !el.querySelector('p, li, td'));
+    play(blocks.map(el => ({text: englishOf(el), el})), trigger);
+  }
+  return { ok, play, say, read, stop, setRate(r){ rate = r; stop(); } };
+})();
+
+function listenHTML(label='Listen', extra=''){
+  return `<button class="listen ${extra}" data-label="${label}"><span class="wave"><i></i><i></i><i></i></span><span class="lbl">${label}</span></button>`;
+}
+function dressListen(root=document){
+  $$('.listen', root).forEach(b=>{
+    if(b.querySelector('.lbl')) return;
+    const label = b.textContent.replace(/\s+/g,' ').trim() || 'Listen';
+    b.dataset.label = label;
+    b.innerHTML = `<span class="wave"><i></i><i></i><i></i></span><span class="lbl">${label}</span>`;
+  });
+}
+dressListen();
+$$('#rateSeg button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    $$('#rateSeg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); Voice.setRate(parseFloat(b.dataset.rate));
+  });
+});
+$('#stopAll').addEventListener('click', ()=>Voice.stop());
+$('#voiceNote').textContent = Voice.ok
+  ? 'القراءة الصوتية مدعومة في هذا المتصفح. اضغطي «Stop» لإيقافها في أي وقت.'
+  : 'هذا المتصفح لا يدعم القراءة الصوتية — جرّبي كروم أو إيدج أو سفاري.';
+
+/* ================================================================
+   4 · TABS
+   ================================================================ */
+$$('.tab').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    Voice.stop();
+    $$('.tab').forEach(x=>x.classList.remove('on'));
+    $$('.panel').forEach(p=>p.classList.remove('on'));
+    b.classList.add('on');
+    $('#'+b.dataset.go).classList.add('on');
+    scrollTo({top:0, behavior:'smooth'});
+    if(b.dataset.go === 'exam') Exam.enter();
+  });
+});
+function goTab(id){ $$('.tab').find(b=>b.dataset.go===id).click(); }
+
+/* ================================================================
+   5 · CATALOGUE
+   ================================================================ */
+const grid = $('#grid');
+const opened = new Set();
+items.forEach((it, i)=>{
+  const b = document.createElement('button');
+  b.className = 'item';
+  b.dataset.cat = it.c;
+  b.dataset.i = i;
+  b.innerHTML = `
+    <span class="plate">
+      <span class="no">${String(i+1).padStart(2,'0')}</span>
+      <span class="tick">✓</span>
+      <svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><use href="#${it.ic}"/></svg>
+    </span>
+    <span class="item-body">
+      <span class="item-name">${it.n}</span>
+      <span class="item-cat cat-${it.c}">${CAT[it.c]}</span>
+      <span class="ar">${it.na}</span>
+    </span>`;
+  b.addEventListener('click', ()=>openItem(i, b));
+  grid.appendChild(b);
+});
+
+let openIdx = null;
+function openItem(i, el){
+  const it = items[i];
+  openIdx = i;
+  $('#dUse').setAttribute('href', '#'+it.ic);
+  $('#dCat').textContent = `Plate ${String(i+1).padStart(2,'0')} · ${CAT[it.c]}`;
+  $('#dName').textContent = it.n;
+  $('#dUseText').textContent = it.u;
+  $('#dAr').textContent = it.na + ' — ' + it.a;
+  $('#detail').classList.add('open');
+  if(!opened.has(i)){
+    opened.add(i);
+    el.classList.add('seen');
+    addXp(1);
+    if(opened.size === items.length) toast('All 25 plates studied.');
+  }
+  $('#detail').scrollIntoView({block:'start', behavior:'smooth'});
+}
+$('#dClose').addEventListener('click', ()=>{ Voice.stop(); $('#detail').classList.remove('open'); });
+$('#dSay').addEventListener('click', e=>{
+  if(openIdx == null) return;
+  const it = items[openIdx];
+  Voice.play([{text:it.n, el:null}, {text:it.u, el:null}], e.currentTarget);
+});
+$$('.filter').forEach(f=>{
+  f.addEventListener('click', ()=>{
+    $$('.filter').forEach(x=>x.classList.remove('on'));
+    f.classList.add('on');
+    const c = f.dataset.cat;
+    $$('.item').forEach(el=>{ el.style.display = (c === 'all' || el.dataset.cat === c) ? '' : 'none'; });
+  });
+});
+
+/* ================================================================
+   6 · LESSON
+   ================================================================ */
+function tableOf(cat){
+  const rows = items.filter(it => it.c === cat).map(it =>
+    `<tr><td>${it.n}<div class="ar l">${it.na}</div></td><td>${it.u}<div class="ar">${it.a}</div></td></tr>`).join('');
+  return `<div class="tbl-scroll"><table class="spec"><tr><th>${CAT[cat]}</th><th>What it is used for</th></tr>${rows}</table></div>`;
+}
+const parts = [
+  {no:'01', t:'Farm tools, implements, and equipment', ta:'الأدوات والملحقات والمعدات الزراعية',
+   html:`<p>The following is a list of some typical farm tools, implements, and equipment, along with explanations of how they are used.</p>
+   <p>They fall into three groups. <b>Tools</b> are worked by hand. <b>Equipment</b> are powered machines that carry out a job on their own. <b>Implements</b> are attachments that a tractor pulls or carries.</p>`,
+   gloss:`<p>فيما يلي قائمة ببعض الأدوات والملحقات والمعدات الزراعية الشائعة مع شرح لطريقة استخدامها.</p>
+   <p>وهي ثلاث مجموعات: <b>الأدوات</b> تُستخدم باليد، و<b>المعدات</b> آلات تعمل بقدرتها الذاتية، و<b>الملحقات</b> قطع يسحبها الجرار أو يحملها.</p>`},
+  {no:'02', t:'Hand tools', ta:'الأدوات اليدوية', html:`<p>Fourteen hand tools appear in this lesson.</p>${tableOf('tool')}`,
+   gloss:`<p>يضم الدرس أربع عشرة أداة يدوية.</p>`},
+  {no:'03', t:'Equipment', ta:'المعدات', html:`<p>Five powered machines appear in this lesson.</p>${tableOf('equipment')}`,
+   gloss:`<p>يضم الدرس خمس معدات تعمل بمحرك.</p>`},
+  {no:'04', t:'Implements', ta:'الملحقات', html:`<p>Six tractor attachments appear in this lesson.</p>${tableOf('implement')}`,
+   gloss:`<p>يضم الدرس ستة ملحقات تُركَّب على الجرار.</p>`},
+  {no:'05', t:'Modern machines', ta:'الآلات الحديثة',
+   html:`<p>Apart from the abovementioned tools, implements, and equipment, farmers worldwide are now using cutting-edge machines to make farming tasks faster and more efficient.</p>`,
+   gloss:`<p>إلى جانب الأدوات والملحقات والمعدات السابقة، صار المزارعون حول العالم يستخدمون آلات حديثة متطورة لجعل الأعمال الزراعية أسرع وأكثر كفاءة.</p>`},
+  {no:'06', t:'Safety and precautionary measures', ta:'إجراءات السلامة والوقاية',
+   html:`<p>To maintain efficiency and safety when using agricultural tools, implements, and equipment, precautionary measures are crucial. These are a few essential steps.</p>
+   <h4>1 · For hand tools</h4>
+   <div class="safety">
+     <p><b>a. Examine hand tools.</b> Before using, make sure there is no damage. Any damaged, cracked, worn, or bent handles should be replaced.</p>
+     <p><b>b. Use insulated handles.</b> Only use tools with insulated handles when working on electrical projects.</p>
+   </div>
+   <p class="label" style="margin-top:.8rem">The scanned page ends here (textbook page 78).</p>`,
+   gloss:`<p>للحفاظ على الكفاءة والسلامة عند استخدام الأدوات والملحقات والمعدات الزراعية، لا بد من اتخاذ إجراءات وقائية. وهذه بعض الخطوات الأساسية:</p>
+   <p><b>١. للأدوات اليدوية:</b></p>
+   <p>أ. افحصي الأدوات اليدوية قبل الاستخدام وتأكدي من خلوها من التلف، ويجب استبدال أي مقبض تالف أو متشقق أو بالٍ أو معوج.</p>
+   <p>ب. استخدمي المقابض العازلة: لا تستعملي إلا الأدوات ذات المقابض العازلة عند العمل في المشاريع الكهربائية.</p>
+   <p><b>ملاحظة:</b> الصفحة الممسوحة تنتهي هنا (صفحة ٧٨ من الكتاب).</p>`},
+];
+const partsWrap = $('#parts');
+parts.forEach(pt=>{
+  const sec = document.createElement('section');
+  sec.className = 'part';
+  sec.innerHTML = `
+    <button class="part-head" aria-expanded="false">
+      <span class="part-no">${pt.no}</span>
+      <span class="part-title">${pt.t}<span class="ar">${pt.ta}</span></span>
+      <span class="caret">+</span>
+    </button>
+    <div class="part-body">
+      ${pt.html}
+      <div class="gloss">${pt.gloss}</div>
+      <div class="part-tools">${listenHTML('Listen to this part')}</div>
+    </div>`;
+  partsWrap.appendChild(sec);
+  const head = $('.part-head', sec), body = $('.part-body', sec);
+  head.addEventListener('click', ()=>{
+    const open = sec.classList.toggle('open');
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    $('.caret', sec).textContent = open ? '−' : '+';
+    if(!open) Voice.stop();
+  });
+  $('.listen', sec).addEventListener('click', e=>{ e.stopPropagation(); Voice.read(body, e.currentTarget); });
+});
+
+/* ================================================================
+   7 · DRILL
+   ================================================================ */
+let deck = items.map((it, i)=>({...it, i, state:null}));
+let at = 0;
+function paintCard(){
+  const c = deck[at];
+  $('#fcUse').setAttribute('href', '#'+c.ic);
+  $('#fcName').textContent = c.n;
+  $('#fcNameAr').textContent = c.na;
+  $('#fcCat').textContent = CAT[c.c];
+  $('#fcUseText').textContent = c.u;
+  $('#fcAr').textContent = c.a;
+  $('#fcard').classList.remove('over');
+  $('#dcCount').textContent = `Card ${at+1} of ${deck.length}`;
+  const got = deck.filter(x=>x.state==='got').length;
+  const again = deck.filter(x=>x.state==='again').length;
+  $('#fcStat').textContent = `Known ${got} · Study again ${again} · Unmarked ${deck.length-got-again}`;
+}
+$('#fcard').addEventListener('click', ()=>$('#fcard').classList.toggle('over'));
+$('#fcard').addEventListener('keydown', e=>{
+  if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); $('#fcard').classList.toggle('over'); }
+});
+$('#fcNext').addEventListener('click', ()=>{ Voice.stop(); at = (at+1) % deck.length; paintCard(); });
+$('#fcPrev').addEventListener('click', ()=>{ Voice.stop(); at = (at-1+deck.length) % deck.length; paintCard(); });
+$('#fcShuffle').addEventListener('click', ()=>{
+  Voice.stop();
+  for(let i=deck.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [deck[i],deck[j]] = [deck[j],deck[i]]; }
+  at = 0; paintCard(); toast('Deck shuffled');
+});
+$('#fcGot').addEventListener('click', ()=>{ deck[at].state='got'; paintCard(); });
+$('#fcAgain').addEventListener('click', ()=>{ deck[at].state='again'; paintCard(); });
+$('#fcSay').addEventListener('click', e=>{
+  const c = deck[at];
+  Voice.play([{text:c.n, el:null}, {text:c.u, el:null}], e.currentTarget);
+});
+paintCard();
+
+/* ================================================================
+   8 · CLASSIFY
+   ================================================================ */
+const classWrap = $('#classRows');
+let sorted = 0;
+items.forEach(it=>{
+  const row = document.createElement('div');
+  row.className = 'class-row';
+  row.innerHTML = `
+    <span class="ico"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><use href="#${it.ic}"/></svg></span>
+    <span class="nm">${it.n}<span class="ar l">${it.na}</span></span>
+    <span class="picks">${Object.keys(CAT).map(k=>`<button class="pick" data-k="${k}">${CAT[k]}</button>`).join('')}</span>`;
+  classWrap.appendChild(row);
+  $$('.pick', row).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const right = btn.dataset.k === it.c;
+      $$('.pick', row).forEach(p=>{ p.disabled = true; if(p.dataset.k === it.c) p.classList.add('right'); });
+      if(!right) btn.classList.add('wrong');
+      row.classList.add(right ? 'done' : 'miss');
+      if(right) addXp(1);
+      sorted++;
+      $('#classStat').textContent = `${sorted} of ${items.length} classified`;
+    });
+  });
+});
+$('#classStat').textContent = `0 of ${items.length} classified`;
+
+/* ================================================================
+   9 · SEALED EXAM — nothing is revealed until submission
+   ================================================================ */
+const questions = [
+ {q:'A hoe and cultivator is a farm tool used for:', a:'المعزقة والمحراث اليدوي أداة تُستخدم في:',
+  o:['Cultivating soil in preparation for seed planting','Separating grain from stalks and husks','Measuring the area of land','Compacting cut crops into bales'], c:0},
+ {q:'Turning the soil with a hand tiller requires:', a:'تقليب التربة بالمقلّبة اليدوية يتطلب:',
+  o:['Attaching it to a tractor','Pulling the tiller back and forth with your hands','Connecting it to an irrigation pump','Spraying it with fertilizer'], c:1},
+ {q:'Which tool is used for removing weeds?', a:'أي أداة تُستخدم لإزالة الأعشاب الضارة؟',
+  o:['Seed drill','Thresher','Weeding hoe','Plant mister'], c:2},
+ {q:'A sickle is a farming tool with:', a:'المنجل أداة زراعية لها:',
+  o:['Four straight tines and a long handle','A circular metal blade and a short handle or strap','A hopper and a rotating disc','A flat blade and a D-shaped grip'], c:1},
+ {q:'Which of these is NOT a conventional use of the sickle?', a:'أي مما يلي ليس استخداماً معتاداً للمنجل؟',
+  o:['Harvesting wheat','Harvesting rice','Harvesting coconuts','Harvesting millet'], c:2},
+ {q:'The spade is used primarily for:', a:'تُستخدم المجرفة أساساً في:',
+  o:['Digging soil','Pruning plants','Spreading fertilizer','Measuring land area'], c:0},
+ {q:'A pick mattock is a hand tool used to:', a:'الفأس المدببة أداة يدوية تُستخدم في:',
+  o:['Mist plants with water','Break up clods of dirt or clay','Cut and gather ripe crops','Sow seeds neatly in rows'], c:1},
+ {q:'A bolo is best described as:', a:'أفضل وصف للبولو (الساطور) هو:',
+  o:["A knife with a long blade fastened to the handle's tip",'A narrow blade used for small digging tasks','An attachment pulled behind a tractor','A bottle with a high-pressure spray nozzle'], c:0},
+ {q:'Which of these is NOT listed as a use of the rake?', a:'أي مما يلي ليس من استخدامات المشط الزراعي؟',
+  o:['Spreading fertilizer','Smoothing out the soil','Measuring the area of land','Removing debris'], c:2},
+ {q:'A spading fork is used for:', a:'تُستخدم شوكة التقليب في:',
+  o:['Loosening, lifting, and turning over soil','Pruning plants','Cutting grass and reaping crops','Pumping water for irrigation'], c:0},
+ {q:'Which tool is used to measure land area?', a:'أي أداة تُستخدم لقياس مساحة الأرض؟',
+  o:['Plant mister','Trowel','GPS GLONASS land area measurer','Pruning shears'], c:2},
+ {q:'Which of these is an implement — an attachment for a tractor?', a:'أي مما يلي ملحق يُركَّب على الجرار؟',
+  o:['Bolo','Seed drill','Trowel','Sickle'], c:1},
+ {q:'A thresher is used to:', a:'تُستخدم الدرّاسة في:',
+  o:['Break up soil or clay','Separate the grain from the stalks and husks','Distribute fertilizer evenly','Prune plants'], c:1},
+ {q:'A reaper or harvester is used to:', a:'تُستخدم الحاصدة في:',
+  o:['Cut and gather crops when they are ripe','Pump water for irrigation','Measure the land area','Aerate the soil by hand'], c:0},
+ {q:'The tractor is described in the lesson as:', a:'يوصف الجرار في الدرس بأنه:',
+  o:['A hand tool made of wood and steel','A compact multipurpose plastic bottle','A high-power, low-speed traction vehicle and power unit for off-road use','An attachment that sows and spreads seeds'], c:2},
+ {q:'A harrow is used to:', a:'يُستخدم المشط القرصي في:',
+  o:['Break up soil or clay','Compact crops into bales','Spray crops with pesticide','Measure land area'], c:0},
+ {q:'A plow is used for:', a:'يُستخدم المحراث في:',
+  o:['Pruning and cutting plants','Tilling, turning the soil, and adding fertilizers','Separating grain from husks','Misting plants'], c:1},
+ {q:'A hay baler is a piece of agricultural equipment for:', a:'آلة كبس التبن معدة زراعية تُستخدم في:',
+  o:['Compacting raked and cut crops into bales','Digging small holes for seedlings','Measuring the size of a field','Pumping water into canals'], c:0},
+ {q:'Before using a hand tool, you should:', a:'قبل استخدام أي أداة يدوية يجب أن:',
+  o:['Wet the handle so it does not slip','Examine it and replace any damaged, cracked, worn, or bent handle','Sharpen it on a tractor wheel','Spray it with fertilizer'], c:1},
+ {q:'When working on electrical projects, only use tools with:', a:'عند العمل في المشاريع الكهربائية، لا تستخدمي إلا أدوات ذات:',
+  o:['Wooden blades','Insulated handles','Circular blades','Plastic hoppers'], c:1},
+];
+const KEYS = ['A','B','C','D'];
+
+const Exam = (function(){
+  let pool = questions.map((_,i)=>i);
+  let picks = {}, flags = new Set();
+  let i = 0, t0 = null, tick = null, secs = 0, given = 0;
+
+  const fmt = s => Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+  function clock(){ secs = t0 ? Math.floor((Date.now()-t0)/1000) : 0; $('#clock').textContent = fmt(secs) + ' elapsed'; }
+  function enter(){ if(!t0){ t0 = Date.now(); tick = setInterval(clock, 1000); } }
+
+  function paint(){
+    const qi = pool[i], q = questions[qi];
+    $('#qNo').textContent = `Q${i+1} / ${pool.length}`;
+    $('#qText').textContent = q.q;
+    $('#qAr').textContent = q.a;
+    $('#qFlag').classList.toggle('on', flags.has(qi));
+    $('#qFlag').textContent = flags.has(qi) ? 'Flagged' : 'Flag';
+    const box = $('#qOpts'); box.innerHTML = '';
+    q.o.forEach((text, oi)=>{
+      const b = document.createElement('button');
+      b.className = 'opt' + (picks[qi] === oi ? ' on' : '');
+      b.innerHTML = `<span class="k">${KEYS[oi]}</span><span>${text}</span>`;
+      b.addEventListener('click', ()=>{
+        picks[qi] = oi;                       /* recorded only — never judged here */
+        paint();
+        if(i < pool.length-1) setTimeout(()=>{ i++; paint(); }, 240);
+      });
+      box.appendChild(b);
+    });
+    $('#qPrev').disabled = i === 0;
+    $('#qNext').disabled = i === pool.length-1;
+    map(); meter();
+  }
+  function map(){
+    const g = $('#qMap'); g.innerHTML = '';
+    pool.forEach((qi, n)=>{
+      const c = document.createElement('button');
+      c.className = 'cell' + (picks[qi] != null ? ' filled' : '') + (flags.has(qi) ? ' flagged' : '') + (n === i ? ' here' : '');
+      c.textContent = n+1;
+      c.addEventListener('click', ()=>{ Voice.stop(); i = n; paint(); $('#qCard').scrollIntoView({block:'start', behavior:'smooth'}); });
+      g.appendChild(c);
+    });
+  }
+  function meter(){
+    const done = pool.filter(qi => picks[qi] != null).length;
+    $('#examMeter').style.width = (done / pool.length * 100) + '%';
+    $('#answered').textContent = `${done} answered`;
+    $('#left').textContent = `${pool.length - done} blank`;
+  }
+
+  function submit(){
+    if(tick){ clearInterval(tick); tick = null; }
+    Voice.stop();
+    const right = pool.filter(qi => picks[qi] === questions[qi].c).length;
+    const pct = Math.round(right / pool.length * 100);
+    addXp(Math.max(0, right - given));
+    given = Math.max(given, right);
+
+    $('#examLive').style.display = 'none';
+    $('#result').classList.add('on');
+
+    const C = 2 * Math.PI * 54, dial = $('#dialFg');
+    dial.style.strokeDasharray = C;
+    dial.style.strokeDashoffset = C;
+    requestAnimationFrame(()=>{ dial.style.strokeDashoffset = C * (1 - pct/100); });
+    dial.style.stroke = pct >= 80 ? 'var(--field)' : pct >= 60 ? 'var(--amber)' : 'var(--rust)';
+
+    $('#pct').textContent = pct + '%';
+    $('#tRight').textContent = right;
+    $('#tWrong').textContent = pool.length - right;
+    $('#tTime').textContent = fmt(secs);
+
+    const band = pct >= 90 ? ['Excellent','Excellent','ممتازة — مستوى عالٍ جداً.']
+              : pct >= 80 ? ['Strong','Very good','جيد جداً — راجعي الأسئلة الخطأ فقط.']
+              : pct >= 70 ? ['Solid','Good','جيد — راجعي الدرس وأعيدي الأسئلة الخطأ.']
+              : pct >= 60 ? ['Fair','Fair','مقبول — ذاكري الدرس مرة أخرى ثم أعيدي.']
+              : ['Review needed','Keep going','محتاجة مراجعة — ارجعي للدرس واسمعيه ثم أعيدي الامتحان.'];
+    $('#grade').textContent = band[1];
+    $('#verdict').textContent = band[0];
+    $('#verdictNote').textContent = `${right} of ${pool.length} correct in ${fmt(secs)}.`;
+    $('#verdictAr').textContent = band[2];
+
+    const list = $('#reviewList'); list.innerHTML = '';
+    pool.forEach((qi, n)=>{
+      const q = questions[qi], mine = picks[qi], hit = mine === q.c;
+      const d = document.createElement('div');
+      d.className = 'rev' + (hit ? '' : ' no');
+      d.innerHTML = `
+        <div class="rq"><span class="q-no">Q${n+1}</span> ${q.q}</div>
+        <div class="ar">${q.a}</div>
+        <div class="aline"><span class="t mine ${hit?'ok':''}">Your answer</span><span>${mine == null ? '— left blank / لم تُجب' : KEYS[mine]+'. '+q.o[mine]}</span></div>
+        ${hit ? '' : `<div class="aline"><span class="t right">Correct</span><span>${KEYS[q.c]}. ${q.o[q.c]}</span></div>`}
+        <div class="part-tools">${listenHTML('Listen','mini')}</div>`;
+      list.appendChild(d);
+      $('.listen', d).addEventListener('click', e=>{
+        Voice.play([{text:q.q, el:null}, {text:'The correct answer is ' + q.o[q.c], el:null}], e.currentTarget);
+      });
+    });
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function restart(only){
+    pool = only && only.length ? only : questions.map((_,n)=>n);
+    picks = {}; flags = new Set(); i = 0; secs = 0; t0 = Date.now();
+    if(tick) clearInterval(tick);
+    tick = setInterval(clock, 1000);
+    $('#clock').textContent = '0:00 elapsed';
+    $('#result').classList.remove('on');
+    $('#examLive').style.display = '';
+    paint();
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  $('#qPrev').addEventListener('click', ()=>{ Voice.stop(); if(i>0){ i--; paint(); } });
+  $('#qNext').addEventListener('click', ()=>{ Voice.stop(); if(i<pool.length-1){ i++; paint(); } });
+  $('#qFlag').addEventListener('click', ()=>{ const qi = pool[i]; flags.has(qi) ? flags.delete(qi) : flags.add(qi); paint(); });
+  $('#qSay').addEventListener('click', e=>{
+    const q = questions[pool[i]];
+    Voice.play([{text:q.q, el:null}].concat(q.o.map((o,n)=>({text:KEYS[n]+'. '+o, el:null}))), e.currentTarget);
+  });
+  $('#submitBtn').addEventListener('click', ()=>{
+    const blank = pool.filter(qi => picks[qi] == null).length;
+    $('#modalTitle').textContent = blank ? `${blank} question${blank>1?'s are':' is'} still blank` : 'Ready to unseal?';
+    $('#modalBody').textContent = blank
+      ? 'Blank questions are marked wrong. You can go back and finish them first.'
+      : 'Every question is answered. Submitting reveals your score and all the correct answers.';
+    $('#modalAr').textContent = blank
+      ? 'الأسئلة الفارغة تُحسب خطأ. يمكنك الرجوع وإكمالها أولاً.'
+      : 'أجبتِ عن كل الأسئلة. التسليم سيكشف درجتك وكل الإجابات الصحيحة.';
+    $('#veil').classList.add('on');
+  });
+  $('#modalBack').addEventListener('click', ()=>$('#veil').classList.remove('on'));
+  $('#modalGo').addEventListener('click', ()=>{ $('#veil').classList.remove('on'); submit(); });
+  $('#veil').addEventListener('click', e=>{ if(e.target === $('#veil')) $('#veil').classList.remove('on'); });
+  $('#againBtn').addEventListener('click', ()=>restart(null));
+  $('#missedBtn').addEventListener('click', ()=>{
+    const missed = pool.filter(qi => picks[qi] !== questions[qi].c);
+    if(!missed.length){ toast('Nothing missed — a perfect paper.'); return; }
+    restart(missed);
+    toast(`Retaking ${missed.length} question${missed.length>1?'s':''}`);
+  });
+  $('#toLesson').addEventListener('click', ()=>goTab('lesson'));
+
+  paint();
+  return { enter };
+})();
+
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){ Voice.stop(); $('#veil').classList.remove('on'); }
+});
+</script>
+
+</body>
+</html>
