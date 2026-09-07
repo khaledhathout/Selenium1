@@ -184,3 +184,92 @@ PAGES.append(dict(
   dict(q='“The family are arguing over dinner” takes a plural verb because:', a='«The family are arguing over dinner» تأخذ فعلاً جمعاً لأن:',
        o=['Family is always plural','The individuals in the family are acting separately','It is a spelling mistake','Dinner is plural'], c=1),
  ]))
+
+# ─────────────────────────── 19 · EVALUATING WEBSITES & FILE SHARING ───────────────────────────
+PAGES.append(dict(
+ file='19-website-evaluation-file-sharing.html',
+ title='Evaluating Websites & Sharing Files',
+ eyebrow='ICT · Lessons 2–3',
+ palette=['#2d5f7c','#1e4358','#e1eef4','#c96a1f','#faead9',
+          '#5b93b0','#a8cbdc','#12242e','#e0954f','#3a2412'],
+ blurb='Learn what to check before trusting a website, and the three ways people share files: directly, on a device, or through the cloud.',
+ blurb_ar='تعلّمي ماذا تتحققين قبل الوثوق بموقع، والطرق الثلاث لمشاركة الملفات: مباشرة، أو عبر جهاز، أو عبر السحابة.',
+ learn_h='Websites and sharing files',
+ learn_p='Open a part to read it, and press Listen to hear it read aloud in English.',
+ learn_ar='افتحي أي جزء لقراءته، واضغطي «Listen» لسماعه بالإنجليزية.',
+ cards_h='Key terms',
+ cards_p='Say what each term means, then flip the card to check.',
+ cards_ar='قولي معنى كل مصطلح ثم اقلبي البطاقة للتأكد.',
+ play_h='Peer-to-peer, storage, or online service?',
+ play_p='Sort each way of sharing files into the group it belongs to.',
+ play_ar='صنّفي كل طريقة لمشاركة الملفات في مجموعتها الصحيحة.',
+ parts=[
+  dict(n='1', t='Evaluating a website', ta='تقييم موقع إلكتروني',
+    html='<p>Before trusting a website, check two things: its <b>purpose</b> — why the site exists — and its <b>domain</b>, the ending of its web address.</p>'
+         '<p>A domain like <b>.edu</b> usually means the site belongs to a school or university, which is a sign it may be more trustworthy for research.</p>',
+    gloss='<p>قبل الوثوق بموقع إلكتروني، تحققي من أمرين: <b>الغرض</b> منه — لماذا وُجد هذا الموقع — و<b>نطاقه</b>، وهو نهاية عنوان الموقع.</p>'
+          '<p>نطاق مثل <b>.edu</b> يدل عادة أن الموقع تابع لمدرسة أو جامعة، وهذا مؤشر على أنه قد يكون أكثر موثوقية للبحث.</p>'),
+  dict(n='2', t='What is file sharing?', ta='ما مشاركة الملفات؟',
+    html='<p><b>File sharing</b> is the transmission of files from one device to another.</p>'
+         '<p>Shared files can be computer programs, documents, e-books, graphics, images, and multimedia.</p>',
+    gloss='<p><b>مشاركة الملفات</b> هي نقل الملفات من جهاز إلى آخر.</p>'
+          '<p>يمكن أن تكون الملفات المشتركة برامج حاسوب، أو مستندات، أو كتباً إلكترونية، أو رسومات، أو صوراً، أو ملفات وسائط متعددة.</p>'),
+  dict(n='3', t='Three ways to share a file', ta='ثلاث طرق لمشاركة ملف',
+    html='<p>There are three main ways to share files:</p>'
+         '<ul><li><b>Peer-to-peer sharing</b> — sending a file directly from one person to another, such as through a chat or messaging app.</li>'
+         '<li><b>Removable storage devices</b> — carrying files physically, on an optical disc, a USB flash drive, or a removable hard disk.</li>'
+         '<li><b>Online file sharing service</b> — uploading files to the internet so others can reach them, such as Dropbox, Google Drive, or OneDrive.</li></ul>',
+    gloss='<p>هناك ثلاث طرق رئيسية لمشاركة الملفات:</p>'
+          '<p><b>المشاركة من نظير إلى نظير:</b> إرسال ملف مباشرة من شخص لآخر، كأن يكون عبر تطبيق دردشة أو رسائل.</p>'
+          '<p><b>أجهزة التخزين القابلة للإزالة:</b> نقل الملفات مادياً، على قرص ضوئي أو ذاكرة USB أو قرص صلب خارجي.</p>'
+          '<p><b>خدمة مشاركة الملفات عبر الإنترنت:</b> رفع الملفات على الإنترنت ليصل إليها الآخرون، مثل Dropbox أو Google Drive أو OneDrive.</p>'),
+  dict(n='4', t='Cloud-based sharing', ta='المشاركة السحابية',
+    html='<p><b>Cloud-based sharing</b> uses space on a server that a service provider offers, so users can upload and store their files using any internet-connected device.</p>'
+         '<div class="hint"><p><b>True:</b> cloud-based sharing allows users to store their files on servers — that is exactly what the space on the server is for.</p></div>',
+    gloss='<p><b>المشاركة السحابية</b> تستخدم مساحة على خادم يقدّمها مزوّد خدمة، فيستطيع المستخدمون رفع ملفاتهم وتخزينها باستخدام أي جهاز متصل بالإنترنت.</p>'
+          '<p><b>صحيح:</b> المشاركة السحابية تسمح للمستخدمين بتخزين ملفاتهم على الخوادم — هذا بالضبط ما تُستخدم له مساحة الخادم.</p>'),
+ ],
+ cards=[
+  dict(f='What should you check before trusting a website?', fa='ماذا تتحققين قبل الوثوق بموقع؟', b='Its purpose, and its domain (like .edu).', ba='الغرض منه، ونطاقه (مثل ‎.edu‎).'),
+  dict(f='What is file sharing?', fa='ما مشاركة الملفات؟', b='The transmission of files from one device to another.', ba='نقل الملفات من جهاز إلى آخر.'),
+  dict(f='Give an example of peer-to-peer sharing.', fa='مثال على المشاركة من نظير إلى نظير؟', b='Sending a file through a chat or messaging app.', ba='إرسال ملف عبر تطبيق دردشة أو رسائل.'),
+  dict(f='Give an example of a removable storage device.', fa='مثال على جهاز تخزين قابل للإزالة؟', b='A USB flash drive, an optical disc, or a removable hard disk.', ba='ذاكرة USB أو قرص ضوئي أو قرص صلب خارجي.'),
+  dict(f='Give an example of an online file sharing service.', fa='مثال على خدمة مشاركة ملفات عبر الإنترنت؟', b='Dropbox, Google Drive, or OneDrive.', ba='Dropbox أو Google Drive أو OneDrive.'),
+  dict(f='What is cloud-based sharing?', fa='ما المشاركة السحابية؟', b='Using server space from a service provider to upload and store files from any internet-connected device.', ba='استخدام مساحة خادم من مزوّد خدمة لرفع الملفات وتخزينها من أي جهاز متصل بالإنترنت.'),
+  dict(f='True or False: cloud-based sharing lets you store files on servers.', fa='صح أم خطأ: المشاركة السحابية تتيح تخزين الملفات على الخوادم؟', b='True.', ba='صحيح.'),
+  dict(f='Which kinds of files can be shared?', fa='أي أنواع الملفات يمكن مشاركتها؟', b='Programs, documents, e-books, graphics, images, and multimedia.', ba='برامج، مستندات، كتب إلكترونية، رسومات، صور، وملفات وسائط متعددة.'),
+ ],
+ game=dict(mode='sort',
+   buckets=[dict(k='p2p', label='Peer-to-Peer'), dict(k='rsd', label='Removable Storage'), dict(k='ofs', label='Online Service')],
+   items=[
+    dict(t='IM / chat messaging', ta='محادثة فورية', k='p2p'),
+    dict(t='Messenger', ta='ماسنجر', k='p2p'),
+    dict(t='Optical discs', ta='أقراص ضوئية', k='rsd'),
+    dict(t='A USB flash drive', ta='ذاكرة USB', k='rsd'),
+    dict(t='A removable hard disk', ta='قرص صلب خارجي', k='rsd'),
+    dict(t='Dropbox', ta='دروب بوكس', k='ofs'),
+    dict(t='Google Drive', ta='جوجل درايف', k='ofs'),
+    dict(t='OneDrive', ta='ون درايف', k='ofs'),
+   ]),
+ quiz=[
+  dict(q='What should you check to evaluate a website?', a='ماذا تتحققين لتقييم موقع؟',
+       o=['Its purpose and its domain','Its background color','How many pictures it has','Its font size'], c=0),
+  dict(q='A domain like .edu usually belongs to:', a='نطاق مثل .edu يخص عادة:',
+       o=['A school or university','A game company','A grocery store','A weather app'], c=0),
+  dict(q='File sharing is the transmission of files from:', a='مشاركة الملفات هي نقل الملفات من:',
+       o=['One device to another','One country to another','One language to another','One year to another'], c=0),
+  dict(q='Which of these is NOT a kind of file that can be shared?', a='أي مما يلي ليس نوعاً من الملفات القابلة للمشاركة؟',
+       o=['E-books','Programs','Multimedia','A physical notebook'], c=3),
+  dict(q='Sending a file directly through a chat app is an example of:', a='إرسال ملف مباشرة عبر تطبيق دردشة مثال على:',
+       o=['Peer-to-peer sharing','Removable storage','Cloud-based sharing','A search engine'], c=0),
+  dict(q='Which of these is a removable storage device?', a='أي مما يلي جهاز تخزين قابل للإزالة؟',
+       o=['A USB flash drive','Dropbox','Messenger','Google Drive'], c=0),
+  dict(q='Dropbox, Google Drive, and OneDrive are examples of:', a='Dropbox وGoogle Drive وOneDrive أمثلة على:',
+       o=['Online file sharing services','Removable storage devices','Search engines','Web browsers'], c=0),
+  dict(q='Cloud-based sharing uses space on:', a='المشاركة السحابية تستخدم مساحة على:',
+       o=['A server offered by a service provider','A printed paper','A television screen','A landline telephone'], c=0),
+  dict(q='True or False: cloud-based sharing allows users to store their files on servers.', a='صح أم خطأ: المشاركة السحابية تتيح للمستخدمين تخزين ملفاتهم على الخوادم؟',
+       o=['True','False'], c=0),
+  dict(q='Cloud-based sharing can be reached using:', a='يمكن الوصول إلى المشاركة السحابية باستخدام:',
+       o=['Any internet-connected device','Only one specific computer','A landline telephone only','A printed letter'], c=0),
+ ]))

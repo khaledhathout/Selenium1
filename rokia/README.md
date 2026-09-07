@@ -22,6 +22,8 @@ Each page is a single self-contained HTML file that works offline.
 | `15-angle-pairs.html` | Exterior and interior angle pairs of a polygon, and their 180° rule | Math 7 notebook |
 | `16-polygon-basics.html` | What makes a polygon, regular/irregular, convex/non-convex, and the (n−2)×180° interior angle sum | Math 7 textbook, Unit 1 |
 | `17-grammar-toolkit.html` | Subject-verb agreement (incl. concrete/abstract/collective nouns), the three pronoun types, and adjective order | English Unit 1, Lesson 2 |
+| `18-lab-equipment-manual.html` | Glossary of 21 lab tools (microscope through evaporating dish) and what each is used for | Science 7 notebook, Razan's own handwritten glossary |
+| `19-website-evaluation-file-sharing.html` | Evaluating a website (purpose, domain), file sharing types (peer-to-peer, removable storage, online service), cloud-based sharing | Computer notebook, First Prelim Exam review — Lessons 2 & 3 |
 
 A glyph that is not English — an Arabic letter shown inside an English sentence —
 is wrapped in `<span class="glyph" data-en="...">` so the eye sees the letter and
